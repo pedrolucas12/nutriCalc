@@ -129,17 +129,3 @@ Obrigado por apoiar o NutriCalc! 💚
 
 Se você gostou deste projeto, não esqueça de dar uma ⭐ no repositório!
 ```
-
----
-
-### **Destaques do README**
-1. **Estrutura Clara**:
-   - Dividido em seções bem definidas: Recursos, Tecnologias, Instalação, Contribuição, etc.
-2. **Uso de Emojis**:
-   - Torna o README mais visual e amigável.
-3. **Markdown Bem Formatado**:
-   - Uso de listas, títulos e blocos de código para facilitar a leitura.
-4. **Call-to-Action**:
-   - Incentiva o usuário a contribuir e dar uma estrela no repositório.
-
-Se precisar de mais ajustes ou personalizações, é só me avisar! 😊
