@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { Metadata, Viewport } from "next";
 
 import { Navbar } from "@/components/navbar";
-import { fontSans } from "@/config/fonts";
 import { siteConfig } from "@/config/site";
 import { Providers } from "./providers";
 
@@ -33,7 +32,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={clsx(
           "min-h-screen bg-gray-50 font-sans antialiased",
-          fontSans.variable
         )}
       >
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>

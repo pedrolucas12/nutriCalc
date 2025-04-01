@@ -1,11 +1,22 @@
-import { Fira_Code as FontMono, Inter as FontSans } from "next/font/google";
+import { Overpass, Poppins, Signika } from "next/font/google";
 
-export const fontSans = FontSans({
+// Fonte para títulos (Title)
+export const fontTitle = Poppins({
   subsets: ["latin"],
-  variable: "--font-sans",
+  weight: ["400", "700"], // Regular e Bold
+  variable: "--font-title",
 });
 
-export const fontMono = FontMono({
+// Fonte para subtítulos (Subtitle)
+export const fontSubtitle = Signika({
   subsets: ["latin"],
-  variable: "--font-mono",
+  weight: ["400", "600"], // Regular e Semi-Bold
+  variable: "--font-subtitle",
+});
+
+// Fonte para textos (Body)
+export const fontText = Overpass({
+  subsets: ["latin"],
+  weight: ["400", "600"], // Regular e Semi-Bold
+  variable: "--font-text",
 });

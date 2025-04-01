@@ -1,4 +1,4 @@
-import {heroui} from "@heroui/theme"
+import { heroui } from "@heroui/theme";
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -10,8 +10,9 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)"],
-        mono: ["var(--font-mono)"],
+        title: ["var(--font-title)", "sans-serif"], // Poppins
+        subtitle: ["var(--font-subtitle)", "sans-serif"], // Signika
+        text: ["var(--font-text)", "sans-serif"], // Overpass
       },
     },
   },
