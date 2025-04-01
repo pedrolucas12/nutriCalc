@@ -1,6 +1,4 @@
-Aqui está um **README.md** mais bonito, detalhado e bem formatado para o seu projeto **NutriCalc**. Ele utiliza Markdown com emojis, seções bem organizadas e uma estrutura que facilita a leitura e o entendimento do projeto.
 
----
 
 ```markdown
 # 🥗 NutriCalc | Sua dieta personalizada em minutos!
