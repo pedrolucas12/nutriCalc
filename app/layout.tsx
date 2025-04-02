@@ -1,8 +1,8 @@
 import "@/styles/globals.css";
-import { Link } from "@heroui/link";
 import clsx from "clsx";
 import { Metadata, Viewport } from "next";
 
+import Footer from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 import { siteConfig } from "@/config/site";
 import { Providers } from "./providers";
@@ -37,20 +37,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           <div className="relative flex flex-col h-screen">
             <Navbar />
-            <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
+            <main className="container mx-auto flex-grow">
               {children}
             </main>
-            <footer className="w-full flex items-center justify-center py-3">
-              <Link
-                isExternal
-                className="flex items-center gap-1 text-current"
-                href="https://nutricalc.com"
-                title="NutriCalc homepage"
-              >
-                <span className="text-default-600">Powered by</span>
-                <p className="text-primary">NutriCalc</p>
-              </Link>
-            </footer>
+            <Footer />
           </div>
         </Providers>
       </body>
