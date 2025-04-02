@@ -9,12 +9,12 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-} from "@heroui/navbar/dist";
+} from "@heroui/navbar";
 import { useState } from "react";
 
 import { Logo } from "@/components/icons"; // Certifique-se de ter o Logo correto
 import { ThemeSwitch } from "@/components/theme-switch";
-import { Button } from "@heroui/button/dist";
+import { Button } from "@heroui/button";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
