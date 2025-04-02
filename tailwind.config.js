@@ -57,16 +57,16 @@ const config = {
   				DEFAULT: '#6a687a'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				light: '#7bd4b5',
-  				dark: '#030b08',
-  				foreground: 'hsl(var(--primary-foreground))'
+  				DEFAULT: '#12372a',   // dark_green-500
+  				light: '#7bd4b5',    // dark_green-800
+  				dark: '#030b08',     // dark_green-100
+  				foreground: '#ebf5df'  // honeydew-500
   			},
   			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				light: '#f7fbf3',
-  				dark: '#314717',
-  				foreground: 'hsl(var(--secondary-foreground))'
+  				DEFAULT: '#ebf5df', // honeydew-500
+  				light: '#f7fbf3',   // honeydew-800
+  				dark: '#314717',    // honeydew-100
+  				foreground: '#12372a'  // dark_green-500
   			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
