@@ -1,6 +1,5 @@
 "use client";
 
-import { Button } from "@heroui/button";
 import { Link } from "@heroui/link";
 import {
   Navbar as HeroUINavbar,
@@ -10,11 +9,12 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
-} from "@heroui/navbar";
+} from "@heroui/navbar/dist";
 import { useState } from "react";
 
 import { Logo } from "@/components/icons"; // Certifique-se de ter o Logo correto
 import { ThemeSwitch } from "@/components/theme-switch";
+import { Button } from "@heroui/button/dist";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

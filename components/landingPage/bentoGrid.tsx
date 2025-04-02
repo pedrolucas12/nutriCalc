@@ -1,5 +1,4 @@
-import { CalendarIcon, FileTextIcon } from "@radix-ui/react-icons";
-import { BellIcon, Share2Icon } from "lucide-react";
+import { BellIcon, CalendarIcon, FileTextIcon, Share2Icon, Sparkles } from "lucide-react";
 import { BentoCard, BentoGrid } from "../magicui/bento-grid";
 
 const features = [
@@ -11,18 +10,15 @@ const features = [
     cta: "Saiba mais",
     className: "col-span-3 lg:col-span-1",
     background: (
-      <p>teste</p>
-      // <Marquee
-      //   pauseOnHover
-      //   className="absolute top-10 [--duration:20s] [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)]"
-      // >
-      //   <div className="relative w-32 cursor-pointer overflow-hidden rounded-xl border p-4 bg-gray-100">
-      //     <p className="text-sm font-medium">Taxa Metabólica Basal</p>
-      //     <blockquote className="mt-2 text-xs">
-      //       Saiba como calcular a energia que seu corpo precisa para funcionar.
-      //     </blockquote>
-      //   </div>
-      // </Marquee>
+      <div className="flex flex-col items-center justify-center h-full p-4 rounded-lg bg-dark_green-100">
+        <Sparkles className="text-dark_green-500 h-6 w-6 mb-2" />
+        <h3 className="text-lg font-semibold text-dark_green-700 mb-2">
+          TMB Instantânea
+        </h3>
+        <p className="text-sm text-dim_gray text-center">
+          Calcule sua Taxa Metabólica Basal em segundos.
+        </p>
+      </div>
     ),
   },
   {
@@ -33,11 +29,14 @@ const features = [
     cta: "Saiba mais",
     className: "col-span-3 lg:col-span-2",
     background: (
-      <div className="absolute right-2 top-4 h-[300px] w-full scale-75 border-none transition-all duration-300 ease-out">
-        <p className="text-sm font-medium">Percentual de Gordura</p>
-        <blockquote className="mt-2 text-xs">
-          Descubra como calcular a composição corporal com precisão.
-        </blockquote>
+      <div className="flex flex-col items-center justify-center h-full p-4 rounded-lg bg-dark_green-100">
+        <Sparkles className="text-dark_green-500 h-6 w-6 mb-2" />
+        <h3 className="text-lg font-semibold text-dark_green-700 mb-2">
+          Composição Corporal
+        </h3>
+        <p className="text-sm text-dim_gray text-center">
+          Analise sua composição corporal com precisão.
+        </p>
       </div>
     ),
   },
@@ -49,11 +48,14 @@ const features = [
     cta: "Saiba mais",
     className: "col-span-3 lg:col-span-2",
     background: (
-      <div className="absolute right-2 top-4 h-[300px] border-none transition-all duration-300 ease-out">
-        <p className="text-sm font-medium">Macros Personalizados</p>
-        <blockquote className="mt-2 text-xs">
-          Ajuste sua dieta com base nas suas necessidades diárias.
-        </blockquote>
+      <div className="flex flex-col items-center justify-center h-full p-4 rounded-lg bg-dark_green-100">
+        <Sparkles className="text-dark_green-500 h-6 w-6 mb-2" />
+        <h3 className="text-lg font-semibold text-dark_green-700 mb-2">
+          Macros Inteligentes
+        </h3>
+        <p className="text-sm text-dim_gray text-center">
+          Receba recomendações personalizadas de macronutrientes.
+        </p>
       </div>
     ),
   },
@@ -65,11 +67,14 @@ const features = [
     cta: "Saiba mais",
     className: "col-span-3 lg:col-span-1",
     background: (
-      <div className="absolute right-0 top-10 origin-top scale-75 rounded-md border transition-all duration-300 ease-out">
-        <p className="text-sm font-medium">Dieta Ajustada</p>
-        <blockquote className="mt-2 text-xs">
-          Receba um plano alimentar personalizado para seus objetivos.
-        </blockquote>
+      <div className="flex flex-col items-center justify-center h-full p-4 rounded-lg bg-dark_green-100">
+        <Sparkles className="text-dark_green-500 h-6 w-6 mb-2" />
+        <h3 className="text-lg font-semibold text-dark_green-700 mb-2">
+          Plano Alimentar
+        </h3>
+        <p className="text-sm text-dim_gray text-center">
+          Tenha um plano alimentar 100% ajustado às suas necessidades.
+        </p>
       </div>
     ),
   },
@@ -79,7 +84,7 @@ export default function BentoGridSection() {
   return (
     <section className="py-20">
       <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center mb-10">
+        <h2 className="text-3xl font-bold text-center mb-10 text-dark_green">
           O que o NutriCalc faz por você
         </h2>
         <BentoGrid>

@@ -1,5 +1,5 @@
 import { fontSubtitle, fontTitle } from "@/config/fonts"; // Suas fontes
-import { Button } from "@heroui/button";
+import { Button } from "@heroui/button/dist";
 import { Sparkles } from "lucide-react"; // ou outro ícone tech
 
 export default function Hero() {
