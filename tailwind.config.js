@@ -59,16 +59,16 @@ const config = {
   				DEFAULT: '#6a687a'
   			},
   			primary: {
-  				DEFAULT: '#12372a',   // dark_green-500
-  				light: '#7bd4b5',    // dark_green-800
-  				dark: '#030b08',     // dark_green-100
-  				foreground: '#ebf5df'  // honeydew-500
+  				DEFAULT: '#12372a',
+  				light: '#7bd4b5',
+  				dark: '#030b08',
+  				foreground: '#ebf5df'
   			},
   			secondary: {
-  				DEFAULT: '#ebf5df', // honeydew-500
-  				light: '#f7fbf3',   // honeydew-800
-  				dark: '#314717',    // honeydew-100
-  				foreground: '#12372a'  // dark_green-500
+  				DEFAULT: '#ebf5df',
+  				light: '#f7fbf3',
+  				dark: '#314717',
+  				foreground: '#12372a'
   			},
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -107,6 +107,42 @@ const config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		keyframes: {
+  			aurora: {
+  				'0%': {
+  					backgroundPosition: '0% 50%',
+  					transform: 'rotate(-5deg) scale(0.9)'
+  				},
+  				'25%': {
+  					backgroundPosition: '50% 100%',
+  					transform: 'rotate(5deg) scale(1.1)'
+  				},
+  				'50%': {
+  					backgroundPosition: '100% 50%',
+  					transform: 'rotate(-3deg) scale(0.95)'
+  				},
+  				'75%': {
+  					backgroundPosition: '50% 0%',
+  					transform: 'rotate(3deg) scale(1.05)'
+  				},
+  				'100%': {
+  					backgroundPosition: '0% 50%',
+  					transform: 'rotate(-5deg) scale(0.9)'
+  				}
+  			},
+  			pulse: {
+  				'0%, 100%': {
+  					boxShadow: '0 0 0 0 var(--pulse-color)'
+  				},
+  				'50%': {
+  					boxShadow: '0 0 0 8px var(--pulse-color)'
+  				}
+  			}
+  		},
+  		animation: {
+  			aurora: 'aurora 8s ease-in-out infinite alternate',
+  			pulse: 'pulse var(--duration) ease-out infinite'
   		}
   	}
   },
