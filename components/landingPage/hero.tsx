@@ -8,28 +8,31 @@ import { BoxReveal } from "../magicui/box-reveal"; // Ajuste o caminho se necess
 import { WordRotate } from "../magicui/word-rotate"; // Ajuste o caminho se necessário
 
 export default function Hero() {
+  // Definição das propriedades de animação para Framer Motion
+  const customMotionProps = {
+    initial: { opacity: 0, y: 10 }, // Começa ligeiramente abaixo e invisível
+    animate: { opacity: 1, y: 0 },   // Anima para a posição original e visível
+    exit: { opacity: 0, y: -10 },  // Sai deslizando ligeiramente para cima e desaparecendo
+    transition: { type: "tween", ease: "easeInOut", duration: 0.4 } // Transição suave
+  };
+
   return (
     <section
       className="relative w-full min-h-screen flex flex-col items-center justify-center text-center p-8 bg-[url('/images/hero.jpg')] bg-cover bg-center bg-no-repeat"
     >
       <div className="container mx-auto px-4">
-        {/* Título Principal com Flexbox */}
+        {/* Título Principal com WordRotate e motionProps */}
         <BoxReveal duration={0.5} boxColor="#12372a">
           <h1
-            // Aplicando Flexbox para alinhar itens na mesma linha
-            // justify-center para centralizar a linha inteira
-            // items-baseline para alinhar o texto pela linha de base
-            // flex-wrap para permitir quebra em telas MUITO pequenas, se necessário
-            // md:whitespace-nowrap para forçar uma linha em telas médias e maiores
             className={`${fontTitle.className} text-xl lg:text-6xl font-bold text-dark_green mb-4 flex items-baseline justify-center flex-wrap md:whitespace-nowrap`}
           >
-            {/* Envolvemos o texto estático em um span para melhor controle no flex */}
-            <span className="mr-2 md:mr-3">Sua Dieta</span> {/* Adiciona margem direita */}
+            <span className="mr-2 md:mr-3">Sua Dieta</span>
             <WordRotate
               words={["Inteligente", "Personalizada", "Eficaz", "Otimizada"]}
-              className="text-primary inline-block" // Mantém inline-block
+              className="text-primary inline-block"
+              motionProps={customMotionProps} // Passando as props de animação personalizadas
             />
-            {/* Envolvemos o ponto final em um span */}
+            <span className="ml-1">.</span>
           </h1>
         </BoxReveal>
 
