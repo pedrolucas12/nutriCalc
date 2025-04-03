@@ -13,8 +13,7 @@ import {
 import { useState } from "react";
 
 import { Logo } from "@/components/icons"; // Certifique-se de ter o Logo correto
-import { ThemeSwitch } from "@/components/theme-switch";
-import { Button } from "@heroui/button";
+import { ThemeSwitch } from "./theme-switch";
 
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,7 +28,7 @@ export const Navbar = () => {
     <HeroUINavbar
       className="flex flex-row justify-center"
       classNames={{
-        base: "w-full py-2 bg-dar 0 dark:bg-dark_green-800 rounded-full mt-4",
+        base: " py-2  rounded-full mt-4 shadow-md bg-primary-light dark:bg-primary-dark ",
       }}
       maxWidth="xl"
       onMenuOpenChange={(isOpen) => setIsMenuOpen(isOpen)}
@@ -48,21 +47,8 @@ export const Navbar = () => {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent
-        className="hidden sm:flex sm:flex-row sm:justify-center gap-8"
-        justify="center"
-      >
-        {menuItemsLanding.map((item, index) => (
-          <NavbarMenuItem key={index}>
-            <Link href={item.href} className="text-primary-500">
-              {item.label}
-            </Link>
-          </NavbarMenuItem>
-        ))}
-      </NavbarContent>
-
       <NavbarContent className="flex flex-row justify-end" justify="end">
-        <NavbarItem>
+        {/* <NavbarItem>
           <Button
             className="bg-primary text-secondary font-bold" // Utilizando a cor primary como exemplo
             variant="light"
@@ -85,7 +71,7 @@ export const Navbar = () => {
           >
             Entrar
           </Button>
-        </NavbarItem>
+        </NavbarItem> */}
         <NavbarItem>
           <ThemeSwitch />
         </NavbarItem>
