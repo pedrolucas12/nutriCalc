@@ -28,7 +28,7 @@ export const Navbar = () => {
     <HeroUINavbar
       className="flex flex-row justify-center"
       classNames={{
-        base: " py-2  rounded-full mt-4 shadow-md bg-primary-light dark:bg-primary-dark ",
+        base: "   rounded-full mt-4 shadow-md bg-primary dark:bg-primary-dark ",
       }}
       maxWidth="xl"
       onMenuOpenChange={(isOpen) => setIsMenuOpen(isOpen)}
@@ -40,7 +40,7 @@ export const Navbar = () => {
           className="sm:hidden"
         />
         <NavbarBrand>
-          <Link href="/" className="flex justify-start items-center gap-1">
+          <Link href="/" className="flex justify-start items-center gap-1 text-honeydew">
             <Logo />
             <p className="font-bold text-inherit">NutriCalc</p>
           </Link>
@@ -48,36 +48,12 @@ export const Navbar = () => {
       </NavbarContent>
 
       <NavbarContent className="flex flex-row justify-end" justify="end">
-        {/* <NavbarItem>
-          <Button
-            className="bg-primary text-secondary font-bold" // Utilizando a cor primary como exemplo
-            variant="light"
-            onPress={() => {
-              window.location.href = "/login";
-            }}
-          >
-            Registrar
-          </Button>
-        </NavbarItem>
-        <NavbarItem>
-          <Button
-            as={Link}
-            className="bg-primary-light text-primary-dark font-bold" // Utilizando a cor primary como exemplo
-            href="/login"
-            variant="shadow"
-            onPress={() => {
-              window.location.href = "/login";
-            }}
-          >
-            Entrar
-          </Button>
-        </NavbarItem> */}
+     
         <NavbarItem>
           <ThemeSwitch />
         </NavbarItem>
       </NavbarContent>
 
-      {/* Menu Móvel */}
       <NavbarMenu>
         {menuItemsLanding.map((item, index) => (
           <NavbarMenuItem key={`${item.label}-${index}`}>
