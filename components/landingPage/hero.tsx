@@ -150,7 +150,7 @@ export default function Hero() {
             </div>
           </BoxReveal>
           <BoxReveal duration={1.1} boxColor="#ebf5df">
-            <div className="p-4 rounded-lg mb-4 bg-dark_green-600 shadow-md">
+            <div className="p-4 max-w-sm bg-dark_green-600 border border-dark_green-800 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
               <div className="w-[250px] h-[250px] rounded-lg shadow-lg overflow-hidden mb-2 mx-auto">
                 <ReactCompareSlider
                   itemOne={
