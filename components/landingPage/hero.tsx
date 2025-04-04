@@ -17,7 +17,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="w-full min-h-screen flex flex-col items-center justify-center px-4">
+    <section className="w-full h-full flex flex-col items-center justify-center py-4 md:py-8 lg:py-12 bg-light_green text-dark_green">
       {" "}
       {/* Adicionado padding horizontal */}
       {/* Container para Título e Subtítulo com largura máxima em telas médias */}
@@ -26,37 +26,38 @@ export default function Hero() {
         {/* Ajuste max-w e mb */}
         {/* Título Principal Centralizado */}
         <BoxReveal duration={0.5} boxColor="#ebf5df">
-          {/* Ajuste no tamanho da fonte e leading para forçar duas linhas */}
-          <h1
-            className={`${fontTitle.className} text-5xl md:text-6xl lg:text-7xl font-bold text-dark_green mb-4 leading-none `}
-          >
-            Sua dieta finalmente
-          </h1>
-          <div className="flex flex-row justify-center items-center gap-2">
+          <div>
+            {/* Ajuste no tamanho da fonte e leading para forçar duas linhas */}
             <h1
-              className={`${fontTitle.className} text-5xl md:text-6xl lg:text-7xl font-bold text-dark_green mb-4 leading-none`}
+              className={`${fontTitle.className} text-4xl md:text-5xl lg:text-6xl font-bold text-dark_green mb-4 leading-none `}
             >
-              <WordRotate
-                words={["Inteligente", "Personalizada", "Eficaz"]}
-                className="text-moss_green inline-block"
-                motionProps={customMotionProps}
-              />
+              Sua dieta finalmente
             </h1>
-            <h1
-              className={`${fontTitle.className} text-5xl md:text-6xl lg:text-7xl font-bold text-dark_green mb-4 leading-none`}
-            >
-              para você.
-            </h1>
+            <div className="flex flex-row justify-center items-center gap-2">
+              <h1
+                className={`${fontTitle.className} text-4xl md:text-5xl lg:text-6xl font-bold text-dark_green mb-4 leading-none`}
+              >
+                <WordRotate
+                  words={["Inteligente", "Personalizada", "Eficaz"]}
+                  className="text-moss_green inline-block"
+                  motionProps={customMotionProps}
+                />
+              </h1>
+              <h1
+                className={`${fontTitle.className} text-4xl md:text-5xl lg:text-6xl  font-bold text-dark_green mb-4 leading-none`}
+              >
+                para você.
+              </h1>
+            </div>
           </div>
         </BoxReveal>
         {/* Subtítulo Centralizado */}
         {/* Removido o div extra e text-pretty, aplicado max-w no container pai */}
         <BoxReveal duration={0.7} boxColor="#ebf5df">
           <p
-            className={`${fontSubtitle.className} text-xl md:text-2xl mb-8 text-dim_gray text-balance`}
+            className={`${fontSubtitle.className} text-lg md:text-xl pb-2 text-dim_gray text-balance`}
           >
-            {" "}
-            {/* text-balance para melhor distribuição */}
+         
             Chega de adivinhação e planos que não funcionam!{" "}
             <AuroraText> Nossa Inteligência Artificial</AuroraText> analisa seus
             dados únicos para criar um plano alimentar preciso, adaptado ao seu
@@ -73,7 +74,13 @@ export default function Hero() {
         <div className="flex flex-col items-start">
           <BoxReveal duration={0.5} boxColor="#ebf5df">
             <div className="p-4 rounded-lg mb-4">
-              <Sparkles className="text-dark_green h-6 w-6 mb-2" />
+              <Image
+                src="/images/hero/iconNutricionista.png"
+                alt="Ilustração de dieta personalizada"
+                width={100}
+                height={100}
+                className="rounded-lg shadow-lg object-contain"
+              />
               <h3
                 className={`${fontTitle.className} text-lg font-semibold text-dark_green mb-1`}
               >
@@ -86,7 +93,13 @@ export default function Hero() {
           </BoxReveal>
           <BoxReveal duration={0.7} boxColor="#ebf5df">
             <div className="p-4 rounded-lg mb-4">
-              <Sparkles className="text-dark_green h-6 w-6 mb-2" />
+              <Image
+                src="/images/hero/iconIA.png"
+                alt="Ilustração de dieta personalizada"
+                width={100}
+                height={100}
+                className="rounded-lg shadow-lg object-contain"
+              />
               <h3
                 className={`${fontTitle.className} text-lg font-semibold text-dark_green mb-1`}
               >
@@ -99,7 +112,13 @@ export default function Hero() {
           </BoxReveal>
           <BoxReveal duration={0.9} boxColor="#ebf5df">
             <div className="p-4 rounded-lg">
-              <Sparkles className="text-dark_green h-6 w-6 mb-2" />
+              <Image
+                src="/images/hero/iconExercicesAndApp.png"
+                alt="Ilustração de dieta personalizada"
+                width={100}
+                height={100}
+                className="rounded-lg shadow-lg object-contain"
+              />
               <h3
                 className={`${fontTitle.className} text-lg font-semibold text-dark_green mb-1`}
               >
@@ -116,17 +135,42 @@ export default function Hero() {
           {" "}
           {/* Adicionado justify-center */}
           <Image
-            src="/images/hero-image.png"
+            src="/images/hero/heroPrincipal.png"
             alt="Ilustração de dieta personalizada"
             width={300}
             height={300}
             className="rounded-lg shadow-lg object-contain"
           />
         </div>
-        {/* Coluna Direita: Depoimento e Imagem */}
-        <div className="flex flex-col items-end">
+        <div className="flex flex-col gap-4 justify-between">
+        <BoxReveal duration={1.3} boxColor="#768948">
+        <div className="p-4 rounded-lg">
+            <Image
+              src="/images/hero/iconExercices.png"
+              alt="Avatar do cliente"
+              width={100}
+              height={100}
+              className="rounded-full mr-2"
+            />
+              <h3
+                className={`${fontTitle.className} text-lg font-semibold text-dark_green mb-1`}
+              >
+                Mudança de Estilo de Vida
+              </h3>
+              <p className={`${fontSubtitle.className} text-sm text-dim_gray`}>
+                Transforme sua relação com a comida e alcance seus objetivos.
+              </p>
+            </div>
+          </BoxReveal>
           <BoxReveal duration={1.1} boxColor="#ebf5df">
-            <div className="p-4 rounded-lg mb-4">
+            <div className="p-4 rounded-lg mb-4 ">
+              <Image
+                src="/images/hero/iconPersonExample.png"
+                alt="Avatar do cliente"
+                width={120}
+                height={120}
+                className="rounded-sm m-2"
+              />
               <p
                 className={`${fontSubtitle.className} text-sm text-dim_gray italic`}
               >
@@ -135,7 +179,7 @@ export default function Hero() {
               </p>
               <div className="flex items-center mt-2">
                 <Image
-                  src="/images/avatar.png"
+                  src="/images/hero/iconExercices.png"
                   alt="Avatar do cliente"
                   width={32}
                   height={32}
@@ -156,21 +200,13 @@ export default function Hero() {
               </div>
             </div>
           </BoxReveal>
-          <BoxReveal duration={1.3} boxColor="#768948">
-            <Image
-              src="/images/diet.png"
-              alt="Ilustração de dieta personalizada e saudável"
-              width={250}
-              height={250}
-              className="rounded-lg shadow-lg object-contain"
-            />
-          </BoxReveal>
+       
         </div>
       </div>
       {/* Botão Centralizado Abaixo das Colunas */}
       <BoxReveal duration={0.9} boxColor="#ebf5df">
         <Button
-          className="bg-moss_green text-honeydew font-semibold px-8 py-3 rounded-full hover:bg-dim_gray transition-colors mt-12" /* Aumentado mt */
+          className="bg-moss_green text-honeydew font-semibold px-8 py-3 rounded-full hover:bg-dim_gray transition-colors " /* Aumentado mt */
           size="lg"
         >
           Calcule Sua Dieta Agora{" "}

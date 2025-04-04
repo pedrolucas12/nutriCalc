@@ -28,7 +28,7 @@ export const Navbar = () => {
     <HeroUINavbar
       className="flex flex-row justify-center"
       classNames={{
-        base: "   rounded-full mt-4 shadow-md bg-primary dark:bg-primary-dark ",
+        base: "   rounded-full mt-4 shadow-md bg-dark_green-600 dark:bg-dark_green-500 ",
       }}
       maxWidth="xl"
       onMenuOpenChange={(isOpen) => setIsMenuOpen(isOpen)}
