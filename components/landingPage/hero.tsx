@@ -4,6 +4,7 @@ import { fontSubtitle, fontTitle } from "@/config/fonts";
 import { Button } from "@heroui/button";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
+import { ReactCompareSlider, ReactCompareSliderImage } from "react-compare-slider";
 import { AuroraText } from "../magicui/aurora-text"; // Ajuste o caminho se necessário
 import { BoxReveal } from "../magicui/box-reveal"; // Ajuste o caminho se necessário
 import { WordRotate } from "../magicui/word-rotate"; // Ajuste o caminho se necessário
@@ -29,7 +30,7 @@ export default function Hero() {
           <div>
             {/* Ajuste no tamanho da fonte e leading para forçar duas linhas */}
             <h1
-              className={`${fontTitle.className} text-4xl md:text-5xl lg:text-6xl font-bold text-dark_green mb-4 leading-none `}
+              className={`${fontTitle.className} text-4xl md:text-5xl lg:text-6xl font-bold text-dark_green  leading-none `}
             >
               Sua dieta finalmente
             </h1>
@@ -162,7 +163,7 @@ export default function Hero() {
               </p>
             </div>
           </BoxReveal>
-          <BoxReveal duration={1.1} boxColor="#ebf5df">
+          {/* <BoxReveal duration={1.1} boxColor="#ebf5df">
             <div className="p-4 rounded-lg mb-4 ">
               <Image
                 src="/images/hero/iconPersonExample.png"
@@ -196,6 +197,28 @@ export default function Hero() {
                   >
                     São Paulo, SP
                   </p>
+                </div>
+              </div>
+            </div>
+          </BoxReveal> */}
+
+          <BoxReveal duration={1.1} boxColor="#ebf5df">
+            <div className="p-4 rounded-lg mb-4 bg-dark_green-600 shadow-md"> {/* Adicionado fundo e sombra */}
+              <div className="w-[250px] h-[250px] rounded-lg shadow-lg overflow-hidden mb-2"> {/* Container com tamanho e estilo */}
+                <ReactCompareSlider
+                  itemOne={<ReactCompareSliderImage src="/images/hero/iconPersonExample.png" alt="Imagem Antes" />} // Mesma imagem por enquanto
+                  itemTwo={<ReactCompareSliderImage src="/images/hero/iconPersonExample2.png" alt="Imagem Depois" />} // Mesma imagem por enquanto
+                  style={{ width: '100%', height: '100%' }} // Garante que preencha o container
+                />
+              </div>
+              <p className={`${fontSubtitle.className} text-sm text-honeydew italic`}>
+                "NutriCalc mudou a minha vida! Finalmente consegui alcançar meus objetivos de forma saudável e sustentável."
+              </p>
+              <div className="flex items-center mt-2">
+                <Image src="/images/hero/iconPersonExample.png" alt="Avatar do cliente" width={32} height={32} className="rounded-full mr-2"/>
+                <div className="text-left">
+                  <p className={`${fontTitle.className} text-sm font-semibold text-dark_green`}>Maria Silva</p>
+                  <p className={`${fontSubtitle.className} text-xs text-honeydew italic`}>São Paulo, SP</p>
                 </div>
               </div>
             </div>
