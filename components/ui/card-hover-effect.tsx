@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion"; // Corrigido import
 import Link from "next/link";
 import { useState } from "react";
+import { Pointer } from "../magicui/pointer";
 
 // Atualiza a tipagem para incluir 'span' opcional
 export const HoverEffect = ({
@@ -15,7 +16,7 @@ export const HoverEffect = ({
     description: string;
     link: string;
     span?: number;
-    content?: React.ReactNode; // Adicionada a propriedade content
+    content?: React.ReactNode;
   }[];
   className?: string;
 }) => {
@@ -34,7 +35,8 @@ export const HoverEffect = ({
           key={item?.link}
           className={cn(
             "relative group block p-2 h-full w-full",
-            (item.span === 2 || idx === 0) ? "md:col-span-2" : ""
+            // Aplica col-span-2 ao primeiro item (idx === 0) em telas md+
+            idx === 0 ? "md:col-span-2" : ""
           )}
           onMouseEnter={() => setHoveredIndex(idx)}
           onMouseLeave={() => setHoveredIndex(null)}
@@ -56,12 +58,30 @@ export const HoverEffect = ({
               />
             )}
           </AnimatePresence>
-          {/* Passa item.content para a prop 'content' do Card */}
-          {/* Passa Title e Description como children */}
+
           <Card content={item.content}>
             <CardTitle>{item.title}</CardTitle>
             <CardDescription>{item.description}</CardDescription>
           </Card>
+
+          {/* Condicionalmente renderiza o Pointer para o primeiro card */}
+          {idx === 0 && (
+            <Pointer>
+              {/* SVG de Estrela */}
+              <svg
+                width="24" // Tamanho do ícone
+                height="24"
+                viewBox="0 0 24 24" // ViewBox padrão para ícones 24x24
+                xmlns="http://www.w3.org/2000/svg"
+                // Cor da estrela - use uma cor da sua paleta que contraste bem
+                // com o fundo do card e o fundo do hover
+                className="fill-yellow-500"
+              >
+                {/* Path de uma estrela de 5 pontas */}
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+              </svg>
+            </Pointer>
+          )}
         </Link>
       ))}
     </div>
