@@ -126,7 +126,7 @@ export default function Hero() {
             alt="Ilustração de dieta personalizada"
             width={300}
             height={300}
-            className="rounded-lg shadow-lg object-contain"
+            className="object-contain"
           />
         </div>
         <div className="flex flex-col gap-4 justify-between">
@@ -150,7 +150,7 @@ export default function Hero() {
             </div>
           </BoxReveal>
           <BoxReveal duration={1.1} boxColor="#ebf5df">
-            <div className="p-4 max-w-sm bg-dark_green-600 border border-dark_green-800 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
+            <div className="p-4 max-w-sm bg-dark_green-900 border border-dark_green-800 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 ">
               <div className="w-[250px] h-[250px] rounded-lg shadow-lg overflow-hidden mb-2 mx-auto">
                 <ReactCompareSlider
                   itemOne={
@@ -168,34 +168,35 @@ export default function Hero() {
                   style={{ width: "100%", height: "100%" }}
                 />
               </div>
-              <p
-                className={`${fontSubtitle.className} text-sm text-honeydew italic text-center`}
-              >
-                {" "}
-                "NutriCalc mudou a minha vida! Finalmente consegui alcançar meus
-                objetivos de forma saudável e sustentável."
-              </p>
-              <div className="flex items-center justify-end mt-2">
-                {" "}
-                <Image
-                  src="/images/hero/diet.png"
+              <div className="flex items-center gap-2">
+              <Image
+                  src="/images/hero/iconPersonExample.png"
                   alt="Avatar do cliente"
-                  width={30}
-                  height={30}
+                  width={32}
+                  height={32}
                   className="rounded-full mr-2"
                 />
-                <div className="text-left">
+                <div className="w-full ">
                   <p
                     className={`${fontTitle.className} text-sm font-semibold text-dark_green`}
                   >
                     Maria Silva
                   </p>
                   <p
-                    className={`${fontSubtitle.className} text-xs text-honeydew italic`}
+                    className={`${fontSubtitle.className} text-xs italic`}
                   >
                     São Paulo, SP
                   </p>
                 </div>
+              <p
+                className={`${fontSubtitle.className} text-sm italic text-center`}
+              >
+                {" "}
+                "NutriCalc mudou a minha vida! Finalmente consegui alcançar meus
+                objetivos de forma saudável e sustentável."
+              </p>
+                {" "}
+             
               </div>
             </div>
           </BoxReveal>
