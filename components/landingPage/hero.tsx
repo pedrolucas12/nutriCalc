@@ -1,7 +1,6 @@
 "use client";
 
 import { fontSubtitle, fontTitle } from "@/config/fonts";
-import { Button } from "@heroui/button";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
 import {
@@ -10,6 +9,7 @@ import {
 } from "react-compare-slider";
 import { AuroraText } from "../magicui/aurora-text";
 import { BoxReveal } from "../magicui/box-reveal";
+import { InteractiveHoverButton } from "../magicui/interactive-hover-button";
 import { WordRotate } from "../magicui/word-rotate";
 
 export default function Hero() {
@@ -178,10 +178,10 @@ export default function Hero() {
               <div className="flex items-center justify-end mt-2">
                 {" "}
                 <Image
-                  src="/images/hero/iconPersonExample.png"
+                  src="/images/hero/diet.png"
                   alt="Avatar do cliente"
-                  width={32}
-                  height={32}
+                  width={30}
+                  height={30}
                   className="rounded-full mr-2"
                 />
                 <div className="text-left">
@@ -202,13 +202,10 @@ export default function Hero() {
         </div>
       </div>
       <BoxReveal duration={0.9} boxColor="#ebf5df">
-        <Button
-          className="bg-moss_green text-honeydew font-semibold px-8 py-3 rounded-full hover:bg-dim_gray transition-colors "
-          size="lg"
-        >
-          Calcule Sua Dieta Agora{" "}
+        <InteractiveHoverButton className="text-honeydew font-semibold px-8 py-3 rounded-full hover:bg-dim_gray transition-colors bg-moss_green">
+          Calcule Sua Dieta Agora!
           <Sparkles className="ml-2 h-5 w-5 inline-block" />
-        </Button>
+        </InteractiveHoverButton>
       </BoxReveal>
     </section>
   );
