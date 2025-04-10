@@ -1,9 +1,9 @@
 import { Ripple } from "../magicui/ripple";
 import { Magnetic } from "../motion-primitives/magnetic";
-import { HoverEffect } from "../ui/card-hover-effect"; // Ajuste o caminho
+import BentoGridSection from "./bentoGridSection";
 // Importe outros componentes que você usará nos cards (ex: gráficos)
 
-export default function BentoGridSection() {
+export default function BentoCards() {
 
   const springOptions = { bounce: 0.1 };
 
@@ -65,14 +65,10 @@ export default function BentoGridSection() {
         "Descubra suas métricas corporais e receba insights valiosos sobre sua saúde.",
       link: "#teste-gratuito",
       content: (
-        <div className="absolute bottom-2 right-2 flex gap-1 opacity-40">
-          <span className="text-xs p-1 bg-dark_green-600 text-honeydew rounded">
-            IMC
-          </span>
-          <span className="text-xs p-1 bg-dark_green-600 text-honeydew rounded">
-            TMB
-          </span>
-        </div>
+        <div className="gap-4 flex h-full w-full flex-col items-center justify-center overflow-hidden absolute z-10 p-4">
+   
+        
+      </div>
       ),
     },
     {
@@ -115,7 +111,7 @@ export default function BentoGridSection() {
         <h2 className="text-3xl font-bold text-center mb-10 text-dark_green">
           O que o NutriCalc faz por você
         </h2>
-        <HoverEffect items={projects} />
+        <BentoGridSection />
       </div>
     </section>
   );

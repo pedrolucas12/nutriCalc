@@ -1,4 +1,4 @@
-import BentoGrid from "@/components/landingPage/bentoGrid";
+import BentoCards from "@/components/landingPage/bentoGrid";
 import FAQs from "@/components/landingPage/faqs";
 import Hero from "@/components/landingPage/hero";
 import Steps from "@/components/landingPage/steps";
@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div>
       <Hero />
-      <BentoGrid />
+     <BentoCards />
 
       <Steps />
 
