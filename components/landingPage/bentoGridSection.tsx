@@ -138,13 +138,7 @@ export default function BentoGridSection() {
   ];
 
   return (
-    <section className="py-20">
-    <div className="container mx-auto px-6">
-      <h2
-        className={`${fontTitle.className} text-3xl font-bold text-center mb-10 text-dark_green`}
-      >
-        O que o NutriCalc faz por você
-      </h2>
+    <section className="">
       <div className="gap-4 grid grid-cols-12 grid-rows-2 px-4 md:px-8">
         {projects.map((project, index) => (
           <NextLink
@@ -202,7 +196,6 @@ export default function BentoGridSection() {
           </NextLink>
         ))}
       </div>
-    </div>
   </section>
   );
 }
