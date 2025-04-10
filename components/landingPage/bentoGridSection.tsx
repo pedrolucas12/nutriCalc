@@ -3,7 +3,9 @@
 import { fontSubtitle, fontTitle } from "@/config/fonts"; // Suas fontes
 import { Button } from "@heroui/button";
 import { Card, CardFooter, CardHeader } from "@heroui/card"; // Importa Card e CardHeader do HeroUI
+import { AnimatePresence, motion } from "framer-motion";
 import NextLink from "next/link"; // Importa NextLink para navegação
+import { useState } from "react";
 import { Ripple } from "../magicui/ripple"; // Importa Ripple
 import { Magnetic } from "../motion-primitives/magnetic"; // Importa Magnetic
 
@@ -11,6 +13,9 @@ import { Magnetic } from "../motion-primitives/magnetic"; // Importa Magnetic
 const springOptions = { bounce: 0.1 };
 
 export default function BentoGridSection() {
+
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   // Seus dados de projeto, mantendo title, description, link, span e content
   const projects = [
     {
@@ -134,48 +139,70 @@ export default function BentoGridSection() {
 
   return (
     <section className="py-20">
-      <div className="container mx-auto px-6">
-        <h2
-          className={`${fontTitle.className} text-3xl font-bold text-center mb-10 text-dark_green`}
-        >
-          O que o NutriCalc faz por você
-        </h2>
-        <div className="gap-4 grid grid-cols-12 grid-rows-2 px-4 md:px-8">
-          {projects.map((project, index) => (
-            <NextLink
-              href={project.link}
-              key={index}
-              className={`h-[300px] col-span-12 sm:col-span-${project.span || 4}`}
-            >
-              <Card className="w-full h-full relative overflow-hidden bg-moss_green text-honeydew transition-transform duration-300 ease-in-out hover:scale-[1.02]">
-                {project.content && (
-                  <div className="absolute inset-0 z-0">{project.content}</div>
-                )}
-                <CardHeader className="absolute z-10 top-1 flex-col !items-start p-4">
-                  <h4
-                    className={`${fontTitle.className} text-honeydew font-medium text-large mb-1`}
+    <div className="container mx-auto px-6">
+      <h2
+        className={`${fontTitle.className} text-3xl font-bold text-center mb-10 text-dark_green`}
+      >
+        O que o NutriCalc faz por você
+      </h2>
+      <div className="gap-4 grid grid-cols-12 grid-rows-2 px-4 md:px-8">
+        {projects.map((project, index) => (
+          <NextLink
+            href={project.link}
+            key={index}
+            // Adiciona relative e group ao Link para o motion.span funcionar
+            className={`relative group h-[300px] col-span-12 sm:col-span-${project.span || 4} block p-2`} // Adicionado p-2 como no exemplo original
+            onMouseEnter={() => setHoveredIndex(index)} // Define o índice em hover
+            onMouseLeave={() => setHoveredIndex(null)} // Limpa o índice ao sair
+          >
+            {/* Animação de Fundo do Hover */}
+            <AnimatePresence>
+              {hoveredIndex === index && (
+                <motion.span
+                  className="absolute inset-0 h-full w-full bg-neutral-200 dark:bg-slate-800/[0.8] block rounded-3xl" // Estilos do fundo hover
+                  layoutId="hoverBackground" // ID para animação suave entre cards
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                    transition: { duration: 0.15 },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    transition: { duration: 0.15, delay: 0.2 },
+                  }}
+                />
+              )}
+            </AnimatePresence>
+
+            {/* Card do HeroUI - Adicionado relative e z-10 para ficar sobre o motion.span */}
+            <Card className="relative z-10 w-full h-full overflow-hidden bg-moss_green text-honeydew transition-transform duration-300 ease-in-out group-hover:scale-[1.02]">
+              {project.content && (
+                <div className="absolute inset-0 z-0">{project.content}</div>
+              )}
+              <CardHeader className="absolute z-10 top-1 flex-col !items-start p-4">
+                <h4
+                  className={`${fontTitle.className} text-honeydew font-medium text-large mb-1`}
+                >
+                  {project.title}
+                </h4>
+                {project.title !== "Alcance Seus Objetivos" && (
+                  <p
+                    className={`${fontSubtitle.className} text-sm text-honeydew/80`}
                   >
-                    {project.title}
-                  </h4>
-                  {project.title !== "Alcance Seus Objetivos" && (
-                    <p
-                      className={`${fontSubtitle.className} text-sm text-honeydew/80`}
-                    >
-                      {project.description}
-                    </p>
-                  )}
-                </CardHeader>
-                {project.footer && (
-                <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
-                    {project.footer}
-                </CardFooter>
+                    {project.description}
+                  </p>
                 )}
-                
-              </Card>
-            </NextLink>
-          ))}
-        </div>
+              </CardHeader>
+              {project.footer && (
+              <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
+                  {project.footer}
+              </CardFooter>
+              )}
+            </Card>
+          </NextLink>
+        ))}
       </div>
-    </section>
+    </div>
+  </section>
   );
 }
