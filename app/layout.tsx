@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Metadata, Viewport } from "next";
 
 import Footer from "@/components/footer";
-import { Navbar } from "@/components/navbar";
+import { NavigationBar } from "@/components/navbar";
 import { siteConfig } from "@/config/site";
 import { Providers } from "./providers";
 
@@ -33,10 +33,10 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="pt-BR">
       <head />
-      <body className={clsx(" font-sans antialiased")}>
+      <body className={clsx(" font-sans antialiased bg-primary-200 dark:bg-primary-900 text-primary-800 dark:text-primary-50 min-h-screen flex flex-col")}>
         <Providers themeProps={{ attribute: "class", defaultTheme: "light" }}>
           <main className="container mx-auto flex-grow ">
-            <Navbar />
+            <NavigationBar />
             {children}
           </main>
           <Footer />
