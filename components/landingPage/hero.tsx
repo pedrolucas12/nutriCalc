@@ -14,7 +14,6 @@ import { BoxReveal } from "../magicui/box-reveal";
 import { InteractiveHoverButton } from "../magicui/interactive-hover-button";
 import { WordRotate } from "../magicui/word-rotate";
 
-
 // --- InfoCard Component ---
 const InfoCard = ({
   iconSrc,
@@ -31,21 +30,26 @@ const InfoCard = ({
 }) => (
   <BoxReveal duration={duration} boxColor={boxColor}>
     <motion.div
-      className="p-4 rounded-lg bg-primary-400 shadow-md h-full flex flex-col items-center text-center md:items-start md:text-left"
+      className="p-4 rounded-xl h-full flex flex-col items-center text-center md:items-start md:text-left 
+        bg-primary-200 hover:bg-primary-400 dark:bg-primary-700 shadow-md  border-2 border-primary-300 dark:border-primary-600/20
+      " // arredondamento mais sutil
       whileHover={{
-        scale: 1.05, // Aumenta um pouco mais no hover
-        y: -8, // Desloca para cima no hover (efeito de "levantar")
-        boxShadow: "0px 12px 30px rgba(52, 78, 65, 0.25)", // Sombra mais forte
-        backgroundColor: "#47522b", // Altera a cor no hover para moss_green-300
+        y: -10,
+        scale: 1.1,
+        boxShadow: "0px 16px 40px rgba(52, 78, 65, 0.4)",
       }}
-      transition={{ type: "spring", stiffness: 350, damping: 18 }} // Transição mais suave
+      transition={{
+        type: "spring",
+        stiffness: 400,
+        damping: 15,
+      }}
     >
       <Image
         src={iconSrc}
         alt={`Ícone ${title}`}
-        width={72} // Ícone ainda maior para destaque
-        height={72} // Ícone ainda maior para destaque
-        className="object-contain mb-4" // Margem inferior para separar do texto
+        width={72}
+        height={72}
+        className="object-contain mb-4"
       />
       <h3
         className={`${fontTitle.className} text-lg font-semibold text-dark_green mb-1`}
@@ -81,7 +85,7 @@ export default function Hero() {
             </h1>
             <div className="flex flex-row justify-center items-center gap-2">
               <h1
-                className={`${fontTitle.className} text-4xl md:text-4xl lg:text-5xl font-bold text-dark_green mb-0 leading-tight md:leading-snug`} // Removido mb
+                className={`${fontTitle.className} text-4xl md:text-4xl lg:text-5xl font-bold text-dark_green mb-0 leading-tight md:leading-snug`}
               >
                 <WordRotate
                   words={["Inteligente", "Personalizada", "Eficaz"]}
@@ -90,7 +94,7 @@ export default function Hero() {
                 />
               </h1>
               <h1
-                className={`${fontTitle.className} text-4xl md:text-4xl lg:text-5xl font-bold text-dark_green mb-0 leading-tight md:leading-snug`} // Removido mb
+                className={`${fontTitle.className} text-4xl md:text-4xl lg:text-5xl font-bold text-dark_green mb-0 leading-tight md:leading-snug`}
               >
                 para você.
               </h1>
@@ -110,11 +114,11 @@ export default function Hero() {
         </BoxReveal>
       </div>
 
-      {/* Grid das Colunas - items-stretch para ajustar a altura dos cards*/}
-      <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10 w-full max-w-7xl items-stretch mb-4 md:mb-6">
+      {/* Grid das Colunas - Aumento espaço do topo e itens-start alinha ao topo */}
+      <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-7xl items-start"> {/* ALTERADO para items-start */}
 
-        {/* Coluna Esquerda: Benefícios */}
-        <div className="flex flex-col items-stretch gap-4 w-full md:w-72 lg:w-96"> 
+        {/* Coluna Esquerda: Benefícios (largura fixa para todos cards) */}
+        <div className="flex flex-col items-stretch gap-4 w-full md:w-100 lg:w-100"> {/* Garante colunas iguais */}
           <InfoCard
             iconSrc="/images/hero/iconNutricionista.png"
             title="Dieta Personalizada"
@@ -150,7 +154,6 @@ export default function Hero() {
         </div>
 
         {/* Coluna Direita: Depoimento e Comparação */}
-        {/* Alterado justify-between para justify-start para ter controle da altura*/}
         <div className="flex flex-col gap-4 justify-start items-stretch">
            {/* Card Estilo de Vida */}
            <div className="flex-shrink-0" >
@@ -163,12 +166,13 @@ export default function Hero() {
              />
            </div>
 
-          {/* Card Depoimento com Comparador */}
+          {/* Card Depoimento com Comparador  (h removido) */}
           <BoxReveal duration={1.4} boxColor="#ebf5df">
             {/* Removido h-[70%] - flex-grow já ocupa o espaço disponível*/}
-            <div className="p-4 rounded-lg bg-primary-600 shadow-md w-full flex flex-col justify-between h-auto"> {/* Fundo escuro, flex-col, removido h */}
+            <div className="p-4 rounded-lg bg-primary-600 shadow-md w-full flex flex-col justify-between"> {/* Fundo escuro, flex-col */}
               {/* Slider centralizado, altura fixa (mais importante que max-w) */}
-              <div className="w-full max-w-[200px] h-[180px] md:max-w-[220px] md:h-[200px] rounded-lg shadow-lg overflow-hidden mx-auto mb-2"> {/* Tamanho reduzido, mx-auto */}
+              <div className="w-full max-w-[200px] h-[180px] md:max-w-[220px] md:h-[200px] rounded-lg shadow-lg overflow-hidden mx-auto mb-2">
+                {/* Tamanho reduzido, mx-auto */}
                 <ReactCompareSlider
                   itemOne={<ReactCompareSliderImage src="/images/hero/iconPersonExample.png" alt="Imagem Antes"/>}
                   itemTwo={<ReactCompareSliderImage src="/images/hero/iconPersonExample2.png" alt="Imagem Depois"/>}
@@ -196,12 +200,13 @@ export default function Hero() {
       {/* Botão Centralizado Abaixo - margem superior ajustada */}
       <BoxReveal duration={1.6} boxColor="#ebf5df">
         {/* Classe "mt-4" removida e adicionada no componente abaixo */}
-        <div className="mt-6 md:mt-8"> {/* Margem superior aplicada ao contêiner */}
+        {/* Subido botão e removido margin bottom desnecessario */}
+        <div className="mt-4">
           <InteractiveHoverButton
             className={cn(
-              "px-8 py-3 rounded-full font-semibold text-honeydew transition-all duration-300 ease-in-out",
+              " flex justify-center items-center px-10 py-4 rounded-full font-semibold text-honeydew transition-all duration-300 ease-in-out",
               "bg-gradient-to-br from-moss_green to-primary-600", // Gradiente
-              "hover:from-primary-600 hover:to-moss_green hover:shadow-lg hover:shadow-primary/30" // Hover
+              "hover:from-primary-600 hover:to-moss_green hover:scale-105 hover:shadow-xl hover:shadow-primary/40 dark:bg-primary-700" // Hover
             )}
           >
             <span className="flex items-center relative z-10">
