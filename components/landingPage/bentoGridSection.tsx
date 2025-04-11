@@ -16,6 +16,8 @@ import { Magnetic } from "../motion-primitives/magnetic"; // Adjust path if need
 // --- Configuration Imports ---
 import { fontSubtitle, fontTitle } from "@/config/fonts"; // Your font config
 import { cn } from "@/lib/utils"; // Your utility for class names
+import { AuroraText } from "../magicui/aurora-text";
+import { BoxReveal } from "../magicui/box-reveal";
 
 // --- Component Definition ---
 
@@ -120,6 +122,19 @@ export default function BentoGridSection() {
   return (
     <section className="py-20">
       <div className="container mx-auto px-6">
+         <BoxReveal duration={0.7} boxColor="#ebf5df">
+                  <p
+                    className={`${fontSubtitle.className} text-lg md:text-xl max-w-3xl 
+                              text-primary-800 text-balance leading-relaxed mt-4`}
+                  >
+                    Chega de adivinhação e planos que não funcionam!{" "}
+                    <AuroraText className="font-semibold">
+                      Nossa Inteligência Artificial
+                    </AuroraText>{" "}
+                    analisa seus dados únicos para criar um plano alimentar preciso,
+                    adaptado ao seu metabolismo e rotina.
+                  </p>
+                </BoxReveal>
         <h2
           className={`${fontTitle.className} text-3xl font-bold text-center mb-10 text-dark_green`}
         >
