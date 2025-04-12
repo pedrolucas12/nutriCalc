@@ -106,9 +106,7 @@ export default function BentoGridSection() {
       link: "#dieta-whatsapp",
       span: 4, // 4 de 12 columns
       content: (
-        // Usa o novo componente DietNotificationList
-        // Passa classes para ajustar a aparência dentro do card
-        <DietNotificationList className="absolute inset-0 w-full h-full scale-90 md:scale-100 opacity-50 group-hover:opacity-80 transition-opacity duration-300" />
+        <DietNotificationList className="absolute right-2  h-[250px] w-full scale-75 border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-90" />
       ),
     },
     {
@@ -205,14 +203,14 @@ export default function BentoGridSection() {
               {/* Cabeçalho com Título e Descrição */}
               <CardHeader className="absolute z-10 top-1 flex-col !items-start p-4">
                 <h4
-                  className={`${fontTitle.className} text-secondary-100 font-medium text-lg md:text-xl mb-1`} // Adjusted size and color
+                  className={`${fontTitle.className}  text-xl font-semibold text-neutral-700 dark:text-neutral-300`} // Adjusted size and color
                 >
                   {project.title}
                 </h4>
                 {/* Renderiza descrição apenas se não for o card "Alcance Seus Objetivos" */}
                 {project.title !== "Alcance Seus Objetivos" && (
                   <p
-                    className={`${fontSubtitle.className} text-sm text-secondary-200/90`} // Adjusted color/opacity
+                    className={`${fontSubtitle.className}max-w-lg text-neutral-400`} // Adjusted color/opacity
                   >
                     {project.description}
                   </p>

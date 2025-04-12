@@ -101,7 +101,7 @@ export default function DietNotificationList({
         // Relative para posicionar o gradiente
         // h-full para ocupar a altura do card pai
         // overflow-hidden para conter a animação
-        "relative flex h-full w-full flex-col overflow-hidden p-2",
+        "relative flex h-[500px] w-full flex-col overflow-hidden p-2",
         className
       )}
     >
@@ -114,8 +114,7 @@ export default function DietNotificationList({
         ))}
       </AnimatedList>
 
-      {/* Gradiente para efeito de fade na parte inferior */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-moss_green via-moss_green/50 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-background" />
     </div>
   );
 }
