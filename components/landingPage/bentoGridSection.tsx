@@ -15,6 +15,7 @@ import { Magnetic } from "../motion-primitives/magnetic"; // Adjust path if need
 // --- Configuration Imports ---
 import { fontSubtitle, fontTitle } from "@/config/fonts"; // Your font config
 import { cn } from "@/lib/utils"; // Your utility for class names
+import DietNotificationList from "./DietNotificationList";
 
 // --- Component Definition ---
 
@@ -103,11 +104,11 @@ export default function BentoGridSection() {
       description:
         "Receba seu plano alimentar diretamente no seu WhatsApp para maior comodidade.",
       link: "#dieta-whatsapp",
-      span: 4, // 4 of 12 columns
+      span: 4, // 4 de 12 columns
       content: (
-        <div className="absolute top-4 right-4 w-16 h-32 bg-secondary-300 dark:bg-secondary-700 rounded-xl border-2 border-secondary-400 dark:border-secondary-600 opacity-30 flex items-center justify-center z-0">
-          <div className="w-12 h-24 bg-secondary-200 dark:bg-secondary-800 rounded-md"></div>
-        </div>
+        // Usa o novo componente DietNotificationList
+        // Passa classes para ajustar a aparência dentro do card
+        <DietNotificationList className="absolute inset-0 w-full h-full scale-90 md:scale-100 opacity-50 group-hover:opacity-80 transition-opacity duration-300" />
       ),
     },
     {
