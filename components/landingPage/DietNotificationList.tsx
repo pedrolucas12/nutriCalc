@@ -1,120 +1,95 @@
-// Crie um novo arquivo, por exemplo: components/magicui/diet-notification-list.tsx
+"use client"
 
-"use client";
+import { cn } from "@/lib/utils"
+import type React from "react"
+import { useEffect, useRef, useState } from "react"
 
-import { cn } from "@/lib/utils"; // Ajuste o caminho
-import { IconBrandWhatsapp } from "@tabler/icons-react";
-import { Apple, Carrot, Drumstick, Utensils } from "lucide-react"; // Ícones relacionados à comida
-import React from "react";
-import { AnimatedList } from "../magicui/animated-list";
-
-// Interface para os itens da notificação da dieta
-interface DietItem {
-  meal: string; // Ex: Café da Manhã, Almoço, Jantar
-  food: string; // Ex: Ovos Mexidos, Salada Completa
-  icon: React.ComponentType; // Ícone para a refeição/comida
-  color: string; // Cor associada (pode variar)
+interface AnimatedListProps {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+  direction?: "up" | "down"
+  speed?: number
 }
 
-// Dados simulados das notificações da dieta
-let dietNotifications: DietItem[] = [
-  {
-    meal: "Café da Manhã",
-    food: "2 Ovos Mexidos + 1 Fruta",
-    icon: Apple, // Ícone de fruta
-    color: "#A3B18A", // sage
-  },
-  {
-    meal: "Lanche",
-    food: "Iogurte Natural + Castanhas",
-    icon: Utensils, // Ícone genérico
-    color: "#DAD7CD", // timberwolf
-  },
-  {
-    meal: "Almoço",
-    food: "Frango Grelhado + Salada Colorida",
-    icon: Drumstick, // Ícone de frango
-    color: "#588157", // fern-green
-  },
-  {
-    meal: "Lanche da Tarde",
-    food: "Mix de Vegetais",
-    icon: Carrot, // Ícone de cenoura/vegetal
-    color: "#768948", // moss_green
-  },
-  {
-    meal: "Jantar",
-    food: "Salmão Assado + Brócolis",
-    icon: Utensils,
-    color: "#3A5A40", // hunter-green
-  },
-  // Adicione mais itens se desejar
-];
+export function DietNotificationList({ children, className, delay = 2000, direction = "up", speed = 20 }: AnimatedListProps) {
+  const listRef = useRef<HTMLDivElement>(null)
+  const [scrollPosition, setScrollPosition] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
+  const [listHeight, setListHeight] = useState(0)
+  const [containerHeight, setContainerHeight] = useState(0)
 
-// Duplica para ter mais itens na animação (opcional)
-dietNotifications = Array.from({ length: 4 }, () => dietNotifications).flat();
+  // Calculate heights on mount and when children change
+  useEffect(() => {
+    if (listRef.current) {
+      setListHeight(listRef.current.scrollHeight)
+      setContainerHeight(listRef.current.clientHeight)
+    }
+  }, [children])
 
-// Componente para renderizar uma única notificação de dieta
-const DietNotification = ({ meal, food, icon, color }: DietItem) => {
+  // Handle scrolling animation
+  useEffect(() => {
+    if (isPaused || isHovered || !listRef.current || listHeight <= containerHeight) {
+      return
+    }
+
+    let animationFrameId: number
+    let lastTimestamp: number
+
+    const animate = (timestamp: number) => {
+      if (!lastTimestamp) lastTimestamp = timestamp
+      const elapsed = timestamp - lastTimestamp
+
+      if (elapsed > delay) {
+        lastTimestamp = timestamp
+
+        // Calculate new scroll position
+        let newPosition
+        if (direction === "up") {
+          newPosition = scrollPosition + 1
+          if (newPosition > listHeight) {
+            newPosition = 0
+          }
+        } else {
+          newPosition = scrollPosition - 1
+          if (newPosition < 0) {
+            newPosition = listHeight
+          }
+        }
+
+        setScrollPosition(newPosition)
+
+        if (listRef.current) {
+          listRef.current.scrollTop = newPosition
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animate)
+    }
+
+    animationFrameId = requestAnimationFrame(animate)
+
+    return () => {
+      cancelAnimationFrame(animationFrameId)
+    }
+  }, [scrollPosition, isPaused, isHovered, listHeight, containerHeight, delay, direction])
+
   return (
-    <figure
-      className={cn(
-        "relative mx-auto min-h-fit w-full max-w-[250px] cursor-pointer overflow-hidden rounded-lg p-2 shadow-sm",
-        "bg-primary-100 dark:bg-primary-900", // Fundo claro e escuro
-        "border border-dark_green-200 dark:border-dark_green-700" // Borda sutil
-      )}
-    >
-      <div className="flex flex-row items-center gap-2">
-        <div
-          className="flex size-8 items-center justify-center rounded-lg" // Ícone menor
-          style={{ backgroundColor: color }}
-        >
-          <span className="text-white text-md">
-            {React.createElement(icon)}
-          </span>
-        </div>
-        <div className="flex flex-col overflow-hidden">
-          <figcaption className="flex flex-row items-center font-extrabold text-black dark:text-secondary-500">
-            <span>{meal}</span>
-          </figcaption>
-          <p className="text-sm  text-secondary-900 font-semibold dark:text-secondary-300">
-            {food}
-          </p>
-        </div>
-        <IconBrandWhatsapp className="ml-auto text-green-500" />{" "}
-        {/* Ícone do WhatsApp */}
-      </div>
-    </figure>
-  );
-};
-
-// Componente principal da lista animada de notificações de dieta
-export default function DietNotificationList({
-  className,
-}: {
-  className?: string;
-}) {
-  return (
-    // Container da lista animada
     <div
-      className={cn(
-        // Relative para posicionar o gradiente
-        // h-full para ocupar a altura do card pai
-        // overflow-hidden para conter a animação
-        "relative flex h-[500px] w-full flex-col overflow-hidden p-2",
-        className
-      )}
+      className={cn("overflow-hidden", className)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Lista Animada */}
-      <AnimatedList
-        delay={1500} // Delay um pouco menor
+      <div
+        ref={listRef}
+        className="transition-all duration-300"
+        style={{
+          transform: isHovered ? "translateY(0)" : undefined,
+        }}
       >
-        {dietNotifications.map((item, idx) => (
-          <DietNotification {...item} key={idx} />
-        ))}
-      </AnimatedList>
-
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-background" />
+        {children}
+      </div>
     </div>
-  );
+  )
 }
