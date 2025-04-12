@@ -54,23 +54,19 @@ export default function BentoGridSection() {
       footer: (
         <>
           <div>
-            <p className="text-secondary-400 dark:text-secondary-600 font-bold text-sm">
-              {" "}
-              {/* Adjusted colors */}
+            <p className="text-secondary-200 dark:text-secondary-900 text-lg font-bold">
               Resultados Visíveis
             </p>
-            <p className="text-secondary-600 dark:text-secondary-900 text-xs">
-              {" "}
-              {/* Adjusted colors */}O plano ideal para você.
+            <p className="text-secondary-900 dark:text-secondary-500 text-sm font-semibold">
+              Acompanhe seu progresso e veja os resultados em tempo real.
             </p>
           </div>
           <Button
-            className="text-tiny"
             color="secondary"
             radius="full"
             variant="ghost"
           >
-            Ver Mais
+            Começar Agora
           </Button>
         </>
       ),
@@ -80,7 +76,7 @@ export default function BentoGridSection() {
       description:
         "Aproveite o poder da inteligência artificial para otimizar sua alimentação.",
       link: "#ia-dieta",
-      span: 5, // 5 of 12 columns
+      span: 5, 
       content: (
         <div className="absolute bottom-0 left-0 w-full h-3/4 opacity-10 overflow-hidden rounded-b-lg">
           <svg
@@ -98,15 +94,16 @@ export default function BentoGridSection() {
         </div>
       ),
     },
-    // --- Row 2 ---
     {
-      title: "Dieta no WhatsApp",
+      title: "Dieta no WhatsApp", 
       description:
         "Receba seu plano alimentar diretamente no seu WhatsApp para maior comodidade.",
       link: "#dieta-whatsapp",
-      span: 4, // 4 de 12 columns
+      span: 4, 
       content: (
-        <DietNotificationList className="absolute right-2  h-[250px] w-full scale-75 border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-90" />
+        <div className="absolute -top-10 left-0 right-0 h-[320px] flex justify-center pointer-events-none">
+          <DietNotificationList className="absolute right-2  h-[250px] w-full scale-75 border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-90" />{" "}
+        </div>
       ),
     },
     {
@@ -114,7 +111,7 @@ export default function BentoGridSection() {
       description:
         "Descubra suas métricas corporais e receba insights valiosos sobre sua saúde.",
       link: "#teste-gratuito",
-      span: 4, // 4 of 12 columns
+      span: 4, 
       content: (
         <div className="absolute bottom-2 right-2 flex gap-1 opacity-40 z-0">
           <span className="text-xs p-1 bg-primary-600 text-secondary-100 rounded">
@@ -161,7 +158,6 @@ export default function BentoGridSection() {
 
   return (
     <section className="container mx-auto px-6">
-      {/* Grid principal com 12 colunas */}
       <div className="gap-4 grid grid-cols-12 px-4 md:px-8">
         {projects.map((project, index) => (
           <NextLink
@@ -169,22 +165,18 @@ export default function BentoGridSection() {
             key={index}
             className={cn(
               `relative group h-[300px] col-span-12 block p-2`,
-              `md:col-span-${project.span || 4}` // Aplica span em telas md+
+              `md:col-span-${project.span || 4}`
             )}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            {/* Animação de Fundo do Hover */}
             <AnimatePresence>
               {hoveredIndex === index && (
                 <motion.span
-                  className="absolute inset-0 h-full w-full bg-secondary-200 dark:bg-secondary-800/[0.8] block rounded-3xl" // Adjusted hover background colors
+                  className="absolute inset-0 h-full w-full bg-secondary-200 dark:bg-secondary-800/[0.8] block rounded-3xl"
                   layoutId="hoverBackground"
                   initial={{ opacity: 0 }}
-                  animate={{
-                    opacity: 1,
-                    transition: { duration: 0.15 },
-                  }}
+                  animate={{ opacity: 1, transition: { duration: 0.15 } }}
                   exit={{
                     opacity: 0,
                     transition: { duration: 0.15, delay: 0.2 },
@@ -193,37 +185,54 @@ export default function BentoGridSection() {
               )}
             </AnimatePresence>
 
-            {/* Card do HeroUI */}
-            {/* Adjusted card background and text colors */}
             <Card className="relative z-10 w-full h-full overflow-hidden bg-primary-500 text-secondary-100 transition-transform duration-300 ease-in-out group-hover:scale-[1.02]">
-              {/* Renderiza o conteúdo de fundo */}
               {project.content && (
-                <div className="absolute inset-0 z-0">{project.content}</div>
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                  {project.content}
+                </div>
               )}
-              {/* Cabeçalho com Título e Descrição */}
-              <CardHeader className="absolute z-10 top-1 flex-col !items-start p-4">
-                <h4
-                  className={`${fontTitle.className}  text-xl font-semibold text-neutral-700 dark:text-neutral-300`} // Adjusted size and color
-                >
-                  {project.title}
-                </h4>
-                {/* Renderiza descrição apenas se não for o card "Alcance Seus Objetivos" */}
-                {project.title !== "Alcance Seus Objetivos" && (
+
+              {project.title !== "Alcance Seus Objetivos" &&
+                project.title !== "Dieta no WhatsApp" && (
+                  <CardHeader className="absolute z-10 top-1 flex-col !items-start p-4">
+                    <h4
+                      className={`${fontTitle.className} text-2xl font-semibold text-neutral-900 dark:text-neutral-300`}
+                    >
+                      {project.title}
+                    </h4>
+                    <p
+                      className={`${fontSubtitle.className} max-w-lg text-neutral-700 dark:text-neutral-400`}
+                    >
+                      {project.description}
+                    </p>
+                  </CardHeader>
+                )}
+
+              {project.title === "Dieta no WhatsApp" && (
+                <div className="absolute z-10 bottom-0 left-0 p-4">
+                  <h4
+                    className={`${fontTitle.className} text-2xl font-semibold text-neutral-900 dark:text-neutral-300`}
+                  >
+                    {project.title}
+                  </h4>
                   <p
-                    className={`${fontSubtitle.className}max-w-lg text-neutral-400`} // Adjusted color/opacity
+                    className={`${fontSubtitle.className} max-w-lg text-neutral-700 dark:text-neutral-400 `}
                   >
                     {project.description}
                   </p>
-                )}
-              </CardHeader>
-              {/* Renderiza o Footer se definido */}
-              {project.footer && (
-                <CardFooter className="absolute bg-white/30 dark:bg-black/40 bottom-0 border-t border-secondary-300 dark:border-secondary-700 z-10 justify-between w-full p-4 rounded-b-lg">
-                  {" "}
-                  {/* Adjusted footer style */}
-                  {project.footer}
-                </CardFooter>
+                </div>
               )}
+
+              {project.footer &&
+                project.title !== "Alcance Seus Objetivos" &&
+                project.title !== "Dieta no WhatsApp" && (
+                  <CardFooter
+                    className="absolute bg-white/30 dark:bg-black/40 bottom-0 border-t border-secondary-300 dark:border-secondary-700 z-10 justify-between w-full p-4 rounded-lg backdrop-blur-sm 
+                  "
+                  >
+                    {project.footer}
+                  </CardFooter>
+                )}
             </Card>
           </NextLink>
         ))}
