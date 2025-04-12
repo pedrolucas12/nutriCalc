@@ -1,242 +1,416 @@
 "use client";
 
 import NextLink from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-// --- UI Library Imports ---
-import { Button } from "@heroui/button"; // Assuming Button might be used in footer
-import { Card, CardFooter, CardHeader } from "@heroui/card";
+// UI Library Imports
+import { Button } from "@heroui/button";
+import { Card } from "@heroui/card";
 
-// --- Animation Imports ---
-import { AnimatePresence, motion } from "framer-motion";
-import { Ripple } from "../magicui/ripple"; // Adjust path if needed
-import { Magnetic } from "../motion-primitives/magnetic"; // Adjust path if needed
+// Animation Imports
+import { AnimatePresence, motion, useInView } from "framer-motion";
+import { Ripple } from "../magicui/ripple";
+import { Magnetic } from "../motion-primitives/magnetic";
 
-// --- Configuration Imports ---
-import { fontSubtitle, fontTitle } from "@/config/fonts"; // Your font config
-import { cn } from "@/lib/utils"; // Your utility for class names
+// Configuration Imports
+import { fontSubtitle, fontTitle } from "@/config/fonts";
+import { cn } from "@/lib/utils";
+import { ArrowRight, BarChart3, Brain, MessageCircle, Sparkles } from 'lucide-react';
 import DietNotificationList from "./DietNotificationList";
 
-// --- Component Definition ---
-
-// Define springOptions if needed by Magnetic
-const springOptions = { bounce: 0.1 };
-
 export default function BentoGridSection() {
-  // State for hover effect
+  // State for hover and animation effects
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+  
+  // Spring options for magnetic effect
+  const springOptions = { bounce: 0.1 };
 
-  // Data for the cards
-  const projects = [
-    // --- Row 1 ---
+  // Data for the cards with enhanced content
+  const cards = [
+    // Card 1: Dieta Personalizada (Feature highlight)
     {
       title: "Dieta Personalizada",
-      description:
-        "Um plano alimentar único, criado sob medida para suas necessidades e objetivos.",
+      description: "Plano alimentar único criado pela IA com base no seu perfil, objetivos, preferências e necessidades nutricionais específicas para resultados otimizados.",
       link: "#dieta-personalizada",
-      span: 7, // 7 of 12 columns
+      span: 7,
+      color: "from-emerald-500/20 to-teal-500/20",
+      icon: <Sparkles className="h-6 w-6 text-emerald-500" />,
       content: (
-        <div className="absolute bottom-0 left-0 w-full h-3/4 opacity-10 overflow-hidden rounded-b-lg">
-          <svg
-            viewBox="0 0 100 50"
-            preserveAspectRatio="none"
-            className="w-full h-full"
-          >
-            <polyline
-              points="0,50 10,40 30,45 50,20 70,30 90,10 100,25"
-              fill="none"
-              stroke="#bdeada"
-              strokeWidth="3"
-            />
-          </svg>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -right-10 -bottom-10 w-[80%] h-[80%] rounded-full bg-gradient-to-br from-emerald-300/10 to-teal-500/20 blur-3xl"></div>
+          <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-emerald-400/10 blur-xl"></div>
+          <div className="absolute bottom-20 left-20 w-32 h-32 rounded-full bg-teal-300/10 blur-xl"></div>
+          
+          {/* DNA-like structure to represent personalization */}
+          <div className="absolute right-10 top-10 opacity-20">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="relative">
+                <div 
+                  className="absolute w-8 h-1.5 bg-emerald-500/40 rounded-full"
+                  style={{
+                    transform: `translateY(${i * 10}px) rotate(${i % 2 ? 30 : -30}deg)`,
+                    left: i % 2 ? '10px' : '0px',
+                  }}
+                ></div>
+                <div 
+                  className="absolute w-8 h-1.5 bg-teal-500/40 rounded-full"
+                  style={{
+                    transform: `translateY(${i * 10}px) rotate(${i % 2 ? -30 : 30}deg)`,
+                    right: i % 2 ? '10px' : '0px',
+                  }}
+                ></div>
+              </div>
+            ))}
+          </div>
         </div>
       ),
       footer: (
-        <>
-          <div>
-            <p className="text-secondary-200 dark:text-secondary-900 text-lg font-bold">
-              Resultados Visíveis
-            </p>
-            <p className="text-secondary-900 dark:text-secondary-500 text-sm font-semibold">
-              Acompanhe seu progresso e veja os resultados em tempo real.
-            </p>
-          </div>
-          <Button
-            color="secondary"
-            radius="full"
-            variant="ghost"
-          >
-            Começar Agora
+        <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-gray-800/30">
+          <p className="text-emerald-700 dark:text-emerald-300 text-sm font-medium">
+            Resultados visíveis em semanas
+          </p>
+          <Button color="primary" radius="full" size="sm" className="group bg-emerald-500 hover:bg-emerald-600">
+            Começar <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
-        </>
-      ),
-    },
-    {
-      title: "IA para sua Dieta",
-      description:
-        "Aproveite o poder da inteligência artificial para otimizar sua alimentação.",
-      link: "#ia-dieta",
-      span: 5, 
-      content: (
-        <div className="absolute bottom-0 left-0 w-full h-3/4 opacity-10 overflow-hidden rounded-b-lg">
-          <svg
-            viewBox="0 0 100 50"
-            preserveAspectRatio="none"
-            className="w-full h-full"
-          >
-            <polyline
-              points="0,25 10,10 30,30 50,5 70,45 90,20 100,50"
-              fill="none"
-              stroke="#bdeada"
-              strokeWidth="3"
-            />
-          </svg>
         </div>
       ),
     },
-    {
-      title: "Dieta no WhatsApp", 
-      description:
-        "Receba seu plano alimentar diretamente no seu WhatsApp para maior comodidade.",
-      link: "#dieta-whatsapp",
-      span: 4, 
-      content: (
-        <div className="absolute -top-10 left-0 right-0 h-[320px] flex justify-center pointer-events-none">
-          <DietNotificationList className="absolute right-2  h-[250px] w-full scale-75 border-none transition-all duration-300 ease-out [mask-image:linear-gradient(to_top,transparent_10%,#000_100%)] group-hover:scale-90" />{" "}
-        </div>
-      ),
-    },
-    {
-      title: "Teste Gratuito de TMB e IMC",
-      description:
-        "Descubra suas métricas corporais e receba insights valiosos sobre sua saúde.",
-      link: "#teste-gratuito",
-      span: 4, 
-      content: (
-        <div className="absolute bottom-2 right-2 flex gap-1 opacity-40 z-0">
-          <span className="text-xs p-1 bg-primary-600 text-secondary-100 rounded">
-            IMC
-          </span>
-          <span className="text-xs p-1 bg-primary-600 text-secondary-100 rounded">
-            TMB
-          </span>
-        </div>
-      ),
-    },
+    
+    // Card 2: Transformação (Hero card)
     {
       title: "",
       description: "",
-      link: "#alcance-objetivos",
-      span: 4,
+      link: "#transformacao",
+      span: 5,
+      color: "from-primary-500/20 to-primary-600/20",
       content: (
-        <div className="flex group">
-          <div className="gap-8 flex h-full w-full flex-col items-center justify-center overflow-hidden absolute">
+        <div className="flex group h-full w-full">
+          <div className="flex h-full w-full flex-col items-center justify-center overflow-hidden absolute">
             <Magnetic
               actionArea="global"
               intensity={0.2}
               range={200}
               springOptions={springOptions}
             >
-              <p className="z-10 whitespace-pre-wrap text-center text-5xl font-medium tracking-tighter group-hover:scale-105 transition-all duration-350 ease-in-out pb-4">
-                Alcance o{" "}
-                <span className="text-secondary-200">
-                  corpo dos seus sonhos
-                </span>
-                .
-              </p>
-              <p className="group-hover:opacity-100 opacity-0 transition-all duration-350 ease-in-out text-center text-md">
-                Descubra como nossa IA pode transformar sua jornada de saúde e
-                bem-estar.
-              </p>
+              <div className="flex flex-col items-center justify-center">
+                <p className="z-10 text-center text-4xl md:text-5xl font-bold tracking-tight group-hover:scale-105 transition-all duration-350 ease-in-out">
+                  Transforme seu{" "}
+                  <span className="text-primary-500 dark:text-primary-400">
+                    corpo e vida
+                  </span>
+                </p>
+                <p className="opacity-0 group-hover:opacity-100 transition-all duration-500 text-center text-md max-w-xs mt-4">
+                  Nossa IA analisa seu perfil completo para criar uma dieta que realmente funciona para você.
+                </p>
+                <Button 
+                  color="primary" 
+                  radius="full" 
+                  size="lg" 
+                  className="mt-6 group opacity-0 group-hover:opacity-100 transition-all duration-500"
+                >
+                  Descubra como <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </div>
             </Magnetic>
           </div>
-          <Ripple />
+          <RipplePulse />
+        </div>
+      ),
+    },
+    
+    {
+      title: "Dieta no WhatsApp",
+      description: "Receba seu plano alimentar diretamente no seu WhatsApp para maior comodidade.",
+      link: "#dieta-whatsapp",
+      span: 4,
+      color: "from-green-500/20 to-green-600/20",
+      icon: <MessageCircle className="h-6 w-6 text-green-500" />,
+      content: (
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
+          <DietNotificationList className="w-full max-w-[240px] h-[280px] scale-90 hover:scale-100 transition-all duration-500" />
+        </div>
+      ),
+      titlePosition: "bottom",
+    },
+    
+    {
+      title: "Teste Gratuito",
+      description: "Calcule seu IMC, TMB e % de gordura corporal gratuitamente.",
+      link: "#teste-gratuito",
+      span: 4,
+      color: "from-amber-500/20 to-amber-600/20",
+      icon: <BarChart3 className="h-6 w-6 text-amber-500" />,
+      content: (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="relative w-32 h-32">
+            <svg viewBox="0 0 100 100" className="w-full h-full">
+              <circle
+                cx="50"
+                cy="50"
+                r="45"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="8"
+                strokeOpacity="0.2"
+              />
+              <circle
+                cx="50"
+                cy="50"
+                r="45"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="8"
+                strokeDasharray="283"
+                strokeDashoffset="70"
+                className="text-amber-500"
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-2xl font-bold">24.5</span>
+              <span className="text-xs opacity-70">IMC</span>
+            </div>
+          </div>
+        </div>
+      ),
+      footer: (
+        <div className="flex justify-between items-center w-full">
+          <div className="flex space-x-2">
+            <span className="text-xs py-1 px-2 bg-amber-500/30 text-amber-700 dark:text-amber-300 rounded-full font-medium border border-amber-500/30">IMC</span>
+            <span className="text-xs py-1 px-2 bg-amber-500/30 text-amber-700 dark:text-amber-300 rounded-full font-medium border border-amber-500/30">TMB</span>
+          </div>
+          <Button color="default" variant="solid" radius="full" size="sm" className="bg-amber-500 hover:bg-amber-600 text-white">
+            Calcular
+          </Button>
+        </div>
+      ),
+    },
+    
+    // Card 5: AI Technology (Tech highlight)
+    {
+      title: "IA para sua Dieta",
+      description: "Tecnologia avançada que aprende com seus resultados e adapta seu plano continuamente.",
+      link: "#ia-dieta",
+      span: 4,
+      color: "from-purple-500/20 to-purple-600/20",
+      icon: <Brain className="h-6 w-6 text-purple-500" />,
+      content: (
+        <div className="absolute inset-0 overflow-hidden">
+          
+        </div>
+      ),
+      footer: (
+        <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-purple-900/30">
+          <p className="text-purple-700 dark:text-purple-300 text-sm font-medium">
+            Atualização contínua
+          </p>
+          <Button color="primary" variant="solid" radius="full" size="sm" className="group bg-purple-500 hover:bg-purple-600">
+            Saiba mais <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Button>
         </div>
       ),
     },
   ];
 
+  // Animation variants for cards
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+      },
+    },
+  };
+
   return (
-    <section className="container mx-auto px-6">
-      <div className="gap-4 grid grid-cols-12 px-4 md:px-8">
-        {projects.map((project, index) => (
-          <NextLink
-            href={project.link}
+    <section ref={sectionRef} className="container mx-auto px-4 py-16">
+      <motion.div 
+        className="gap-4 grid grid-cols-12"
+        variants={containerVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+      >
+        {cards.map((card, index) => (
+          <motion.div
             key={index}
             className={cn(
-              `relative group h-[300px] col-span-12 block p-2`,
-              `md:col-span-${project.span || 4}`
+              `relative h-[300px] col-span-12 block`,
+              `md:col-span-${card.span || 4}`
             )}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
+            variants={cardVariants}
+            whileHover={{ scale: 1.02 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            <AnimatePresence>
-              {hoveredIndex === index && (
-                <motion.span
-                  className="absolute inset-0 h-full w-full bg-secondary-200 dark:bg-secondary-800/[0.8] block rounded-3xl"
-                  layoutId="hoverBackground"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { duration: 0.15 } }}
-                  exit={{
-                    opacity: 0,
-                    transition: { duration: 0.15, delay: 0.2 },
-                  }}
-                />
-              )}
-            </AnimatePresence>
+            <NextLink
+              href={card.link}
+              className="block h-full w-full"
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+            >
+              <AnimatePresence>
+                {hoveredIndex === index && (
+                  <motion.span
+                    className={cn(
+                      "absolute inset-0 h-full w-full bg-gradient-to-br rounded-3xl",
+                      card.color
+                    )}
+                    layoutId="hoverBackground"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, transition: { duration: 0.15 } }}
+                    exit={{
+                      opacity: 0,
+                      transition: { duration: 0.15, delay: 0.2 },
+                    }}
+                  />
+                )}
+              </AnimatePresence>
 
-            <Card className="relative z-10 w-full h-full overflow-hidden bg-primary-500 text-secondary-100 transition-transform duration-300 ease-in-out group-hover:scale-[1.02]">
-              {project.content && (
-                <div className="absolute inset-0 z-0 pointer-events-none">
-                  {project.content}
-                </div>
-              )}
-
-              {project.title !== "Alcance Seus Objetivos" &&
-                project.title !== "Dieta no WhatsApp" && (
-                  <CardHeader className="absolute z-10 top-1 flex-col !items-start p-4">
-                    <h4
-                      className={`${fontTitle.className} text-2xl font-semibold text-neutral-900 dark:text-neutral-300`}
-                    >
-                      {project.title}
-                    </h4>
-                    <p
-                      className={`${fontSubtitle.className} max-w-lg text-neutral-700 dark:text-neutral-400`}
-                    >
-                      {project.description}
-                    </p>
-                  </CardHeader>
+              <Card className="relative z-10 w-full h-full overflow-hidden bg-white/5 dark:bg-black/5 backdrop-blur-sm border border-white/10 dark:border-gray-800/50 text-foreground shadow-md rounded-3xl">
+                {card.content && (
+                  <div className="absolute inset-0 z-0 pointer-events-none">
+                    {card.content}
+                  </div>
                 )}
 
-              {project.title === "Dieta no WhatsApp" && (
-                <div className="absolute z-10 bottom-0 left-0 p-4">
-                  <h4
-                    className={`${fontTitle.className} text-2xl font-semibold text-neutral-900 dark:text-neutral-300`}
-                  >
-                    {project.title}
-                  </h4>
-                  <p
-                    className={`${fontSubtitle.className} max-w-lg text-neutral-700 dark:text-neutral-400 `}
-                  >
-                    {project.description}
-                  </p>
-                </div>
-              )}
-
-              {project.footer &&
-                project.title !== "Alcance Seus Objetivos" &&
-                project.title !== "Dieta no WhatsApp" && (
-                  <CardFooter
-                    className="absolute bg-white/30 dark:bg-black/40 bottom-0 border-t border-secondary-300 dark:border-secondary-700 z-10 justify-between w-full p-4 rounded-lg backdrop-blur-sm 
-                  "
-                  >
-                    {project.footer}
-                  </CardFooter>
+                {card.title && card.titlePosition !== "bottom" && (
+                  <div className="absolute z-10 top-4 left-4 flex items-start">
+                    {card.icon && (
+                      <div className="mr-3 p-2 rounded-full bg-white/10 backdrop-blur-sm">
+                        {card.icon}
+                      </div>
+                    )}
+                    <div className={card.title === "Dieta Personalizada" ? "pr-8" : ""}>
+                      <h4
+                        className={`${fontTitle.className} text-xl font-semibold`}
+                      >
+                        {card.title}
+                      </h4>
+                      {card.description && (
+                        <p
+                          className={`${fontSubtitle.className} text-sm opacity-80 ${card.title === "Dieta Personalizada" ? "max-w-full" : "max-w-xs"}`}
+                        >
+                          {card.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
                 )}
-            </Card>
-          </NextLink>
+
+                {card.title && card.titlePosition === "bottom" && (
+                  <div className="absolute z-10 bottom-4 left-4 flex items-start">
+                    {card.icon && (
+                      <div className="mr-3 p-2 rounded-full bg-white/10 backdrop-blur-sm">
+                        {card.icon}
+                      </div>
+                    )}
+                    <div>
+                      <h4
+                        className={`${fontTitle.className} text-xl font-semibold`}
+                      >
+                        {card.title}
+                      </h4>
+                      {card.description && (
+                        <p
+                          className={`${fontSubtitle.className} max-w-xs text-sm opacity-80`}
+                        >
+                          {card.description}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {card.footer && (
+                  <div className="absolute z-10 bottom-0 left-0 right-0 p-4">
+                    {card.footer}
+                  </div>
+                )}
+              </Card>
+            </NextLink>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
+  );
+}
+
+// Custom Ripple component that pulses
+function RipplePulse() {
+  const [isActive, setIsActive] = useState(false);
+  
+  useEffect(() => {
+    // Start the pulsing animation
+    const interval = setInterval(() => {
+      setIsActive(prev => !prev);
+    }, 2000);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div 
+          className="w-32 h-32 rounded-full bg-primary-500/20"
+          animate={{ 
+            scale: isActive ? [1, 1.5, 1.2] : [1.2, 1, 1.3],
+            opacity: isActive ? [0.2, 0.3, 0.2] : [0.2, 0.4, 0.2] 
+          }}
+          transition={{ 
+            duration: 4,
+            ease: "easeInOut",
+            times: [0, 0.5, 1],
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
+        />
+        <motion.div 
+          className="absolute w-48 h-48 rounded-full bg-primary-400/10"
+          animate={{ 
+            scale: isActive ? [1.2, 1, 1.3] : [1, 1.5, 1.2],
+            opacity: isActive ? [0.1, 0.3, 0.1] : [0.1, 0.2, 0.1] 
+          }}
+          transition={{ 
+            duration: 5,
+            ease: "easeInOut",
+            times: [0, 0.5, 1],
+            repeat: Infinity,
+            repeatType: "reverse",
+            delay: 0.5
+          }}
+        />
+        <motion.div 
+          className="absolute w-64 h-64 rounded-full bg-primary-300/5"
+          animate={{ 
+            scale: isActive ? [1, 1.2, 1] : [1.1, 0.9, 1.1],
+            opacity: isActive ? [0.05, 0.1, 0.05] : [0.05, 0.15, 0.05] 
+          }}
+          transition={{ 
+            duration: 6,
+            ease: "easeInOut",
+            times: [0, 0.5, 1],
+            repeat: Infinity,
+            repeatType: "reverse",
+            delay: 1
+          }}
+        />
+      </div>
+      <Ripple color="var(--primary-500)" />
+    </div>
   );
 }
