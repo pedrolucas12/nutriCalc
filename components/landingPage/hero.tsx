@@ -31,17 +31,22 @@ const InfoCard = ({
   <BoxReveal duration={duration} boxColor={boxColor}>
     <motion.div
       className="p-4 rounded-xl h-full flex flex-col items-center text-center md:items-start md:text-left 
-        bg-primary-200 hover:bg-primary-400 dark:bg-primary-700 shadow-md  border-2 border-primary-300 dark:border-primary-600/20
-      " // arredondamento mais sutil
+        bg-primary-200 hover:bg-primary-400 dark:bg-primary-700 shadow-md  border-2 border-primary-300 dark:border-primary-600/20 
+      "
       whileHover={{
         y: -10,
-        scale: 1.1,
-        boxShadow: "0px 16px 40px rgba(52, 78, 65, 0.4)",
+        scale: 1.05,
+        transition: { duration: 0.3 },
+        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+        borderColor: boxColor,
+        backgroundColor: boxColor,
       }}
       transition={{
         type: "spring",
         stiffness: 400,
         damping: 15,
+        mass: 1,
+        duration: 0.3,
       }}
     >
       <Image
@@ -74,7 +79,6 @@ export default function Hero() {
 
   return (
     <section className="w-full flex flex-col items-center justify-center px-4 py-8 md:py-12 bg-honeydew text-dark_green overflow-hidden">
-      {/* Container do Título/Subtítulo */}
       <div className="flex flex-col justify-center items-center text-center md:max-w-3xl lg:max-w-4xl mb-4 md:mb-6">
         <BoxReveal duration={0.5} boxColor="#ebf5df">
           <div>
@@ -114,11 +118,8 @@ export default function Hero() {
         </BoxReveal>
       </div>
 
-      {/* Grid das Colunas - Aumento espaço do topo e itens-start alinha ao topo */}
-      <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-7xl items-start"> {/* ALTERADO para items-start */}
-
-        {/* Coluna Esquerda: Benefícios (largura fixa para todos cards) */}
-        <div className="flex flex-col items-stretch gap-4 w-full md:w-100 lg:w-100"> {/* Garante colunas iguais */}
+      <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-7xl items-start">
+        <div className="flex flex-col items-stretch gap-4 w-full md:w-100 lg:w-100">
           <InfoCard
             iconSrc="/images/hero/iconNutricionista.png"
             title="Dieta Personalizada"
@@ -142,7 +143,6 @@ export default function Hero() {
           />
         </div>
 
-        {/* Coluna Central: Imagem Principal */}
         <div className="hidden md:flex flex-col items-center justify-center">
           <Image
             src="/images/hero/heroPrincipal.png"
@@ -153,42 +153,62 @@ export default function Hero() {
           />
         </div>
 
-        {/* Coluna Direita: Depoimento e Comparação */}
         <div className="flex flex-col gap-4 justify-start items-stretch">
-           {/* Card Estilo de Vida */}
-           <div className="flex-shrink-0" >
-             <InfoCard
-               iconSrc="/images/hero/iconExercices.png"
-               title="Mudança de Estilo de Vida"
-               description="Transforme sua relação com a comida e alcance seus objetivos."
-               boxColor="#768948"
-               duration={1.2}
-             />
-           </div>
+          {/* Card Estilo de Vida */}
+          <div className="flex-shrink-0">
+            <InfoCard
+              iconSrc="/images/hero/iconExercices.png"
+              title="Mudança de Estilo de Vida"
+              description="Transforme sua relação com a comida e alcance seus objetivos."
+              boxColor="#768948"
+              duration={1.2}
+            />
+          </div>
 
-          {/* Card Depoimento com Comparador  (h removido) */}
           <BoxReveal duration={1.4} boxColor="#ebf5df">
-            {/* Removido h-[70%] - flex-grow já ocupa o espaço disponível*/}
-            <div className="p-4 rounded-lg bg-primary-600 shadow-md w-full flex flex-col justify-between"> {/* Fundo escuro, flex-col */}
-              {/* Slider centralizado, altura fixa (mais importante que max-w) */}
+            <div className="p-4 rounded-lg bg-primary-600 shadow-md w-full flex flex-col justify-between">
               <div className="w-full max-w-[200px] h-[180px] md:max-w-[220px] md:h-[200px] rounded-lg shadow-lg overflow-hidden mx-auto mb-2">
-                {/* Tamanho reduzido, mx-auto */}
                 <ReactCompareSlider
-                  itemOne={<ReactCompareSliderImage src="/images/hero/iconPersonExample.png" alt="Imagem Antes"/>}
-                  itemTwo={<ReactCompareSliderImage src="/images/hero/iconPersonExample2.png" alt="Imagem Depois"/>}
-                  style={{ width: '100%', height: '100%' }}
+                  itemOne={
+                    <ReactCompareSliderImage
+                      src="/images/hero/iconPersonExample.png"
+                      alt="Imagem Antes"
+                    />
+                  }
+                  itemTwo={
+                    <ReactCompareSliderImage
+                      src="/images/hero/iconPersonExample2.png"
+                      alt="Imagem Depois"
+                    />
+                  }
+                  style={{ width: "100%", height: "100%" }}
                 />
               </div>
-              {/* Texto e Avatar, justificados ao topo */}
               <div className="text-center">
-                <p className={`${fontSubtitle.className} text-xs md:text-sm text-honeydew italic mb-1`}>
-                  "NutriCalc mudou a minha vida! Alcancei meus objetivos..." {/* Texto mais curto */}
+                <p
+                  className={`${fontSubtitle.className} text-xs md:text-sm text-white italic mb-1`}
+                >
+                  "NutriCalc mudou a minha vida! Alcancei meus objetivos..."
                 </p>
                 <div className="flex items-center justify-center mt-1">
-                  <Image src="/images/hero/iconPersonExample.png" alt="Avatar do cliente" width={28} height={28} className="rounded-full mr-2"/>
+                  <Image
+                    src="/images/hero/iconPersonExample.png"
+                    alt="Avatar do cliente"
+                    width={28}
+                    height={28}
+                    className="rounded-full mr-2"
+                  />
                   <div className="text-left">
-                    <p className={`${fontTitle.className} text-xs font-semibold text-white`}>Maria Silva</p>
-                    <p className={`${fontSubtitle.className} text-[10px] text-honeydew/80 italic`}>São Paulo, SP</p>
+                    <p
+                      className={`${fontTitle.className} text-xs font-bold text-primary-200`}
+                    >
+                      Maria Silva
+                    </p>
+                    <p
+                      className={`${fontSubtitle.className} text-[10px] text-primary-300 italic`}
+                    >
+                      São Paulo, SP
+                    </p>
                   </div>
                 </div>
               </div>
@@ -197,16 +217,12 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Botão Centralizado Abaixo - margem superior ajustada */}
       <BoxReveal duration={1.6} boxColor="#ebf5df">
-        {/* Classe "mt-4" removida e adicionada no componente abaixo */}
-        {/* Subido botão e removido margin bottom desnecessario */}
         <div className="mt-4">
           <InteractiveHoverButton
             className={cn(
-              " flex justify-center items-center px-10 py-4 rounded-full font-semibold text-honeydew transition-all duration-300 ease-in-out",
-              "bg-gradient-to-br from-moss_green to-primary-600", // Gradiente
-              "hover:from-primary-600 hover:to-moss_green hover:scale-105 hover:shadow-xl hover:shadow-primary/40 dark:bg-primary-700" // Hover
+              "bg-primary-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-primary-700 transition duration-300",
+              fontSubtitle.className,
             )}
           >
             <span className="flex items-center relative z-10">
