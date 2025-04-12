@@ -1,34 +1,25 @@
 "use client";
 
-// --- React/Next.js Imports ---
 import NextLink from "next/link";
 import { useState } from "react";
 
-// --- UI Library Imports ---
-import { Button } from "@heroui/button"; // Assuming Button might be used in footer
+import { Button } from "@heroui/button";
 import { Card, CardFooter, CardHeader } from "@heroui/card";
 
 // --- Animation Imports ---
 import { AnimatePresence, motion } from "framer-motion";
-import { Ripple } from "../magicui/ripple"; // Adjust path if needed
-import { Magnetic } from "../motion-primitives/magnetic"; // Adjust path if needed
+import { Ripple } from "../magicui/ripple";
+import { Magnetic } from "../motion-primitives/magnetic";
 
-// --- Configuration Imports ---
-import { fontSubtitle, fontTitle } from "@/config/fonts"; // Your font config
-import { cn } from "@/lib/utils"; // Your utility for class names
+import { fontSubtitle, fontTitle } from "@/config/fonts";
+import { cn } from "@/lib/utils";
 
-// --- Component Definition ---
-
-// Define springOptions if needed by Magnetic
 const springOptions = { bounce: 0.1 };
 
 export default function BentoGridSection() {
-  // State for hover effect
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  // Data for the cards
   const projects = [
-    // --- Row 1 ---
     {
       title: "Dieta Personalizada",
       description:
@@ -54,11 +45,20 @@ export default function BentoGridSection() {
       footer: (
         <>
           <div>
-            <p className="text-black text-tiny">Resultados Visíveis</p>
-            <p className="text-black text-tiny">Comece Já!</p>
+            <p className="text-secondary-300 dark:text-primary-300 font-bold">
+              Resultados Visíveis
+            </p>
+            <p className="text-secondary-500 dark:text-primary-500 ">
+              O plano alimentar ideal para você, com resultados visíveis e
+              duradouros.
+            </p>
           </div>
-          <Button className="text-tiny" color="primary" radius="full" size="sm">
-            Ver Mais
+          <Button
+            color="secondary"
+            radius="full"
+            variant="ghost"
+          >
+            Começar Agora
           </Button>
         </>
       ),
@@ -187,14 +187,13 @@ export default function BentoGridSection() {
               {/* Cabeçalho com Título e Descrição */}
               <CardHeader className="absolute z-10 top-1 flex-col !items-start p-4">
                 <h4
-                  className={`${fontTitle.className} text-honeydew font-medium text-large mb-1`}
+                  className={`${fontTitle.className} text-xl md:text-2xl lg:text-3xl font-bold text-dark_green leading-tight md:leading-snug`}
                 >
                   {project.title}
                 </h4>
-                {/* Renderiza descrição apenas se não for o card "Alcance Seus Objetivos" */}
                 {project.title !== "Alcance Seus Objetivos" && (
                   <p
-                    className={`${fontSubtitle.className} text-sm text-honeydew/80`}
+                    className={`${fontSubtitle.className} text-sm md:text-base text-primary-700 dark:text-primary-200`}
                   >
                     {project.description}
                   </p>
@@ -202,7 +201,7 @@ export default function BentoGridSection() {
               </CardHeader>
               {/* Renderiza o Footer se definido */}
               {project.footer && (
-                <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between w-full p-4">
+                <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between w-full p-4 rounded-b-lg ">
                   {project.footer}
                 </CardFooter>
               )}
