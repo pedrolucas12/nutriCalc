@@ -1,72 +1,95 @@
-"use client";
+"use client"
 
-import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "motion/react";
-import React, {
-  ComponentPropsWithoutRef,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { cn } from "@/lib/utils"
+import type React from "react"
+import { useEffect, useRef, useState } from "react"
 
-export function AnimatedListItem({ children }: { children: React.ReactNode }) {
-  const animations = {
-    initial: { scale: 0, opacity: 0 },
-    animate: { scale: 1, opacity: 1, originY: 0 },
-    exit: { scale: 0, opacity: 0 },
-    transition: { type: "spring", stiffness: 350, damping: 40 },
-  };
+interface AnimatedListProps {
+  children: React.ReactNode
+  className?: string
+  delay?: number
+  direction?: "up" | "down"
+  speed?: number
+}
+
+export function AnimatedList({ children, className, delay = 2000, direction = "up", speed = 20 }: AnimatedListProps) {
+  const listRef = useRef<HTMLDivElement>(null)
+  const [scrollPosition, setScrollPosition] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
+  const [listHeight, setListHeight] = useState(0)
+  const [containerHeight, setContainerHeight] = useState(0)
+
+  // Calculate heights on mount and when children change
+  useEffect(() => {
+    if (listRef.current) {
+      setListHeight(listRef.current.scrollHeight)
+      setContainerHeight(listRef.current.clientHeight)
+    }
+  }, [children])
+
+  // Handle scrolling animation
+  useEffect(() => {
+    if (isPaused || isHovered || !listRef.current || listHeight <= containerHeight) {
+      return
+    }
+
+    let animationFrameId: number
+    let lastTimestamp: number
+
+    const animate = (timestamp: number) => {
+      if (!lastTimestamp) lastTimestamp = timestamp
+      const elapsed = timestamp - lastTimestamp
+
+      if (elapsed > speed) {
+        lastTimestamp = timestamp
+
+        // Calculate new scroll position
+        let newPosition
+        if (direction === "up") {
+          newPosition = scrollPosition + 1
+          if (newPosition > listHeight - containerHeight) {
+            newPosition = 0
+          }
+        } else {
+          newPosition = scrollPosition - 1
+          if (newPosition < 0) {
+            newPosition = listHeight - containerHeight
+          }
+        }
+
+        setScrollPosition(newPosition)
+
+        if (listRef.current) {
+          listRef.current.scrollTop = newPosition
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animate)
+    }
+
+    animationFrameId = requestAnimationFrame(animate)
+
+    return () => {
+      cancelAnimationFrame(animationFrameId)
+    }
+  }, [scrollPosition, isPaused, isHovered, listHeight, containerHeight, delay, direction, speed])
 
   return (
-    <motion.div {...animations} layout className="mx-auto w-full">
-      {children}
-    </motion.div>
-  );
-}
-
-export interface AnimatedListProps extends ComponentPropsWithoutRef<"div"> {
-  children: React.ReactNode;
-  delay?: number;
-}
-
-export const AnimatedList = React.memo(
-  ({ children, className, delay = 1000, ...props }: AnimatedListProps) => {
-    const [index, setIndex] = useState(0);
-    const childrenArray = useMemo(
-      () => React.Children.toArray(children),
-      [children],
-    );
-
-    useEffect(() => {
-      if (index < childrenArray.length - 1) {
-        const timeout = setTimeout(() => {
-          setIndex((prevIndex) => (prevIndex + 1) % childrenArray.length);
-        }, delay);
-
-        return () => clearTimeout(timeout);
-      }
-    }, [index, delay, childrenArray.length]);
-
-    const itemsToShow = useMemo(() => {
-      const result = childrenArray.slice(0, index + 1).reverse();
-      return result;
-    }, [index, childrenArray]);
-
-    return (
+    <div
+      className={cn("overflow-hidden", className)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div
-        className={cn(`flex flex-col items-center gap-4`, className)}
-        {...props}
+        ref={listRef}
+        className="transition-all duration-300"
+        style={{
+          transform: isHovered ? "translateY(0)" : undefined,
+        }}
       >
-        <AnimatePresence>
-          {itemsToShow.map((item) => (
-            <AnimatedListItem key={(item as React.ReactElement).key}>
-              {item}
-            </AnimatedListItem>
-          ))}
-        </AnimatePresence>
+        {children}
       </div>
-    );
-  },
-);
-
-AnimatedList.displayName = "AnimatedList";
+    </div>
+  )
+}

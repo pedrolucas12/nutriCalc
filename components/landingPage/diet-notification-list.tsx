@@ -1,260 +1,201 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import { IconBrandWhatsapp } from "@tabler/icons-react"
 import { motion } from "framer-motion"
-import { Apple, Carrot, Clock, Drumstick, Utensils } from "lucide-react"
-import React, { useEffect, useState } from "react"
-import { AnimatedList } from "../magicui/animated-list"
+import { Check } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 
 // Interface for diet notification items
 interface DietItem {
   meal: string
   food: string
-  details?: string
-  icon: React.ComponentType
-  color: string
   time: string
-  calories?: number
-  protein?: number
-  carbs?: number
-  fat?: number
+  isRead?: boolean
 }
 
-// Update the DietNotification component to remove the gray background and make it more transparent
-const DietNotification = ({ meal, food, details, icon, color, time, calories, protein, carbs, fat }: DietItem) => {
-  const [expanded, setExpanded] = useState(false)
-
+// Component to render a single diet notification
+const DietNotification = ({ meal, food, time, isRead = false }: DietItem) => {
   return (
-    <motion.div
-      className={cn(
-        "relative mx-auto w-full cursor-pointer overflow-hidden rounded-lg mb-2",
-        "bg-transparent backdrop-blur-[2px]",
-        "border border-white/10 dark:border-white/5",
-      )}
-      whileHover={{ scale: 1.02 }}
-      onClick={() => setExpanded(!expanded)}
-      layout
-    >
-      {/* Header with meal name and time */}
-      <div className="flex items-center justify-between p-2 bg-gradient-to-r from-green-500/10 to-green-400/5 border-b border-white/5">
-        <div className="flex items-center gap-2">
-          <div className="flex size-6 items-center justify-center rounded-full" style={{ backgroundColor: color }}>
-            <span className="text-white text-xs">{React.createElement(icon)}</span>
+    <div className={cn("relative w-full max-w-[250px] mb-2.5 flex", "transform transition-all duration-300")}>
+      <div
+        className={cn(
+          "relative rounded-lg py-2 px-3 max-w-full",
+          "bg-white dark:bg-[#202c33] shadow-sm",
+          "border border-gray-100 dark:border-gray-800",
+        )}
+      >
+        <div className="flex flex-col">
+          <div className="flex justify-between items-center mb-1">
+            <span className="font-bold text-xs text-gray-800 dark:text-white">{meal}</span>
+            <span className="text-[10px] text-gray-500 dark:text-gray-400 ml-2">{time}</span>
           </div>
-          <span className="font-bold text-sm">{meal}</span>
+          <p className="text-xs text-gray-700 dark:text-gray-200">{food}</p>
         </div>
-        <div className="flex items-center text-xs opacity-70">
-          <Clock size={10} className="mr-1" />
-          {time}
+
+        {/* Message tail */}
+        <div className="absolute left-[-6px] top-0 w-3 h-3 overflow-hidden">
+          <div className="absolute transform rotate-45 bg-white dark:bg-[#202c33] border-l border-t border-gray-100 dark:border-gray-800 w-3 h-3"></div>
+        </div>
+
+        {/* Read status */}
+        <div className="absolute bottom-0 right-1 flex items-center">
+          <Check size={12} className={cn("text-gray-400", isRead && "text-green-500")} />
+          {isRead && <Check size={12} className="text-green-500 -ml-[8px]" />}
         </div>
       </div>
-
-      {/* Main content */}
-      <div className="p-2 bg-gradient-to-b from-white/5 to-transparent dark:from-white/2 dark:to-transparent">
-        <div className="flex items-start">
-          <div className="flex-1">
-            <p className="text-sm font-medium">{food}</p>
-
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{
-                height: expanded ? "auto" : 0,
-                opacity: expanded ? 1 : 0,
-              }}
-              transition={{ duration: 0.3 }}
-              className="overflow-hidden"
-            >
-              {details && <p className="text-xs mt-1 opacity-80">{details}</p>}
-
-              {(calories || protein || carbs || fat) && (
-                <div className="mt-2 grid grid-cols-4 gap-1 text-center">
-                  {calories && (
-                    <div className="bg-white/5 rounded p-1 backdrop-blur-sm border border-white/5">
-                      <div className="text-xs font-bold">{calories}</div>
-                      <div className="text-[10px] opacity-70">kcal</div>
-                    </div>
-                  )}
-                  {protein && (
-                    <div className="bg-white/5 rounded p-1 backdrop-blur-sm border border-white/5">
-                      <div className="text-xs font-bold">{protein}g</div>
-                      <div className="text-[10px] opacity-70">Prot</div>
-                    </div>
-                  )}
-                  {carbs && (
-                    <div className="bg-white/5 rounded p-1 backdrop-blur-sm border border-white/5">
-                      <div className="text-xs font-bold">{carbs}g</div>
-                      <div className="text-[10px] opacity-70">Carb</div>
-                    </div>
-                  )}
-                  {fat && (
-                    <div className="bg-white/5 rounded p-1 backdrop-blur-sm border border-white/5">
-                      <div className="text-xs font-bold">{fat}g</div>
-                      <div className="text-[10px] opacity-70">Gord</div>
-                    </div>
-                  )}
-                </div>
-              )}
-            </motion.div>
-          </div>
-
-          <IconBrandWhatsapp className="ml-2 text-green-500 flex-shrink-0" size={16} />
-        </div>
-      </div>
-
-      {/* Expand indicator */}
-      <motion.div className="absolute bottom-1 right-1/2 translate-x-1/2" animate={{ rotate: expanded ? 180 : 0 }}>
-        <div className="w-4 h-1 bg-white/10 rounded-full" />
-      </motion.div>
-    </motion.div>
+    </div>
   )
 }
 
-// Update the main component to create a more seamless vertical fade effect
+// Main component for the animated diet notification list
 export default function DietNotificationList({
   className,
 }: {
   className?: string
 }) {
-  const [isLoaded, setIsLoaded] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [scrollPosition, setScrollPosition] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
 
-  // Diet notification data with detailed information
+  // Diet notification data
   const dietNotifications: DietItem[] = [
     {
       meal: "Café da Manhã",
       food: "Omelete de espinafre + Pão integral",
-      details: "2 ovos, 30g de espinafre, 1 fatia de pão integral com 10g de manteiga de amêndoas",
-      icon: Apple,
-      color: "#4ade80",
       time: "07:30",
-      calories: 350,
-      protein: 22,
-      carbs: 28,
-      fat: 18,
+      isRead: true,
     },
     {
       meal: "Lanche da Manhã",
       food: "Mix de frutas com iogurte",
-      details: "150g de iogurte grego, 100g de frutas vermelhas, 15g de granola low carb",
-      icon: Utensils,
-      color: "#a3e635",
       time: "10:00",
-      calories: 220,
-      protein: 15,
-      carbs: 25,
-      fat: 8,
+      isRead: true,
     },
     {
       meal: "Almoço",
       food: "Frango grelhado com legumes",
-      details: "150g de peito de frango, 100g de brócolis, 100g de batata doce, 1 col. de azeite",
-      icon: Drumstick,
-      color: "#22c55e",
       time: "12:30",
-      calories: 420,
-      protein: 40,
-      carbs: 35,
-      fat: 12,
+      isRead: true,
     },
     {
       meal: "Lanche da Tarde",
       food: "Smoothie proteico",
-      details: "30g de whey protein, 1 banana, 200ml de leite vegetal, 10g de pasta de amendoim",
-      icon: Carrot,
-      color: "#84cc16",
       time: "15:30",
-      calories: 280,
-      protein: 25,
-      carbs: 30,
-      fat: 7,
+      isRead: false,
     },
     {
       meal: "Jantar",
       food: "Salmão assado com quinoa",
-      details: "130g de salmão, 80g de quinoa cozida, mix de folhas verdes, 1 col. de azeite",
-      icon: Utensils,
-      color: "#16a34a",
       time: "19:00",
-      calories: 390,
-      protein: 32,
-      carbs: 25,
-      fat: 18,
+      isRead: false,
     },
     {
       meal: "Ceia",
       food: "Chá + Castanhas",
-      details: "Chá de camomila sem açúcar, 15g de mix de castanhas",
-      icon: Utensils,
-      color: "#65a30d",
       time: "21:30",
-      calories: 90,
-      protein: 3,
-      carbs: 4,
-      fat: 8,
+      isRead: false,
     },
   ]
 
-  useEffect(() => {
-    // Simulate loading delay
-    const timer = setTimeout(() => {
-      setIsLoaded(true)
-    }, 1000)
+  // Duplicate items for continuous scrolling
+  const allNotifications = [...dietNotifications, ...dietNotifications, ...dietNotifications]
 
-    return () => clearTimeout(timer)
-  }, [])
+  // Handle scrolling animation
+  useEffect(() => {
+    if (isPaused || !containerRef.current) return
+
+    let animationFrameId: number
+    let lastTimestamp: number
+    const totalHeight = containerRef.current.scrollHeight
+    const visibleHeight = containerRef.current.clientHeight
+    const speed = 1.5 // pixels per frame
+
+    const animate = (timestamp: number) => {
+      if (!lastTimestamp) lastTimestamp = timestamp
+      const elapsed = timestamp - lastTimestamp
+
+      if (elapsed > 16) {
+        // ~60fps
+        lastTimestamp = timestamp
+
+        // Calculate new scroll position
+        let newPosition = scrollPosition + speed
+
+        // Reset when we've scrolled through all items
+        if (newPosition > totalHeight - visibleHeight) {
+          newPosition = 0
+        }
+
+        setScrollPosition(newPosition)
+
+        if (containerRef.current) {
+          containerRef.current.scrollTop = newPosition
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(animate)
+    }
+
+    animationFrameId = requestAnimationFrame(animate)
+
+    return () => {
+      cancelAnimationFrame(animationFrameId)
+    }
+  }, [scrollPosition, isPaused])
 
   return (
     <div
-      className={cn("flex flex-col overflow-hidden bg-transparent rounded-xl border border-white/10 p-2", className)}
+      className={cn("relative h-full w-full overflow-hidden", className)}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
-      {/* WhatsApp header */}
-      <div className="flex items-center mb-2 bg-gradient-to-r from-green-600/80 to-green-500/80 backdrop-blur-sm p-2 rounded-lg">
-        <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center">
-          <IconBrandWhatsapp className="h-4 w-4 text-green-600" />
-        </div>
-        <div className="ml-2">
-          <p className="text-xs font-bold text-white">NutriCalc</p>
-          <p className="text-[10px] text-white/80">Seu plano alimentar personalizado</p>
+      {/* WhatsApp-like background */}
+      <div className="absolute inset-0 bg-[#e5ded8] dark:bg-[#0b141a]">
+        {/* WhatsApp pattern */}
+        <div
+          className="absolute inset-0 opacity-5 dark:opacity-10"
+         
+        />
+      </div>
+
+      {/* Chat container */}
+      <div
+        ref={containerRef}
+        className="absolute inset-0 overflow-hidden px-4 py-6 [mask-image:linear-gradient(to_bottom,transparent_0%,#000_10%,#000_90%,transparent_100%)]"
+      >
+        <div className="flex flex-col items-start space-y-1 pt-20 pb-20">
+          {/* Date divider */}
+          <div className="self-center mb-4 px-3 py-1 rounded-lg bg-white/70 dark:bg-gray-800/70 backdrop-blur-sm text-xs text-gray-500 dark:text-gray-400">
+            Hoje
+          </div>
+
+          {/* System message */}
+          <div className="self-center mb-2 px-3 py-1 rounded-lg bg-[#FFF3C7] dark:bg-yellow-900/30 text-xs text-gray-600 dark:text-yellow-200/80 max-w-[80%] text-center">
+            Seu plano alimentar personalizado foi criado com base no seu perfil
+          </div>
+
+          {allNotifications.map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ x: -10, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{
+                delay: (idx * 0.05) % 0.3,
+                duration: 0.3,
+              }}
+              className="w-full"
+            >
+              <DietNotification {...item} />
+            </motion.div>
+          ))}
         </div>
       </div>
 
-      {/* Loading animation */}
-      {!isLoaded ? (
-        <div className="flex flex-col space-y-2 p-2">
-          <div className="h-20 bg-white/5 animate-pulse rounded-lg border border-white/5"></div>
-          <div className="h-20 bg-white/5 animate-pulse rounded-lg border border-white/5"></div>
-          <div className="h-20 bg-white/5 animate-pulse rounded-lg border border-white/5"></div>
-          <div className="flex items-center justify-center mt-2">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse delay-150 mx-1"></div>
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse delay-300"></div>
-          </div>
+      {/* WhatsApp input bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-12 bg-[#f0f2f5] dark:bg-[#202c33] border-t border-gray-200 dark:border-gray-800 flex items-center px-3">
+        <div className="w-full h-9 bg-white dark:bg-[#2a3942] rounded-full flex items-center px-3 text-xs text-gray-400">
+          Digite uma mensagem
         </div>
-      ) : (
-        <div className="h-full overflow-hidden relative">
-          {/* Top fade effect */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-6 bg-gradient-to-b from-background/30 to-transparent z-10" />
-
-          <AnimatedList delay={3000} >
-            {dietNotifications.map((item, idx) => (
-              <DietNotification key={idx} {...item} />
-            ))}
-            {/* Duplicate items for continuous scrolling */}
-            {dietNotifications.map((item, idx) => (
-              <DietNotification key={`dup-${idx}`} {...item} />
-            ))}
-          </AnimatedList>
-
-          {/* Bottom fade effect - enhanced for better vertical infinity illusion */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background/40 via-background/20 to-transparent" />
-        </div>
-      )}
-
-      {/* Tech UI elements */}
-      <div className="absolute bottom-2 right-2 flex space-x-1">
-        <div className="w-1.5 h-1.5 rounded-full bg-green-500/70 animate-ping"></div>
-        <div className="w-1.5 h-1.5 rounded-full bg-green-500/40"></div>
-        <div className="w-1.5 h-1.5 rounded-full bg-green-500/40"></div>
       </div>
     </div>
   )
