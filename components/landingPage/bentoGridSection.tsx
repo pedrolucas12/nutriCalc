@@ -114,9 +114,9 @@ export default function BentoGridSection() {
             >
               <div className="flex flex-col items-center justify-center">
                 <p className="z-10 text-center text-4xl md:text-5xl font-bold tracking-tight group-hover:scale-105 transition-all duration-350 ease-in-out">
-                  Transforme seu{" "}
+                  Transforme sua{" "}
                   <span className="text-primary-500 dark:text-primary-400">
-                    corpo e vida
+                    vida
                   </span>
                 </p>
                 <p className="opacity-0 group-hover:opacity-100 transition-all duration-500 text-center text-md max-w-xs mt-4">
@@ -126,11 +126,11 @@ export default function BentoGridSection() {
                 <Button
                   color="primary"
                   radius="full"
+                  variant="shadow"
                   size="lg"
                   className="mt-6 opacity-0 group-hover:opacity-100 transition-all duration-500"
                 >
-                  Descubra como{" "}
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  Descobrir
                 </Button>
               </div>
             </Magnetic>
