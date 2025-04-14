@@ -23,6 +23,8 @@ import {
   Sparkles,
   Utensils,
 } from "lucide-react";
+import { AiBackground } from "../ui/ai-background";
+import ClientOnlyApexChart from "../ui/client-pie-chart";
 import DietNotificationList from "./diet-notification-list";
 
 export default function BentoGridSection() {
@@ -33,7 +35,9 @@ export default function BentoGridSection() {
 
   // Spring options for magnetic effect
   const springOptions = { bounce: 0.1 };
-
+  const exampleIMC = 24.5;
+  const exampleWeight = 75;
+  const exampleHeight = 175
   // Data for the cards with enhanced content
   const cards = [
     // Card 1: Dieta Personalizada (Feature highlight)
@@ -187,142 +191,52 @@ export default function BentoGridSection() {
     },
 
     {
-      title: "Teste Gratuito",
-      description:
-        "Calcule seu IMC, TMB e % de gordura corporal gratuitamente.",
-      link: "#teste-gratuito",
-      span: 4,
-      color: "from-amber-500/20 to-amber-600/20",
-      icon: <BarChart3 className="h-6 w-6 text-amber-500" />,
+      Icon: BarChart3,
+      name: "Teste Gratuito TMB/IMC",
+      description: "Descubra suas métricas corporais essenciais sem custo.",
+      href: "#teste-gratuito",
+      cta: "Calcular Agora",
+      className: "col-span-12 md:col-span-4",
       content: (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-32 h-32">
-            <svg viewBox="0 0 100 100" className="w-full h-full">
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="8"
-                strokeOpacity="0.2"
-              />
-              <circle
-                cx="50"
-                cy="50"
-                r="45"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="8"
-                strokeDasharray="283"
-                strokeDashoffset="70"
-                className="text-amber-500"
-              />
-            </svg>
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-2xl font-bold">24.5</span>
-              <span className="text-xs opacity-70">IMC</span>
-            </div>
-          </div>
+        // Usa o componente wrapper que agora importa dinamicamente
+       <div className="absolute inset-0 overflow-hidden">
+          <ClientOnlyApexChart
+            imcValue={exampleIMC}
+            weight={exampleWeight}
+            height={exampleHeight}
+          />
         </div>
       ),
       footer: (
-        <div className="flex justify-between items-center w-full">
-          <div className="flex space-x-2">
-            <span className="text-xs py-1 px-2 bg-amber-500/30 text-amber-700 dark:text-amber-300 rounded-full font-medium border border-amber-500/30">
-              IMC
-            </span>
-            <span className="text-xs py-1 px-2 bg-amber-500/30 text-amber-700 dark:text-amber-300 rounded-full font-medium border border-amber-500/30">
-              TMB
-            </span>
-          </div>
+        <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-gray-800/30">
+          <p className="text-primary-700 dark:text-primary-300 text-sm font-medium">
+            Resultados instantâneos
+          </p>
           <Button
-            color="default"
+            color="primary"
             variant="solid"
             radius="full"
             size="sm"
-            className="bg-amber-500 hover:bg-amber-600 text-white"
+            className="group bg-primary-500 hover:bg-primary-600"
           >
-            Calcular
+            Calcular{" "}
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>
       ),
     },
-
     // Card 5: AI Technology (Tech highlight)
     {
       title: "IA para sua Dieta",
       description:
         "Tecnologia avançada que aprende com seus resultados e adapta seu plano continuamente.",
       link: "#ia-dieta",
-      span: 4,
-      color: "from-purple-500/20 to-purple-600/20",
+      span: 4, // Ajustado para 4 colunas
+      color: "from-purple-500/20 to-purple-600/20", // Cor para o fundo do hover
       icon: <Brain className="h-6 w-6 text-purple-500" />,
       content: (
-        <div className="absolute inset-0 overflow-hidden">
-          {/* Futuristic AI background */}
-          <div className="absolute inset-0">
-            {/* Neural network nodes */}
-            {Array.from({ length: 15 }).map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-2 h-2 rounded-full bg-purple-500/40"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animation: `pulse ${1 + Math.random() * 2}s infinite alternate ${Math.random() * 2}s`,
-                }}
-              ></div>
-            ))}
-
-            {/* Neural network connections */}
-            <svg
-              className="absolute inset-0 w-full h-full opacity-20"
-              viewBox="0 0 100 100"
-              preserveAspectRatio="none"
-            >
-              {Array.from({ length: 10 }).map((_, i) => {
-                const x1 = Math.random() * 100;
-                const y1 = Math.random() * 100;
-                const x2 = Math.random() * 100;
-                const y2 = Math.random() * 100;
-                return (
-                  <line
-                    key={i}
-                    x1={x1}
-                    y1={y1}
-                    x2={x2}
-                    y2={y2}
-                    stroke="url(#purple-gradient)"
-                    strokeWidth="0.5"
-                  />
-                );
-              })}
-              <defs>
-                <linearGradient
-                  id="purple-gradient"
-                  x1="0%"
-                  y1="0%"
-                  x2="100%"
-                  y2="100%"
-                >
-                  <stop offset="0%" stopColor="#8B5CF6" />
-                  <stop offset="100%" stopColor="#D946EF" />
-                </linearGradient>
-              </defs>
-            </svg>
-
-            {/* Central brain visualization */}
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20 rounded-full animate-pulse"></div>
-              <div
-                className="absolute inset-2 border-2 border-dashed border-purple-400/30 rounded-full animate-spin"
-                style={{ animationDuration: "10s" }}
-              ></div>
-              <div className="absolute inset-4 border border-purple-500/20 rounded-full"></div>
-            </div>
-          </div>
-        </div>
+        // Usa o componente AiBackground que gera valores aleatórios no cliente
+        <AiBackground />
       ),
       footer: (
         <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-purple-900/30">
@@ -330,7 +244,7 @@ export default function BentoGridSection() {
             Atualização contínua
           </p>
           <Button
-            color="primary"
+            color="primary" // Ou talvez uma cor roxa?
             variant="solid"
             radius="full"
             size="sm"
@@ -388,7 +302,7 @@ export default function BentoGridSection() {
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <NextLink
-              href={card.link}
+              href={card.link || "#"}
               className="block h-full w-full group"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
