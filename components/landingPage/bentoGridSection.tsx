@@ -97,46 +97,53 @@ export default function BentoGridSection() {
     },
 
     // Card 2: Transformação (Hero card)
+    // --- Card 2: Transformação (Hero card) ---
     {
-      title: "",
-      description: "",
+      name: "", // Título principal está dentro do content
+      description: "", // Descrição principal está dentro do content (no hover)
       link: "#transformacao",
       span: 5,
       content: (
-        <div className="flex group h-full w-full bg-gradient-to-br from-primary-500/20 via-primary-300/10 to-primary-800/20 rounded-xl overflow-hidden relative">
-          <div className="flex h-full w-full flex-col items-center justify-center overflow-hidden absolute">
+        <div className="relative flex items-center justify-center h-full w-full overflow-hidden rounded-xl bg-gradient-to-br from-primary-500/10 via-primary-300/5 to-primary-800/10">
+          {" "}
+          {/* Fundo gradiente sutil */}
+          {/* Efeito Ripple como fundo */}
+          <RipplePulse />
+          {/* Container para o texto e botão, centralizado e com z-index */}
+          <div className="relative z-10 flex flex-col items-center justify-center text-center p-4">
             <Magnetic
               actionArea="global"
               intensity={0.2}
               range={200}
               springOptions={springOptions}
             >
-              <div className="flex flex-col items-center justify-center">
-                <p className="z-10 text-center text-4xl md:text-5xl font-bold tracking-tight group-hover:scale-105 transition-all duration-350 ease-in-out">
+              {/* Texto Principal (Sempre Visível e Centralizado) */}
+              {/* Adicionado mb-2 group-hover:mb-4 para dar espaço */}
+                <p className="text-4xl md:text-5xl font-bold tracking-tight text-dark_green dark:text-white mb-2 group-hover:mb-4 transition-all duration-300">
                   Transforme sua{" "}
                   <span className="text-primary-500 dark:text-primary-400">
                     vida
                   </span>
+                  <br />
+                  
                 </p>
-                <p className="opacity-0 group-hover:opacity-100 transition-all duration-500 text-center text-md max-w-xs mt-4">
+                <p className="absolute px-4 text-md max-w-sm mx-auto text-dim_gray dark:text-secondary-300 opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-in-out pointer-events-none text-end">
                   Nossa IA analisa seu perfil completo para criar uma dieta que
                   realmente funciona para você.
                 </p>
-                <Button
-                  color="primary"
-                  radius="full"
-                  variant="shadow"
-                  size="lg"
-                  className="mt-6 opacity-0 group-hover:opacity-100 transition-all duration-500"
-                >
-                  Descobrir
-                </Button>
-              </div>
+              
             </Magnetic>
+
+            {/* Subtítulo (Aparece no Hover, posicionado abaixo do título) */}
+            {/* Usamos translate-y para mover para baixo inicialmente e subir no hover */}
+            {/* Ajustado bottom e max-w */}
+
+            {/* Botão (Aparece no Hover, posicionado abaixo do subtítulo) */}
+            {/* Usamos translate-y similar ao subtítulo, mas com delay */}
           </div>
-          <RipplePulse />
         </div>
       ),
+      // Removido CTA daqui, pois o botão está no content
     },
 
     // Card 3: WhatsApp Diet (Feature highlight with visual)
@@ -245,26 +252,28 @@ export default function BentoGridSection() {
       icon: <Brain className="h-6 w-6 text-purple-500" />,
       content: (
         <div className="grid grid-cols-3 h-full absolute  bg-primary-500 overflow-hidden rounded-xl">
-        <div className="px-4 py-6 transition-all duration-300  col-span-2 flex flex-col justify-center z-20"> {/* Ajustado justify-center */}
-          <div className="flex flex-col justify-between h-full">
-            <p className="text-4xl md:text-5xl text-white font-bold leading-tight">
-              Nutrição Inteligente
-            </p>
-            <p className="text-md md:text-lg text-secondary-100 dark:text-secondary-200 ">
-              Deixe a IA analisar seu perfil e montar o plano perfeito para seus objetivos. {/* Descrição Curta */}
-            </p>
+          <div className="px-4 py-6 transition-all duration-300  col-span-2 flex flex-col justify-center z-20">
+            {" "}
+            {/* Ajustado justify-center */}
+            <div className="flex flex-col justify-between h-full">
+              <p className="text-4xl md:text-5xl text-white font-bold leading-tight">
+                Nutrição Inteligente
+              </p>
+              <p className="text-md md:text-lg text-secondary-100 dark:text-secondary-200 ">
+                Deixe a IA analisar seu perfil e montar o plano perfeito para
+                seus objetivos. {/* Descrição Curta */}
+              </p>
+            </div>
+          </div>
+          <div className="relative col-span-1 h-full">
+            <Image
+              alt="Ilustração da IA personalizando a dieta"
+              className="absolute bottom-0 right-0 group-hover:scale-105 transition-all duration-300 ease-in-out z-10"
+              removeWrapper
+              src="/images/bento/avatar3.png"
+            />
           </div>
         </div>
-        <div className="relative col-span-1 h-full">
-          <Image
-            alt="Ilustração da IA personalizando a dieta"
-            className="absolute bottom-0 right-0 group-hover:scale-105 transition-all duration-300 ease-in-out z-10"
-            removeWrapper
-            src="/images/bento/avatar3.png"
-          />
-        </div>
-      </div>
-      
       ),
     },
   ];
