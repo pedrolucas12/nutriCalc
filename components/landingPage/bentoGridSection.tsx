@@ -15,6 +15,7 @@ import { Magnetic } from "../motion-primitives/magnetic";
 // Configuration Imports
 import { fontSubtitle, fontTitle } from "@/config/fonts";
 import { cn } from "@/lib/utils";
+import { Image } from "@heroui/image";
 import {
   ArrowRight,
   BarChart3,
@@ -23,7 +24,6 @@ import {
   Sparkles,
   Utensils,
 } from "lucide-react";
-import { AiBackground } from "../ui/ai-background";
 import ClientOnlyApexChart from "../ui/client-pie-chart";
 import DietNotificationList from "./diet-notification-list";
 
@@ -37,7 +37,7 @@ export default function BentoGridSection() {
   const springOptions = { bounce: 0.1 };
   const exampleIMC = 24.5;
   const exampleWeight = 75;
-  const exampleHeight = 175
+  const exampleHeight = 175;
   // Data for the cards with enhanced content
   const cards = [
     // Card 1: Dieta Personalizada (Feature highlight)
@@ -102,9 +102,8 @@ export default function BentoGridSection() {
       description: "",
       link: "#transformacao",
       span: 5,
-      color: "from-primary-500/20 to-primary-600/20",
       content: (
-        <div className="flex group h-full w-full">
+        <div className="flex group h-full w-full bg-gradient-to-br from-primary-500/20 via-primary-300/10 to-primary-800/20 rounded-xl overflow-hidden relative">
           <div className="flex h-full w-full flex-col items-center justify-center overflow-hidden absolute">
             <Magnetic
               actionArea="global"
@@ -200,21 +199,25 @@ export default function BentoGridSection() {
       content: (
         // Usa o componente wrapper que agora importa dinamicamente
         <div className="absolute inset-0 flex items-center justify-center p-2 opacity-90 group-hover:opacity-100 transition-opacity duration-300">
-        <ClientOnlyApexChart
-          imcValue={exampleIMC} // Passa os dados
-          weight={exampleWeight}
-          height={exampleHeight}
-        />
-      </div>
+          <ClientOnlyApexChart
+            imcValue={exampleIMC} // Passa os dados
+            weight={exampleWeight}
+            height={exampleHeight}
+          />
+        </div>
       ),
       footer: (
         <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-secondary-800/30">
           {/* Texto informativo */}
           <div>
-            <p className={`${fontTitle.className} text-secondary-800 dark:text-secondary-200 font-semibold text-sm`}>
+            <p
+              className={`${fontTitle.className} text-secondary-800 dark:text-secondary-200 font-semibold text-sm`}
+            >
               Entenda sua Saúde
             </p>
-            <p className={`${fontSubtitle.className} text-secondary-600 dark:text-secondary-400 text-xs`}>
+            <p
+              className={`${fontSubtitle.className} text-secondary-600 dark:text-secondary-400 text-xs`}
+            >
               Calcule e visualize seu IMC.
             </p>
           </div>
@@ -235,33 +238,33 @@ export default function BentoGridSection() {
     },
     // Card 5: AI Technology (Tech highlight)
     {
-      title: "IA para sua Dieta",
-      description:
-        "Tecnologia avançada que aprende com seus resultados e adapta seu plano continuamente.",
+      title: "",
+      description: "",
       link: "#ia-dieta",
       span: 4, // Ajustado para 4 colunas
-      color: "from-purple-500/20 to-purple-600/20", // Cor para o fundo do hover
       icon: <Brain className="h-6 w-6 text-purple-500" />,
       content: (
-        // Usa o componente AiBackground que gera valores aleatórios no cliente
-        <AiBackground />
-      ),
-      footer: (
-        <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-purple-900/30">
-          <p className="text-purple-700 dark:text-purple-300 text-sm font-medium">
-            Atualização contínua
-          </p>
-          <Button
-            color="primary" // Ou talvez uma cor roxa?
-            variant="solid"
-            radius="full"
-            size="sm"
-            className="group bg-purple-500 hover:bg-purple-600"
-          >
-            Saiba mais{" "}
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+        <div className="grid grid-cols-3 h-full absolute  bg-primary-500 overflow-hidden rounded-xl">
+        <div className="px-4 py-6 transition-all duration-300  col-span-2 flex flex-col justify-center z-20"> {/* Ajustado justify-center */}
+          <div className="flex flex-col justify-between h-full">
+            <p className="text-4xl md:text-5xl text-white font-bold leading-tight">
+              Nutrição Inteligente
+            </p>
+            <p className="text-md md:text-lg text-secondary-100 dark:text-secondary-200 ">
+              Deixe a IA analisar seu perfil e montar o plano perfeito para seus objetivos. {/* Descrição Curta */}
+            </p>
+          </div>
         </div>
+        <div className="relative col-span-1 h-full">
+          <Image
+            alt="Ilustração da IA personalizando a dieta"
+            className="absolute bottom-0 right-0 group-hover:scale-105 transition-all duration-300 ease-in-out z-10"
+            removeWrapper
+            src="/images/bento/avatar3.png"
+          />
+        </div>
+      </div>
+      
       ),
     },
   ];
