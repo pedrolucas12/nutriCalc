@@ -199,28 +199,36 @@ export default function BentoGridSection() {
       className: "col-span-12 md:col-span-4",
       content: (
         // Usa o componente wrapper que agora importa dinamicamente
-       <div className="absolute inset-0 overflow-hidden">
-          <ClientOnlyApexChart
-            imcValue={exampleIMC}
-            weight={exampleWeight}
-            height={exampleHeight}
-          />
-        </div>
+        <div className="absolute inset-0 flex items-center justify-center p-2 opacity-90 group-hover:opacity-100 transition-opacity duration-300">
+        <ClientOnlyApexChart
+          imcValue={exampleIMC} // Passa os dados
+          weight={exampleWeight}
+          height={exampleHeight}
+        />
+      </div>
       ),
       footer: (
-        <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-gray-800/30">
-          <p className="text-primary-700 dark:text-primary-300 text-sm font-medium">
-            Resultados instantâneos
-          </p>
+        <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-secondary-800/30">
+          {/* Texto informativo */}
+          <div>
+            <p className={`${fontTitle.className} text-secondary-800 dark:text-secondary-200 font-semibold text-sm`}>
+              Entenda sua Saúde
+            </p>
+            <p className={`${fontSubtitle.className} text-secondary-600 dark:text-secondary-400 text-xs`}>
+              Calcule e visualize seu IMC.
+            </p>
+          </div>
+          {/* Botão mais claro */}
           <Button
-            color="primary"
-            variant="solid"
+            as={NextLink} // Faz o botão funcionar como link
+            href="#teste-gratuito" // Mesmo link do card
+            color="default" // Para usar nossas classes customizadas
             radius="full"
             size="sm"
-            className="group bg-primary-500 hover:bg-primary-600"
+            className="group bg-primary-500 hover:bg-primary-600 text-white text-xs px-3 py-1.5" // Estilo do botão
           >
-            Calcular{" "}
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            Calcular
+            <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-0.5" />
           </Button>
         </div>
       ),
