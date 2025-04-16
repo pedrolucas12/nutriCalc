@@ -55,11 +55,11 @@ export default function BentoGridSection() {
       content: (
         <div className="relative flex flex-col items-center justify-center h-full w-full overflow-hidden rounded-xl bg-gradient-to-br from-emerald-100/30 via-emerald-200/20 to-teal-100/20">
           {/* Lottie Fingerprint centralizado */}
-          <div className="w-32 h-32 md:w-40 md:h-40 flex items-center justify-center mx-auto mt-4 z-10">
+          <div className="w-40 h-40 md:w-48 md:h-48 flex items-center justify-center mx-auto  z-10">
           <Lottie animationData={fingerprint} loop={true} />
           </div>
           {/* Texto centralizado abaixo do Lottie */}
-          <div className="flex flex-col items-center justify-center mt-2 z-20">
+          <div className="flex flex-col items-center justify-center  z-20">
             <h3 className={`${fontTitle.className} text-2xl md:text-3xl font-bold text-primary-700 text-center`}>
               Sua dieta, sua identidade.
             </h3>
@@ -152,9 +152,9 @@ export default function BentoGridSection() {
       ),
     },
     {
-      title: "Alcance Seus Objetivos",
+      title: "",
       description:
-        "Transforme seu corpo e saúde com um plano que evolui com você.",
+        "",
       link: "#alcance-objetivos",
       span: 4,
       color: "from-secondary-400/10 to-secondary-500/10",
@@ -164,10 +164,10 @@ export default function BentoGridSection() {
           <RipplePulse />
           <div className="gap-2 flex h-full w-full flex-col items-center justify-center absolute z-10 p-4 pointer-events-none">
             <Magnetic actionArea="global" intensity={0.2} range={200} springOptions={springOptions}>
-              <p className="z-10 whitespace-pre-wrap text-center text-2xl md:text-3xl font-medium tracking-tighter text-white group-hover:scale-105 transition-all duration-350 ease-in-out pb-1 md:pb-2">
-                Transforme seu <span className="text-secondary-200">corpo</span>.
+              <p className="z-10 whitespace-pre-wrap text-center text-3xl md:text-4xl font-bold tracking-tighter text-primary group-hover:scale-105 transition-all duration-350 ease-in-out pb-1 md:pb-2">
+                Transforme seu <span className="text-secondary-200">corpo</span>
               </p>
-              <p className="group-hover:opacity-100 opacity-0 transition-all duration-350 ease-in-out text-center text-xs md:text-sm text-secondary-200">
+              <p className="group-hover:opacity-100 opacity-0 transition-all duration-350 ease-in-out text-center text-md text-primary-800">
                 Deixe nossa IA criar o caminho ideal.
               </p>
             </Magnetic>
