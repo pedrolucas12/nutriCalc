@@ -1,7 +1,6 @@
 "use client";
 
 import { fontTitle } from "@/config/fonts";
-import { ChevronRight } from "lucide-react";
 
 import {
   Activity,
@@ -9,7 +8,7 @@ import {
   Utensils
 } from "lucide-react";
 import { useCallback, useState } from "react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../motion-primitives/accordion";
+import { NutriCalcStepsStickyScroll } from "./stepsStickyScroll";
 
 
 
@@ -71,37 +70,7 @@ export default function AccordionSteps() {
         </p>
       </div>
       <div className="flex flex-col md:grid md:grid-cols-[1fr_1fr] gap-8 justify-between items-center w-full">
-        <Accordion
-          className="flex w-full flex-col"
-          transition={{ type: 'spring', stiffness: 120, damping: 20 }}
-          variants={{
-            expanded: {
-              opacity: 1,
-              scale: 1,
-            },
-            collapsed: {
-              opacity: 0,
-              scale: 0.7,
-            },
-          }}
-          onValueChange={handleAccordionChange}
-        >
-          {STEPS.map((item, index) => (
-            <AccordionItem key={item} value={item} className="py-2">
-              <AccordionTrigger className="w-full py-0.5 text-left">
-                <div className="flex items-center gap-4">
-                  <ChevronRight className="h-4 w-4 transition-transform duration-200 group-data-expanded:rotate-90" />
-                  <p className="text-base font-semibold text-black">{STEP_TITLES[index] ?? ""}</p>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent className="origin-left">
-                <p className="pl-6 pr-2 text-zinc-500">
-                  {STEP_DESCRIPTIONS[index] ?? ""}
-                </p>
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+       <NutriCalcStepsStickyScroll />
       </div>
     </section>
   );
