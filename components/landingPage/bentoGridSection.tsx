@@ -5,8 +5,8 @@ import React, { useEffect, useState } from "react";
 
 import { Button } from "@heroui/button";
 import { Card } from "@heroui/card";
-
 import { AnimatePresence, motion, useInView } from "framer-motion";
+import Lottie from "lottie-react";
 import { Ripple } from "../magicui/ripple";
 import { Magnetic } from "../motion-primitives/magnetic";
 
@@ -15,6 +15,7 @@ import { cn } from "@/lib/utils";
 
 import { ArrowRight, BarChart3, Brain, Goal, MessageCircle, Sparkles } from "lucide-react";
 
+import fingerprint from "@/public/animations/fingerprint.json";
 import { CardNutricionIA } from "../ui/animatedBeamDemo";
 import ClientOnlyApexChart from "../ui/client-pie-chart";
 import DietNotificationList from "./diet-notification-list";
@@ -45,55 +46,29 @@ export default function BentoGridSection() {
   }> = [
     {
       title: "Dieta 100% Personalizada",
-      description:
-        "Plano alimentar único, criado sob medida para seu corpo, rotina e preferências.",
+      description: "Plano alimentar único, criado sob medida para seu corpo, rotina e preferências.",
       link: "#dieta-personalizada",
       span: 7,
       color: "from-emerald-500/20 to-teal-500/20",
       icon: <Sparkles className="h-6 w-6 text-emerald-500" />,
       content: (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -right-10 -bottom-10 w-[80%] h-[80%] rounded-full bg-gradient-to-br from-emerald-300/10 to-teal-500/20 blur-3xl"></div>
-          <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-emerald-400/10 blur-xl"></div>
-          <div className="absolute bottom-20 left-20 w-32 h-32 rounded-full bg-teal-300/10 blur-xl"></div>
-          <div className="absolute right-10 top-10 opacity-20">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="relative h-[10px]">
-                <div
-                  className="absolute w-8 h-1.5 bg-emerald-500/40 rounded-full"
-                  style={{
-                    transform: `translateY(${i * 10}px) rotate(${i % 2 ? 30 : -30}deg)`,
-                    left: i % 2 ? "10px" : "0px",
-                  }}
-                ></div>
-                <div
-                  className="absolute w-8 h-1.5 bg-teal-500/40 rounded-full"
-                  style={{
-                    transform: `translateY(${i * 10}px) rotate(${i % 2 ? -30 : 30}deg)`,
-                    right: i % 2 ? "10px" : "0px",
-                  }}
-                ></div>
-              </div>
-            ))}
+        <div className="relative flex flex-col items-center justify-center h-full w-full overflow-hidden rounded-xl bg-gradient-to-br from-emerald-100/30 via-emerald-200/20 to-teal-100/20">
+          {/* Lottie Fingerprint centralizado */}
+          <div className="w-32 h-32 md:w-40 md:h-40 flex items-center justify-center mx-auto mt-4 z-10">
+          <Lottie animationData={fingerprint} loop={true} />
+          </div>
+          {/* Texto centralizado abaixo do Lottie */}
+          <div className="flex flex-col items-center justify-center mt-2 z-20">
+            <h3 className={`${fontTitle.className} text-2xl md:text-3xl font-bold text-primary-700 text-center`}>
+              Sua dieta, sua identidade.
+            </h3>
+            <p className={`${fontSubtitle.className} text-sm md:text-base text-primary-800 text-center mt-2`}>
+              A IA analisa seu perfil, preferências e rotina para criar um plano alimentar exclusivo para você.
+            </p>
           </div>
         </div>
       ),
-      footer: (
-        <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-gray-800/30">
-          <p className="text-emerald-700 dark:text-emerald-300 text-sm font-medium">
-            Resultados visíveis em semanas
-          </p>
-          <Button
-            color="primary"
-            radius="full"
-            size="sm"
-            className="group bg-emerald-500 hover:bg-emerald-600"
-          >
-            Começar{" "}
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
-        </div>
-      ),
+    
     },
     {
       title: "",
