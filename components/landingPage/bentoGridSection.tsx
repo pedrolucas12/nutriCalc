@@ -1,64 +1,64 @@
 "use client";
 
 import NextLink from "next/link";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-// UI Library Imports
 import { Button } from "@heroui/button";
 import { Card } from "@heroui/card";
 
-// Animation Imports
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { Ripple } from "../magicui/ripple";
 import { Magnetic } from "../motion-primitives/magnetic";
 
-// Configuration Imports
 import { fontSubtitle, fontTitle } from "@/config/fonts";
 import { cn } from "@/lib/utils";
-import { Image } from "@heroui/image";
-import {
-  ArrowRight,
-  BarChart3,
-  Brain,
-  MessageCircle,
-  Sparkles,
-  Utensils,
-} from "lucide-react";
+
+import { ArrowRight, BarChart3, Brain, Goal, MessageCircle, Sparkles } from "lucide-react";
+
+import { CardNutricionIA } from "../ui/animatedBeamDemo";
 import ClientOnlyApexChart from "../ui/client-pie-chart";
 import DietNotificationList from "./diet-notification-list";
 
-export default function BentoGridSection() {
-  // State for hover and animation effects
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+const springOptions = { bounce: 0.1 };
 
-  // Spring options for magnetic effect
-  const springOptions = { bounce: 0.1 };
+export default function BentoGridSection() {
+  const sectionRef = React.useRef<HTMLElement | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const isInView = useInView(sectionRef, { once: true });
+
+  // Dados de exemplo para IMC, peso e altura
   const exampleIMC = 24.5;
   const exampleWeight = 75;
   const exampleHeight = 175;
-  // Data for the cards with enhanced content
-  const cards = [
-    // Card 1: Dieta Personalizada (Feature highlight)
+
+  // Cards detalhados para matar as dores do cliente
+  const cards: Array<{
+    title: string;
+    description: string;
+    link: string;
+    span: number;
+    color: string;
+    icon: JSX.Element;
+    content: JSX.Element;
+    footer?: JSX.Element;
+    titlePosition?: "top-right" | "bottom";
+  }> = [
     {
-      title: "Dieta Personalizada",
+      title: "Dieta 100% Personalizada",
       description:
-        "Plano alimentar único criado pela IA com base no seu perfil, objetivos, preferências e necessidades nutricionais específicas para resultados otimizados.",
+        "Plano alimentar único, criado sob medida para seu corpo, rotina e preferências.",
       link: "#dieta-personalizada",
       span: 7,
       color: "from-emerald-500/20 to-teal-500/20",
       icon: <Sparkles className="h-6 w-6 text-emerald-500" />,
       content: (
-        <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -right-10 -bottom-10 w-[80%] h-[80%] rounded-full bg-gradient-to-br from-emerald-300/10 to-teal-500/20 blur-3xl"></div>
           <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-emerald-400/10 blur-xl"></div>
           <div className="absolute bottom-20 left-20 w-32 h-32 rounded-full bg-teal-300/10 blur-xl"></div>
-
-          {/* DNA-like structure to represent personalization */}
           <div className="absolute right-10 top-10 opacity-20">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="relative">
+              <div key={i} className="relative h-[10px]">
                 <div
                   className="absolute w-8 h-1.5 bg-emerald-500/40 rounded-full"
                   style={{
@@ -95,90 +95,31 @@ export default function BentoGridSection() {
         </div>
       ),
     },
-
-    // Card 2: Transformação (Hero card)
-    // --- Card 2: Transformação (Hero card) ---
-    {
-      name: "", // Título principal está dentro do content
-      description: "", // Descrição principal está dentro do content (no hover)
-      link: "#transformacao",
-      span: 5,
-      content: (
-        <div className="relative flex items-center justify-center h-full w-full overflow-hidden rounded-xl bg-gradient-to-br from-primary-500/10 via-primary-300/5 to-primary-800/10">
-          {" "}
-          {/* Fundo gradiente sutil */}
-          {/* Efeito Ripple como fundo */}
-          <RipplePulse />
-          {/* Container para o texto e botão, centralizado e com z-index */}
-          <div className="relative z-10 flex flex-col items-center justify-center text-center p-4">
-            <Magnetic
-              actionArea="global"
-              intensity={0.2}
-              range={200}
-              springOptions={springOptions}
-            >
-              {/* Texto Principal (Sempre Visível e Centralizado) */}
-              {/* Adicionado mb-2 group-hover:mb-4 para dar espaço */}
-                <p className="text-4xl md:text-5xl font-bold tracking-tight text-dark_green dark:text-white mb-2 group-hover:mb-4 transition-all duration-300">
-                  Transforme sua{" "}
-                  <span className="text-primary-500 dark:text-primary-400">
-                    vida
-                  </span>
-                  <br />
-                  
-                </p>
-                <p className="absolute px-4 text-md max-w-sm mx-auto text-dim_gray dark:text-secondary-300 opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-in-out pointer-events-none text-end">
-                  Nossa IA analisa seu perfil completo para criar uma dieta que
-                  realmente funciona para você.
-                </p>
-              
-            </Magnetic>
-
-            {/* Subtítulo (Aparece no Hover, posicionado abaixo do título) */}
-            {/* Usamos translate-y para mover para baixo inicialmente e subir no hover */}
-            {/* Ajustado bottom e max-w */}
-
-            {/* Botão (Aparece no Hover, posicionado abaixo do subtítulo) */}
-            {/* Usamos translate-y similar ao subtítulo, mas com delay */}
-          </div>
-        </div>
-      ),
-      // Removido CTA daqui, pois o botão está no content
-    },
-
-    // Card 3: WhatsApp Diet (Feature highlight with visual)
     {
       title: "",
       description: "",
+      link: "#ia-dieta",
+      span: 5,
+      color: "from-green-500/20 to-green-600/20",
+      icon: <Brain className="h-6 w-6 text-green-500" />,
+      content: <CardNutricionIA />,
+    },
+    {
+      title: "Dieta no WhatsApp",
+      description:
+        "Receba seu plano alimentar e lembretes diretamente no WhatsApp.",
       link: "#dieta-whatsapp",
       span: 4,
-      titlePosition: "bottom",
-      icon: <MessageCircle className="h-6 w-6 text-green-500" />,
       color: "from-green-500/20 to-green-600/20",
+      icon: <MessageCircle className="h-6 w-6 text-green-500" />,
       content: (
-        <div className="absolute inset-0 overflow-hidden">
-          {/* WhatsApp notification animation */}
-          <DietNotificationList className="absolute inset-0" />
-
-          {/* WhatsApp header */}
-          <div className="absolute top-0 left-0 right-0 h-12 bg-[#008069] dark:bg-[#1f2c34] z-20 flex items-center px-4">
-            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
-              <Utensils className="h-5 w-5 text-green-500" />
-            </div>
-            <div>
-              <h4 className="text-white text-sm font-medium">NutriCalc</h4>
-              <p className="text-white/70 text-xs">online</p>
-            </div>
-          </div>
+        <div className="relative h-full w-full overflow-hidden rounded-xl">
+          <DietNotificationList className="absolute inset-0 scale-95 md:scale-100 opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent z-10 rounded-xl pointer-events-none" />
         </div>
       ),
       footer: (
-        <div
-          className="flex justify-between items-center w-full backdrop-blur-xl bg-white/20 dark:bg-black/30 rounded-lg p-2 border border-white/20 dark:border-green-900/30 z-30
-          shadow-md shadow-green-500/20 transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30
-          hover:bg-green-500/10 dark:hover:bg-green-900/20
-        "
-        >
+        <div className="flex justify-between items-center w-full backdrop-blur-xl bg-white/20 dark:bg-black/30 rounded-lg p-2 border border-white/20 dark:border-green-900/30 z-30 shadow-md shadow-green-500/20 transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 hover:bg-green-500/10 dark:hover:bg-green-900/20">
           <p className="text-green-700 dark:text-green-300 text-md font-medium">
             Receba sua dieta no WhatsApp!
           </p>
@@ -195,19 +136,18 @@ export default function BentoGridSection() {
         </div>
       ),
     },
-
     {
-      Icon: BarChart3,
-      name: "Teste Gratuito TMB/IMC",
-      description: "Descubra suas métricas corporais essenciais sem custo.",
-      href: "#teste-gratuito",
-      cta: "Calcular Agora",
-      className: "col-span-12 md:col-span-4",
+      title: "Teste Gratuito TMB/IMC",
+      description:
+        "Calcule seu IMC, TMB e % de gordura corporal gratuitamente.",
+      link: "#teste-gratuito",
+      span: 4,
+      color: "from-amber-500/20 to-amber-600/20",
+      icon: <BarChart3 className="h-6 w-6 text-amber-500" />,
       content: (
-        // Usa o componente wrapper que agora importa dinamicamente
-        <div className="absolute inset-0 flex items-center justify-center p-2 opacity-90 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="absolute inset-0 flex items-center justify-center p-4 opacity-90 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
           <ClientOnlyApexChart
-            imcValue={exampleIMC} // Passa os dados
+            imcValue={exampleIMC}
             weight={exampleWeight}
             height={exampleHeight}
           />
@@ -215,27 +155,19 @@ export default function BentoGridSection() {
       ),
       footer: (
         <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-secondary-800/30">
-          {/* Texto informativo */}
           <div>
-            <p
-              className={`${fontTitle.className} text-secondary-800 dark:text-secondary-200 font-semibold text-sm`}
-            >
+            <p className={`${fontTitle.className} text-secondary-800 dark:text-secondary-200 font-semibold text-sm`}>
               Entenda sua Saúde
             </p>
-            <p
-              className={`${fontSubtitle.className} text-secondary-600 dark:text-secondary-400 text-xs`}
-            >
+            <p className={`${fontSubtitle.className} text-secondary-600 dark:text-secondary-400 text-xs`}>
               Calcule e visualize seu IMC.
             </p>
           </div>
-          {/* Botão mais claro */}
           <Button
-            as={NextLink} // Faz o botão funcionar como link
-            href="#teste-gratuito" // Mesmo link do card
-            color="default" // Para usar nossas classes customizadas
+            color="default"
             radius="full"
             size="sm"
-            className="group bg-primary-500 hover:bg-primary-600 text-white text-xs px-3 py-1.5" // Estilo do botão
+            className="group bg-primary-500 hover:bg-primary-600 text-white text-xs px-3 py-1.5"
           >
             Calcular
             <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-0.5" />
@@ -243,35 +175,26 @@ export default function BentoGridSection() {
         </div>
       ),
     },
-    // Card 5: AI Technology (Tech highlight)
     {
-      title: "",
-      description: "",
-      link: "#ia-dieta",
-      span: 4, // Ajustado para 4 colunas
-      icon: <Brain className="h-6 w-6 text-purple-500" />,
+      title: "Alcance Seus Objetivos",
+      description:
+        "Transforme seu corpo e saúde com um plano que evolui com você.",
+      link: "#alcance-objetivos",
+      span: 4,
+      color: "from-secondary-400/10 to-secondary-500/10",
+      icon: <Goal className="h-6 w-6 text-secondary-400" />,
       content: (
-        <div className="grid grid-cols-3 h-full absolute  bg-primary-500 overflow-hidden rounded-xl">
-          <div className="px-4 py-6 transition-all duration-300  col-span-2 flex flex-col justify-center z-20">
-            {" "}
-            {/* Ajustado justify-center */}
-            <div className="flex flex-col justify-between h-full">
-              <p className="text-4xl md:text-5xl text-white font-bold leading-tight">
-                Nutrição Inteligente
+        <div className="flex group h-full w-full absolute inset-0 z-0 overflow-hidden rounded-lg">
+          <RipplePulse />
+          <div className="gap-2 flex h-full w-full flex-col items-center justify-center absolute z-10 p-4 pointer-events-none">
+            <Magnetic actionArea="global" intensity={0.2} range={200} springOptions={springOptions}>
+              <p className="z-10 whitespace-pre-wrap text-center text-2xl md:text-3xl font-medium tracking-tighter text-white group-hover:scale-105 transition-all duration-350 ease-in-out pb-1 md:pb-2">
+                Transforme seu <span className="text-secondary-200">corpo</span>.
               </p>
-              <p className="text-md md:text-lg text-secondary-100 dark:text-secondary-200 ">
-                Deixe a IA analisar seu perfil e montar o plano perfeito para
-                seus objetivos. {/* Descrição Curta */}
+              <p className="group-hover:opacity-100 opacity-0 transition-all duration-350 ease-in-out text-center text-xs md:text-sm text-secondary-200">
+                Deixe nossa IA criar o caminho ideal.
               </p>
-            </div>
-          </div>
-          <div className="relative col-span-1 h-full">
-            <Image
-              alt="Ilustração da IA personalizando a dieta"
-              className="absolute bottom-0 right-0 group-hover:scale-105 transition-all duration-300 ease-in-out z-10"
-              removeWrapper
-              src="/images/bento/avatar3.png"
-            />
+            </Magnetic>
           </div>
         </div>
       ),
@@ -322,7 +245,7 @@ export default function BentoGridSection() {
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <NextLink
-              href={card.link || "#"}
+              href={card.link}
               className="block h-full w-full group"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
