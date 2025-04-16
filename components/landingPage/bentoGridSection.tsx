@@ -1,14 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import NextLink from "next/link";
 import React, { useEffect, useState } from "react";
 
 import { Button } from "@heroui/button";
 import { Card } from "@heroui/card";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import Lottie from "lottie-react";
 import { Ripple } from "../magicui/ripple";
 import { Magnetic } from "../motion-primitives/magnetic";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 import { fontSubtitle, fontTitle } from "@/config/fonts";
 import { cn } from "@/lib/utils";
