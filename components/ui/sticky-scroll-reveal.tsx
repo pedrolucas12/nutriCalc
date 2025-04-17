@@ -41,14 +41,15 @@ export const StickyScroll = ({
 
   const backgroundColors = [
     "#344e41", // slate-900
-    "#000000", // black
     "#171717", // neutral-900
+    "#1f2f27", // black
   ];
   const linearGradients = [
-    "linear-gradient(to bottom right, #1f2f27, #3cba8e)", // Verde Muito Escuro (primary-900) -> Verde Claro (primary-700)
-    "linear-gradient(to bottom right, #3a5a40, #f0f7e6)", // Hunter Green (primary-600) -> Honeydew Claro (honeydew-600)
-    "linear-gradient(to bottom right, #768948, #e1e0e5)", // Moss Green (moss_green-500) -> Cinza Claro (dim_gray-900)
+    "linear-gradient(to bottom right, #3cba8e, #a3b18a)", // Verde Brilhante (primary-700) -> Sage
+    "linear-gradient(to bottom right, #768948, #fbfaf8)", // Moss Green (moss_green-500) -> Quase Branco (secondary-100)
+    "linear-gradient(to bottom right, #588157, #bdeada)", // Fern Green (primary-500) -> Verde Muito Claro (primary-900)
   ];
+  
   
   
 
