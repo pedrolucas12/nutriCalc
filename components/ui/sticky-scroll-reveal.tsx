@@ -23,18 +23,20 @@ export const StickyScroll = ({
   const cardLength = content.length;
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const cardsBreakpoints = content.map((_, index) => index / cardLength);
-    const closestBreakpointIndex = cardsBreakpoints.reduce(
-      (acc, breakpoint, index) => {
-        const distance = Math.abs(latest - breakpoint);
-        if (distance < Math.abs(latest - cardsBreakpoints[acc])) {
-          return index;
-        }
-        return acc;
-      },
-      0,
-    );
-    setActiveCard(closestBreakpointIndex);
+    if (cardLength > 1) {
+      const cardsBreakpoints = content.map((_, index) => index / (cardLength - 1));
+      const closestBreakpointIndex = cardsBreakpoints.reduce(
+        (acc, breakpoint, index) => {
+          const distance = Math.abs(latest - breakpoint);
+          if (distance < Math.abs(latest - cardsBreakpoints[acc])) {
+            return index;
+          }
+          return acc;
+        },
+        0
+      );
+      setActiveCard(closestBreakpointIndex);
+    }
   });
 
   const backgroundColors = [
@@ -43,15 +45,19 @@ export const StickyScroll = ({
     "#f97316", // orange-500
     "#eab308", // yellow-500
     "#fbbf24", // amber-500
+    "#f97316", // orange-500
   ];
   const linearGradients = [
     "linear-gradient(to bottom right, #06b6d4, #10b981)", // cyan-500 to emerald-500
     "linear-gradient(to bottom right, #ec4899, #6366f1)", // pink-500 to indigo-500
     "linear-gradient(to bottom right, #f97316, #eab308)", // orange-500 to yellow-500
+    "linear-gradient(to bottom right, #fbbf24, #f97316)", // amber-500 to orange-500
+    "linear-gradient(to bottom right, #fbbf24, #f97316)", // amber-500 to orange-500
+    "linear-gradient(to bottom right, #f97316, #eab308)", // orange-500 to yellow-500
   ];
 
   const [backgroundGradient, setBackgroundGradient] = useState(
-    linearGradients[0],
+    linearGradients[0]
   );
 
   useEffect(() => {
@@ -63,7 +69,14 @@ export const StickyScroll = ({
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
-      className="relative flex h-[30rem] justify-center space-x-10 overflow-y-auto rounded-md p-10 "
+      className="relative flex h-[30rem] justify-center space-x-10 overflow-y-auto
+  [&::-webkit-scrollbar]:w-2
+  [&::-webkit-scrollbar-track]:bg-gray-100
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+  dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 rounded-md p-10 
+      text-white shadow-lg transition-all duration-300 ease-in-out lg:h-[40rem] lg:flex-row lg:space-x-20  lg:p-20
+      "
       ref={ref}
     >
       <div className="div relative flex items-start px-4 ">
@@ -101,7 +114,7 @@ export const StickyScroll = ({
         style={{ background: backgroundGradient }}
         className={cn(
           "sticky top-10 hidden h-60 w-80 overflow-hidden rounded-md lg:block",
-          contentClassName,
+          contentClassName
         )}
       >
         {content[activeCard].content ?? null}
