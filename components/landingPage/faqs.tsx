@@ -1,4 +1,4 @@
-import { fontTitle } from "@/config/fonts"; // Importe ambas as fontes
+import { fontSubtitle, fontTitle } from "@/config/fonts"; // Importe ambas as fontes
 
 export default function FAQs() {
   const faqsData = [
@@ -23,10 +23,17 @@ export default function FAQs() {
 
   return (
     <section className="py-20">
-      <div className="container mx-auto px-6">
-        <h2 className={`${fontTitle.className} text-3xl font-bold text-center mb-10 text-dark_green`}>
+      <div className="container mx-auto px-6 text-center">
+      <h2
+          className={`${fontTitle.className} text-3xl md:text-4xl font-bold text-primary-700 dark:text-primary-200 mb-4`}
+        >
           Perguntas Frequentes
         </h2>
+         <p
+                  className={`${fontSubtitle.className} text-lg md:text-xl text-secondary-700 dark:text-secondary-300 max-w-3xl mx-auto`}
+                >
+            Aqui estão algumas perguntas comuns que recebemos sobre o NutriCalc.
+                </p>
         <div className="space-y-6">
     
         </div>
