@@ -1,9 +1,9 @@
 import { fontSubtitle, fontTitle } from "@/config/fonts";
-import { Link } from "@heroui/link";
+import ButtonForTest from "./buttonForTest";
 
 export default function TestArea() {
   return (
-    <section className="py-20">
+    <section className="flex flex-col items-center justify-center gap-8">
       <div className="container mx-auto px-6 text-center">
         <h2
           className={`${fontTitle.className} text-3xl md:text-4xl font-bold text-primary-700 dark:text-primary-200 mb-4`}
@@ -15,8 +15,8 @@ export default function TestArea() {
         >
           Calcule sua taxa metabólica e percentual de gordura sem custo.
         </p>
-        <Link href="/login">Calcular Agora</Link>
       </div>
+      <ButtonForTest />
     </section>
   );
 }
