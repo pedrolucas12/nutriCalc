@@ -1,7 +1,7 @@
 "use client";
 
 import { fontSubtitle, fontTitle } from "@/config/fonts";
-import { cn } from "@/lib/utils";
+import { Button } from "@heroui/button";
 import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
@@ -11,7 +11,6 @@ import {
 } from "react-compare-slider";
 import { AuroraText } from "../magicui/aurora-text";
 import { BoxReveal } from "../magicui/box-reveal";
-import { InteractiveHoverButton } from "../magicui/interactive-hover-button";
 import { WordRotate } from "../magicui/word-rotate";
 
 // --- InfoCard Component ---
@@ -219,17 +218,12 @@ export default function Hero() {
 
       <BoxReveal duration={1.6} boxColor="#ebf5df">
         <div className="mt-4">
-          <InteractiveHoverButton
-            className={cn(
-              "bg-primary-600 text-white px-6 py-2 rounded-lg shadow-md hover:bg-primary-700 transition duration-300",
-              fontSubtitle.className,
-            )}
-          >
+          <Button color="primary" size="lg">
             <span className="flex items-center relative z-10">
-              Calcule Sua Dieta Agora!
+              Calcule sua Dieta agora!
               <Sparkles className="ml-2 h-5 w-5 inline-block" />
             </span>
-          </InteractiveHoverButton>
+          </Button>
         </div>
       </BoxReveal>
     </section>
