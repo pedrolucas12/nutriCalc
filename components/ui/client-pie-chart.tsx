@@ -4,27 +4,21 @@
 import { cn } from '@/lib/utils';
 import { ApexOptions } from 'apexcharts';
 import { useTheme } from 'next-themes';
-import dynamic from 'next/dynamic'; // Importa dynamic
+import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 
-// REMOVA a importação estática:
-// import ReactApexChart from 'react-apexcharts';
-
-// Importa ReactApexChart dinamicamente, desabilitando SSR
 const ApexChart = dynamic(() => import('react-apexcharts'), {
   ssr: false,
-  // Opcional: Adiciona um placeholder enquanto carrega
-  loading: () => <div className="w-full h-full flex items-center justify-center text-xs text-dim_gray">Carregando Gráfico...</div>
+  loading: () => <div className="w-full h-full flex items-center justify-center text-xs text-primary-500">Carregando Gráfico...</div>
 });
 
-// Define a interface para as props
 interface ClientOnlyApexChartProps {
   imcValue: number;
   weight: number;
   height: number;
-  className?: string; // Para classes adicionais se necessário
+  className?: string;
 }
 
-// Função para determinar a cor com base no IMC
 const getImcColor = (imc: number, theme: string | undefined): string => {
   const isDark = theme === 'dark';
   if (imc < 18.5) return isDark ? '#a3b18a' : '#a3b18a'; // Sage
@@ -33,7 +27,6 @@ const getImcColor = (imc: number, theme: string | undefined): string => {
   return isDark ? '#FFB800' : '#FFB800'; // Amarelo/Laranja
 };
 
-// Função para determinar a categoria do IMC
 const getBmiCategory = (bmi: number): string => {
     if (bmi < 18.5) return "Abaixo";
     if (bmi < 25) return "Normal";
@@ -43,14 +36,10 @@ const getBmiCategory = (bmi: number): string => {
 
 const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnlyApexChartProps) => {
   const { theme } = useTheme();
-  // Não precisamos mais do isClient com dynamic import + loading
-  // const [isClient, setIsClient] = useState(false);
-  // useEffect(() => { setIsClient(true); }, []);
 
   const imcCategory = getBmiCategory(imcValue);
   const imcColor = getImcColor(imcValue, theme);
 
-  // Configurações do gráfico ApexCharts
   const options: ApexOptions = {
     chart: {
       height: '100%',
@@ -68,7 +57,7 @@ const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnly
           background: 'transparent',
         },
         track: {
-          background: theme === 'dark' ? '#3a5a40' : '#dad7cd',
+          background: theme === 'dark' ? '#3a5a40' : '#dad7cd', // hunter_green / timberwolf
           strokeWidth: '100%',
           margin: 5,
           dropShadow: {
@@ -84,7 +73,7 @@ const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnly
             show: true,
             fontSize: '12px',
             fontWeight: 600,
-            color: theme === 'dark' ? '#a3b18a' : '#3a5a40',
+            color: theme === 'dark' ? '#a3b18a' : '#3a5a40', // Sage / Hunter Green
             offsetY: -10
           },
           value: {
@@ -95,12 +84,15 @@ const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnly
             offsetY: 5,
             formatter: (val: number): string => val.toFixed(1)
           },
-          total: {
+          total: { // Label da Categoria
             show: true,
             label: imcCategory,
             fontSize: '10px',
             fontWeight: 400,
-            color: theme === 'dark' ? '#a4a2b0' : '#6a687a',
+            // --- ALTERAÇÃO AQUI ---
+            // Use cores mais escuras da sua paleta para maior contraste
+            color: theme === 'dark' ? '#6a687a' : '#344e41', // Dim Gray / Brunswick Green
+            // -----------------------
           }
         }
       }
@@ -124,14 +116,10 @@ const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnly
         theme: theme ?? 'light',
         y: {
             formatter: (value: number): string =>
-                `IMC: ${value.toFixed(1)} (${imcCategory})\n(Peso: ${weight}kg, Altura: ${height}cm)` // Use \n para nova linha
+                `IMC: ${value.toFixed(1)} (${imcCategory})\n(Peso: ${weight}kg, Altura: ${height}cm)`
         },
-        marker: {
-            show: false,
-        },
-        style: {
-            fontSize: '11px',
-        },
+        marker: { show: false },
+        style: { fontSize: '11px' },
     },
     stroke: {
       lineCap: 'round'
@@ -142,9 +130,17 @@ const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnly
         hover: { filter: { type: 'none' } },
         active: { filter: { type: 'none' } }
     }
+    
   };
 
-  // O componente ApexChart só será renderizado no cliente devido ao dynamic import
+  // Renderiza apenas no cliente
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => { setIsClient(true); }, []);
+
+  if (!isClient) {
+    return <div className="w-full h-full flex items-center justify-center text-xs text-primary-500">Carregando Gráfico...</div>;
+  }
+
   return (
     <div className={cn("w-full h-full", className)}>
       <ApexChart options={options} series={options.series} type="radialBar" height="100%" width="100%" />

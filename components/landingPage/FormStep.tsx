@@ -5,9 +5,7 @@ import { NutriCalcFormData, nutriCalcFormSchema } from "@/lib/schemas"; // Ajust
 import { Button } from "@heroui/button"; // Ajuste o caminho
 import { Input } from "@heroui/input"; // Ajuste o caminho
 import { Radio, RadioGroup } from "@heroui/radio"; // Ajuste o caminho
-import { Select, SelectItem } from "@heroui/select"; // Ajuste o caminho
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Activity as ActivityIcon } from "lucide-react"; // Renomeado para evitar conflito
 import { Controller, useForm } from "react-hook-form";
 
 interface FormStepProps {
@@ -149,24 +147,23 @@ export default function FormStep({ onSubmit }: FormStepProps) {
             name="activityLevelFactor"
             control={control}
             render={({ field }) => (
-                <Select
-                    label="Nível de Atividade Física"
-                    placeholder="Selecione seu nível"
-                    selectedKeys={field.value ? [String(field.value)] : []}
-                    onChange={(e) => field.onChange(Number(e.target.value))} // Converte para número
-                    errorMessage={errors.activityLevelFactor?.message}
-                    isInvalid={!!errors.activityLevelFactor}
-                    variant="bordered"
-                    startContent={<ActivityIcon className="text-default-400" size={18}/>}
-            color="primary"
-
+                <div className="relative">
+                <label htmlFor="activityLevelFactor" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nível de Atividade Física</label>
+                <select
+                  id="activityLevelFactor"
+                  {...field} // Registra com react-hook-form
+                  onChange={(e) => field.onChange(Number(e.target.value))} // Mantém a lógica de conversão
+                  className="block w-full px-3 py-2 border border-gray-300 dark:border-secondary-700 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm bg-white dark:bg-black/50 text-gray-900 dark:text-gray-100"
                 >
-                    {activityLevels.map((level) => (
-                        <SelectItem key={level.value} id={String(level.value)}>
-                            {level.label}
-                        </SelectItem>
-                    ))}
-                </Select>
+                  <option value="" disabled>Selecione seu nível</option>
+                  {activityLevels.map((level) => (
+                    <option key={level.value} value={level.value}>
+                      {level.label}
+                    </option>
+                  ))}
+                </select>
+                {errors.activityLevelFactor && <p className="text-red-500 text-xs mt-1">{errors.activityLevelFactor.message}</p>}
+              </div>
             )}
          />
        </div>

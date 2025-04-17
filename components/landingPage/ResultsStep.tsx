@@ -36,7 +36,7 @@ export default function ResultsStep({ results, formData }: ResultsStepProps) {
             />
           </div>
           {/* Textos */}
-          <div className={`${fontSubtitle.className} text-sm space-y-2 text-secondary-800 dark:text-secondary-200`}>
+          <div className={`${fontSubtitle.className} text-sm space-y-2 text-secondary-900 dark:text-secondary-200`}>
             <p>{getBmiInterpretation(results.bmi)}</p>
             <p>
               Sua Taxa Metabólica Basal (TMB) estimada é de{" "}
