@@ -1,11 +1,12 @@
 "use client";
 import fingerprint from "@/public/animations/fingerprint.json";
-import Lottie from "lottie-react";
 import { Activity, Brain, Goal, MessageCircle, Scale } from "lucide-react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import ClientOnlyApexChart from "../ui/client-pie-chart";
 import { StickyScroll } from "../ui/sticky-scroll-reveal";
 import DietNotificationList from "./diet-notification-list";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 const steps = [
   {
