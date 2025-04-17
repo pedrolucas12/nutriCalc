@@ -1,11 +1,13 @@
 // No seu arquivo NutriCalcStepsStickyScroll.tsx
 
 "use client";
-import { fontSubtitle, fontTitle } from "@/config/fonts"; // Importa fontes
+import chat from "@/public/animations/chat.json";
+import fingerprintLottie from "@/public/animations/fingerprint.json";
+import formLottie from "@/public/animations/form.json";
+import paymentLottie from "@/public/animations/payment.json";
 import dynamic from "next/dynamic";
 import ClientOnlyApexChart from "../ui/client-pie-chart"; // Renomeado para clareza
 import { StickyScroll } from "../ui/sticky-scroll-reveal"; // Ajuste o caminho
-import DietNotificationList from "./diet-notification-list";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
@@ -18,9 +20,7 @@ const stepsContent = [
     content: (
       // Visual mais clean para o formulário
       <div className="flex h-full w-full items-center justify-center p-6">
-        <div className="w-48 h-48">
-           {/* <Lottie animationData={formLottie} loop /> */}
-        </div>
+        <Lottie animationData={formLottie} loop />
       </div>
     ),
   },
@@ -31,9 +31,7 @@ const stepsContent = [
     content: (
       // Gráfico continua sendo uma boa visualização
       <div className="flex h-full w-full items-center justify-center p-6">
-        <div className="w-48 h-48"> {/* Aumentado tamanho */}
-          <ClientOnlyApexChart imcValue={24.5} weight={75} height={175} />
-        </div>
+        <ClientOnlyApexChart imcValue={24.5} weight={75} height={175} />
       </div>
     ),
   },
@@ -44,9 +42,7 @@ const stepsContent = [
     content: (
       // Lottie de fingerprint ou cérebro/rede neural
       <div className="flex h-full w-full items-center justify-center p-6">
-        <div className="w-40 h-40"> {/* Aumentado tamanho */}
-          {/* <Lottie animationData={fingerprintLottie} loop /> */}
-        </div>
+        <Lottie animationData={fingerprintLottie} loop />
       </div>
     ),
   },
@@ -56,11 +52,9 @@ const stepsContent = [
       "Acesse seu plano completo com um pagamento único, seguro e transparente via Stripe. Sem assinaturas recorrentes ou taxas escondidas. Invista na sua saúde de forma clara e acessível.",
     content: (
       // Visual mais moderno para pagamento
-       <div className="flex h-full w-full items-center justify-center p-6">
-         <div className="w-32 h-32"> {/* Aumentado tamanho */}
-            {/* <Lottie animationData={paymentLottie} loop /> */}
-         </div>
-       </div>
+      <div className="flex h-full w-full items-center justify-center p-6">
+        <Lottie animationData={paymentLottie} loop />
+      </div>
     ),
   },
   {
@@ -70,9 +64,7 @@ const stepsContent = [
     content: (
       // Lista de notificações continua sendo ideal
       <div className="flex h-full w-full items-center justify-center p-6">
-         <div className="w-full max-w-[250px] h-48"> {/* Aumentado tamanho */}
-            <DietNotificationList className="w-full h-full scale-100" />
-         </div>
+          <Lottie animationData={chat} loop />
       </div>
     ),
   },
@@ -81,17 +73,8 @@ const stepsContent = [
 export function NutriCalcStepsStickyScroll() {
   return (
     // Container da seção com fundo e padding
-    <div className="w-full py-12 md:py-16 bg-primary-100 dark:bg-primary-900/50">
-       <div className="container mx-auto px-4 md:px-6 mb-10 text-center">
-            <h2 className={`${fontTitle.className} text-3xl md:text-4xl font-bold text-primary-700 dark:text-primary-200 mb-4`}>
-                Sua Dieta Personalizada em 5 Passos Fáceis
-            </h2>
-            <p className={`${fontSubtitle.className} text-lg md:text-xl text-secondary-700 dark:text-secondary-300 max-w-3xl mx-auto`}>
-                Veja como é simples transformar sua saúde com a ajuda da nossa tecnologia. Siga os passos e comece hoje mesmo!
-            </p>
-       </div>
-       {/* Componente StickyScroll */}
-       <StickyScroll content={stepsContent} />
+    <div className="w-full h-full">
+      <StickyScroll content={stepsContent} />
     </div>
   );
 }

@@ -34,24 +34,26 @@ export const StickyScroll = ({
         }
         return acc;
       },
-      0,
+      0
     );
     setActiveCard(closestBreakpointIndex);
   });
 
   const backgroundColors = [
-    "#0f172a", // slate-900
+    "#344e41", // slate-900
     "#000000", // black
     "#171717", // neutral-900
   ];
   const linearGradients = [
-    "linear-gradient(to bottom right, #06b6d4, #10b981)", // cyan-500 to emerald-500
-    "linear-gradient(to bottom right, #ec4899, #6366f1)", // pink-500 to indigo-500
-    "linear-gradient(to bottom right, #f97316, #eab308)", // orange-500 to yellow-500
+    "linear-gradient(to bottom right, #1f2f27, #3cba8e)", // Verde Muito Escuro (primary-900) -> Verde Claro (primary-700)
+    "linear-gradient(to bottom right, #3a5a40, #f0f7e6)", // Hunter Green (primary-600) -> Honeydew Claro (honeydew-600)
+    "linear-gradient(to bottom right, #768948, #e1e0e5)", // Moss Green (moss_green-500) -> Cinza Claro (dim_gray-900)
   ];
+  
+  
 
   const [backgroundGradient, setBackgroundGradient] = useState(
-    linearGradients[0],
+    linearGradients[0]
   );
 
   useEffect(() => {
@@ -63,7 +65,7 @@ export const StickyScroll = ({
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
-      className="relative flex h-[30rem] justify-center space-x-10 overflow-y-auto rounded-md p-10"
+      className="relative flex h-[30rem] justify-center space-x-20 overflow-y-auto rounded-xl p-10"
       ref={ref}
     >
       <div className="div relative flex items-start px-4">
@@ -77,7 +79,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-2xl font-bold text-slate-100"
+                className="text-3xl font-bold text-slate-300"
               >
                 {item.title}
               </motion.h2>
@@ -88,7 +90,7 @@ export const StickyScroll = ({
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
-                className="text-kg mt-10 max-w-sm text-slate-300"
+                className="text-lg mt-10 max-w-sm text-secondary-700"
               >
                 {item.description}
               </motion.p>
@@ -100,8 +102,8 @@ export const StickyScroll = ({
       <div
         style={{ background: backgroundGradient }}
         className={cn(
-          "sticky top-10 hidden h-60 w-80 overflow-hidden rounded-md bg-white lg:block",
-          contentClassName,
+          "sticky top-10 hidden h-60 w-80 overflow-hidden rounded-md  lg:block",
+          contentClassName
         )}
       >
         {content[activeCard].content ?? null}
