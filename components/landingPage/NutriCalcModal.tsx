@@ -23,9 +23,9 @@ interface NutriCalcModalProps {
 }
 
 export default function NutriCalcModal({ isOpen, onClose }: NutriCalcModalProps) {
-  const [currentStep, setCurrentStep] = useState(1); // 1: Intro, 2: Form, 3: Results
+  const [currentStep, setCurrentStep] = useState(1);
   const [results, setResults] = useState<CalculationResults | null>(null);
-  const [formData, setFormData] = useState<NutriCalcFormData | null>(null); // Para passar ao ResultsStep
+  const [formData, setFormData] = useState<NutriCalcFormData | null>(null);
 
   const handleNextStep = () => {
     if (currentStep < 3) {
@@ -37,19 +37,18 @@ export default function NutriCalcModal({ isOpen, onClose }: NutriCalcModalProps)
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
       if (currentStep === 3) {
-        setResults(null); // Limpa resultados ao voltar do step 3 para o 2
+        setResults(null);
       }
     }
   };
 
   const handleFormSubmit = (data: NutriCalcFormData) => {
     console.log("Form Data Submitted:", data);
-    setFormData(data); // Guarda os dados do form
+    setFormData(data);
 
-    // Realiza os cálculos
     const tmb = calculateTMB(data.weight, data.height, data.age, data.gender);
     const bmi = calculateBMI(data.height, data.weight);
-    const bodyFat = calculateBodyFatPercentage(data.waist, data.neck, data.height, data.gender /*, data.hip */); // Passar quadril se coletado
+    const bodyFat = calculateBodyFatPercentage(data.waist, data.neck, data.height, data.gender);
     const dailyCalories = calculateDailyCalories(tmb, data.activityLevelFactor);
     const goalCalories = calculateGoalCalories(dailyCalories, data.goal);
 
@@ -63,34 +62,36 @@ export default function NutriCalcModal({ isOpen, onClose }: NutriCalcModalProps)
 
     console.log("Calculated Results:", calculatedResults);
     setResults(calculatedResults);
-    setCurrentStep(3); // Avança para a tela de resultados
+    setCurrentStep(3);
   };
 
   const resetModal = () => {
     setCurrentStep(1);
     setResults(null);
     setFormData(null);
-    onClose(); // Fecha a modal
+    onClose();
   }
 
   return (
     <Modal
       isOpen={isOpen}
-      onClose={resetModal} // Reseta ao fechar
-      size="2xl" // Tamanho da modal (ajuste: sm, md, lg, xl, 2xl, ..., full)
-      backdrop="blur" // Efeito de fundo
-      placement="center" // Posição
-      scrollBehavior="inside" // Scroll dentro do body
-      classNames={{ // Estilo glassmorphism/tech
-          backdrop: "bg-black/80 backdrop-blur-sm",
-          base: "bg-white/20 dark:bg-black/40 backdrop-blur-md border border-white/10 dark:border-secondary-700/50 shadow-xl",
-          header: "border-b border-white/10 dark:border-secondary-700/50",
-          footer: "border-t border-white/10 dark:border-secondary-700/50",
+      onClose={resetModal}
+      size="2xl"
+      backdrop="blur" // Mantém o blur no fundo da página
+      placement="center"
+      scrollBehavior="inside"
+      classNames={{
+          // Backdrop: Fundo da página - pode manter mais escuro/blur
+          backdrop: "bg-black/70 backdrop-blur-md", // Aumentado opacidade do preto
+          // Base: O container da modal - Aumentar opacidade do fundo
+          base: "bg-white/80 dark:bg-black/85 backdrop-blur-lg border border-white/20 dark:border-secondary-700/60 shadow-2xl", // Aumentado opacidade (ex: /80, /85), aumentado blur, borda mais visível, sombra maior
+          header: "border-b border-white/15 dark:border-secondary-700/60", // Borda sutil
+          footer: "border-t border-white/15 dark:border-secondary-700/60", // Borda sutil
       }}
     >
       <ModalContent>
         <>
-          <ModalHeader className="flex flex-col gap-1 text-primary-400 dark:text-primary-200">
+          <ModalHeader className="flex flex-col gap-1 text-primary-700 dark:text-primary-200"> {/* Cor do texto ajustada */}
             {currentStep === 1 && "Bem-vindo ao Cálculo NutriCalc!"}
             {currentStep === 2 && "Insira Seus Dados"}
             {currentStep === 3 && "Seus Resultados"}

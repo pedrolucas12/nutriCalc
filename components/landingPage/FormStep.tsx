@@ -56,6 +56,8 @@ export default function FormStep({ onSubmit }: FormStepProps) {
             errorMessage={errors.height?.message}
             isInvalid={!!errors.height}
             variant="bordered"
+            color="primary"
+
           />
         </div>
         <div>
@@ -68,6 +70,8 @@ export default function FormStep({ onSubmit }: FormStepProps) {
             errorMessage={errors.weight?.message}
             isInvalid={!!errors.weight}
             variant="bordered"
+            color="primary"
+
           />
         </div>
       </div>
@@ -83,6 +87,8 @@ export default function FormStep({ onSubmit }: FormStepProps) {
             errorMessage={errors.waist?.message}
             isInvalid={!!errors.waist}
             variant="bordered"
+            color="primary"
+
           />
         </div>
         <div>
@@ -94,6 +100,7 @@ export default function FormStep({ onSubmit }: FormStepProps) {
             errorMessage={errors.neck?.message}
             isInvalid={!!errors.neck}
             variant="bordered"
+            color="primary"
           />
         </div>
       </div>
@@ -109,6 +116,8 @@ export default function FormStep({ onSubmit }: FormStepProps) {
                 errorMessage={errors.age?.message}
                 isInvalid={!!errors.age}
                 variant="bordered"
+            color="primary"
+
             />
          </div>
          <div>
@@ -123,8 +132,10 @@ export default function FormStep({ onSubmit }: FormStepProps) {
                         onValueChange={field.onChange}
                         errorMessage={errors.gender?.message}
                         isInvalid={!!errors.gender}
+            color="primary"
+
                     >
-                        <Radio value="male">Masculino</Radio>
+                        <Radio value="male" >Masculino</Radio>
                         <Radio value="female">Feminino</Radio>
                     </RadioGroup>
                 )}
@@ -147,6 +158,8 @@ export default function FormStep({ onSubmit }: FormStepProps) {
                     isInvalid={!!errors.activityLevelFactor}
                     variant="bordered"
                     startContent={<ActivityIcon className="text-default-400" size={18}/>}
+            color="primary"
+
                 >
                     {activityLevels.map((level) => (
                         <SelectItem key={level.value} id={String(level.value)}>
@@ -171,6 +184,7 @@ export default function FormStep({ onSubmit }: FormStepProps) {
                     onValueChange={field.onChange}
                     errorMessage={errors.goal?.message}
                     isInvalid={!!errors.goal}
+                    color="primary"
                  >
                     <Radio value="lose">Emagrecer</Radio>
                     <Radio value="maintain">Manter Peso</Radio>
