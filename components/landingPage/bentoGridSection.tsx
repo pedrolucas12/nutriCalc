@@ -1,166 +1,96 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import NextLink from "next/link";
-import { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 
-// --- UI Library Imports ---
-import { Button } from "@heroui/button"; // Assuming Button might be used in footer
+import { Button } from "@heroui/button";
 import { Card } from "@heroui/card";
-
-// --- Animation Imports ---
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { Ripple } from "../magicui/ripple"; // Adjust path if needed
-import { Magnetic } from "../motion-primitives/magnetic"; // Adjust path if needed
-import ClientOnlyApexChart from "../ui/client-pie-chart"; // Adjust path if needed
-import DietNotificationList from "./diet-notification-list"; // Adjust path if needed
+import { Magnetic } from "../motion-primitives/magnetic";
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
-// --- Configuration Imports ---
-import { fontSubtitle, fontTitle } from "@/config/fonts"; // Your font config
-import { cn } from "@/lib/utils"; // Your utility for class names
+import { fontSubtitle, fontTitle } from "@/config/fonts";
+import { cn } from "@/lib/utils";
 
-// --- Ícones ---
-import { ArrowRight, BarChart3, Brain, MessageCircle, Sparkles, Utensils } from "lucide-react"; // Added missing icons
+import { ArrowRight, BarChart3, Brain, Goal, MessageCircle, Sparkles } from "lucide-react";
 
-// --- Component Definition ---
+import fingerprint from "@/public/animations/fingerprint.json";
+import { CardNutricionIA } from "../ui/animatedBeamDemo";
+import ClientOnlyApexChart from "../ui/client-pie-chart";
+import DietNotificationList from "./diet-notification-list";
 
-// Define springOptions if needed by Magnetic
 const springOptions = { bounce: 0.1 };
 
-// Custom Ripple component that pulses (assuming this is defined elsewhere or below)
-function RipplePulse() {
-  const [isActive, setIsActive] = useState(false);
-  useEffect(() => {
-    const interval = setInterval(() => setIsActive((prev) => !prev), 2000);
-    return () => clearInterval(interval);
-  }, []);
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute inset-0 flex items-center justify-center">
-        {/* Motion divs for pulsing effect */}
-        <motion.div className="w-32 h-32 rounded-full bg-primary-500/20" animate={{ scale: isActive ? [1, 1.5, 1.2] : [1.2, 1, 1.3], opacity: isActive ? [0.2, 0.3, 0.2] : [0.2, 0.4, 0.2] }} transition={{ duration: 4, ease: "easeInOut", times: [0, 0.5, 1], repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }} />
-        <motion.div className="absolute w-48 h-48 rounded-full bg-primary-400/10" animate={{ scale: isActive ? [1.2, 1, 1.3] : [1, 1.5, 1.2], opacity: isActive ? [0.1, 0.3, 0.1] : [0.1, 0.2, 0.1] }} transition={{ duration: 5, ease: "easeInOut", times: [0, 0.5, 1], repeat: Number.POSITIVE_INFINITY, repeatType: "reverse", delay: 0.5 }} />
-        <motion.div className="absolute w-64 h-64 rounded-full bg-primary-300/5" animate={{ scale: isActive ? [1, 1.2, 1] : [1.1, 0.9, 1.1], opacity: isActive ? [0.05, 0.1, 0.05] : [0.05, 0.15, 0.05] }} transition={{ duration: 6, ease: "easeInOut", times: [0, 0.5, 1], repeat: Number.POSITIVE_INFINITY, repeatType: "reverse", delay: 1 }} />
-      </div>
-      <Ripple color="var(--primary-500)" />
-    </div>
-  );
-}
-
-
 export default function BentoGridSection() {
-  // State for hover effect
+  const sectionRef = React.useRef<HTMLElement | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: false, amount: 0.2 });
+  const isInView = useInView(sectionRef, { once: true });
 
-  // Example data (replace with actual data source if needed)
+  // Dados de exemplo para IMC, peso e altura
   const exampleIMC = 24.5;
   const exampleWeight = 75;
   const exampleHeight = 175;
 
-  // Data for the cards
-  const cards = [
-    // Card 1: Dieta Personalizada
+  // Cards detalhados para matar as dores do cliente
+  const cards: Array<{
+    title: string;
+    description: string;
+    link: string;
+    span: number;
+    color: string;
+    icon: JSX.Element;
+    content: JSX.Element;
+    footer?: JSX.Element;
+    titlePosition?: "top-right" | "bottom";
+  }> = [
     {
-      title: "Dieta Personalizada",
-      description:
-        "Plano alimentar único criado pela IA com base no seu perfil, objetivos, preferências e necessidades nutricionais específicas para resultados otimizados.",
+      title: "Dieta 100% Personalizada",
+      description: "Plano alimentar único, criado sob medida para seu corpo, rotina e preferências.",
       link: "#dieta-personalizada",
       span: 7,
       color: "from-emerald-500/20 to-teal-500/20",
       icon: <Sparkles className="h-6 w-6 text-emerald-500" />,
       content: (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -right-10 -bottom-10 w-[80%] h-[80%] rounded-full bg-gradient-to-br from-emerald-300/10 to-teal-500/20 blur-3xl"></div>
-          <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-emerald-400/10 blur-xl"></div>
-          <div className="absolute bottom-20 left-20 w-32 h-32 rounded-full bg-teal-300/10 blur-xl"></div>
-          <div className="absolute right-10 top-10 opacity-20">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="relative h-[10px]"> {/* Added height to parent */}
-                <div className="absolute w-8 h-1.5 bg-emerald-500/40 rounded-full" style={{ transform: `translateY(${i * 10}px) rotate(${i % 2 ? 30 : -30}deg)`, left: i % 2 ? "10px" : "0px" }}></div>
-                <div className="absolute w-8 h-1.5 bg-teal-500/40 rounded-full" style={{ transform: `translateY(${i * 10}px) rotate(${i % 2 ? -30 : 30}deg)`, right: i % 2 ? "10px" : "0px" }}></div>
-              </div>
-            ))}
+        <div className="relative flex flex-col items-center justify-center h-full w-full overflow-hidden rounded-xl bg-gradient-to-br from-emerald-100/30 via-emerald-200/20 to-teal-100/20">
+          {/* Lottie Fingerprint centralizado */}
+          <div className="w-40 h-40 md:w-48 md:h-48 flex items-center justify-center mx-auto  z-10">
+          <Lottie animationData={fingerprint} loop={true} />
+          </div>
+          {/* Texto centralizado abaixo do Lottie */}
+          <div className="flex flex-col items-center justify-center  z-20">
+            <h3 className={`${fontTitle.className} text-2xl md:text-3xl font-bold text-primary-700 text-center`}>
+              Sua dieta, sua identidade.
+            </h3>
+            <p className={`${fontSubtitle.className} text-sm md:text-base text-primary-800 text-center mt-2`}>
+              A IA analisa seu perfil, preferências e rotina para criar um plano alimentar exclusivo para você.
+            </p>
           </div>
         </div>
       ),
-      footer: (
-        <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-gray-800/30">
-          <p className="text-emerald-700 dark:text-emerald-300 text-sm font-medium">
-            Resultados visíveis em semanas
-          </p>
-          <Button
-            color="primary" // Use color prop from HeroUI Button
-            radius="full"
-            size="sm"
-            className="group bg-emerald-500 hover:bg-emerald-600 text-white" // Added text-white
-          >
-            Começar{" "}
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
-        </div>
-      ),
+    
     },
-
-    // Card 2: Transformação
     {
-      title: "", // Title is inside content
-      description: "", // Description is inside content
-      link: "#transformacao",
+      title: "",
+      description: "",
+      link: "#ia-dieta",
       span: 5,
-      color: "from-primary-500/20 to-primary-600/20",
-      content: (
-        <div className="relative flex items-center justify-center h-full w-full overflow-hidden rounded-xl bg-gradient-to-br from-primary-500/10 via-primary-300/5 to-primary-800/10">
-          <RipplePulse />
-          <div className="relative z-10 flex flex-col items-center justify-center text-center p-4">
-            <Magnetic actionArea="global" intensity={0.2} range={200} springOptions={springOptions}>
-              <p className="text-4xl md:text-5xl font-bold tracking-tight text-dark_green dark:text-white mb-2 group-hover:mb-4 transition-all duration-300">
-                Transforme sua{" "}
-                <span className="text-primary-500 dark:text-primary-400">vida</span>
-              </p>
-              {/* Description appears on hover */}
-              <p className="absolute px-4 text-md max-w-sm mx-auto text-dim_gray dark:text-secondary-300 opacity-0 group-hover:opacity-100 translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-in-out pointer-events-none text-center">
-                Nossa IA analisa seu perfil completo para criar uma dieta que realmente funciona para você.
-              </p>
-            </Magnetic>
-             {/* Button appears on hover */}
-             <Button
-                color="primary"
-                radius="full"
-                size="lg"
-                className="mt-6 opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-auto" // pointer-events-auto needed
-                as={NextLink} // Make button a link
-                href="#transformacao"
-              >
-                Descubra como{" "}
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-          </div>
-        </div>
-      ),
+      color: "from-green-500/20 to-green-600/20",
+      icon: <Brain className="h-6 w-6 text-green-500" />,
+      content: <CardNutricionIA />,
     },
-
-    // Card 3: WhatsApp Diet
     {
-      title: "Dieta no WhatsApp", // Title defined here for structure
-      description: "Receba seu plano alimentar direto no seu WhatsApp.", // Description defined here
+      title: "Dieta no WhatsApp",
+      description:
+        "Receba seu plano alimentar e lembretes diretamente no WhatsApp.",
       link: "#dieta-whatsapp",
       span: 4,
-      titlePosition: "bottom", // Custom prop to position title/desc at bottom
-      icon: <MessageCircle className="h-6 w-6 text-green-500" />,
       color: "from-green-500/20 to-green-600/20",
+      icon: <MessageCircle className="h-6 w-6 text-green-500" />,
       content: (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <DietNotificationList className="absolute inset-0" />
-          <div className="absolute top-0 left-0 right-0 h-12 bg-[#008069] dark:bg-[#1f2c34] z-20 flex items-center px-4">
-            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center mr-3">
-              <Utensils className="h-5 w-5 text-green-500" />
-            </div>
-            <div>
-              <h4 className="text-white text-sm font-medium">NutriCalc</h4>
-              <p className="text-white/70 text-xs">online</p>
-            </div>
-          </div>
+        <div className="relative h-full w-full overflow-hidden rounded-xl">
+          <DietNotificationList className="absolute inset-0 scale-95 md:scale-100 opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent z-10 rounded-xl pointer-events-none" />
         </div>
       ),
       footer: (
@@ -181,18 +111,16 @@ export default function BentoGridSection() {
         </div>
       ),
     },
-
-    // Card 4: Teste Gratuito
     {
-      Icon: BarChart3,
-      title: "Teste Gratuito TMB/IMC", // Changed 'name' to 'title' for consistency
-      description: "Descubra suas métricas corporais essenciais sem custo.",
-      href: "#teste-gratuito",
-      cta: "Calcular Agora", // Used for hover button in BentoCard component
-      className: "col-span-12 md:col-span-4",
-      color: "from-amber-500/20 to-amber-600/20", // Added color for hover effect
+      title: "Teste Gratuito TMB/IMC",
+      description:
+        "Calcule seu IMC, TMB e % de gordura corporal gratuitamente.",
+      link: "#teste-gratuito",
+      span: 4,
+      color: "from-amber-500/20 to-amber-600/20",
+      icon: <BarChart3 className="h-6 w-6 text-amber-500" />,
       content: (
-        <div className="absolute inset-0 flex items-center justify-center p-2 opacity-90 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+        <div className="absolute inset-0 flex items-center justify-center p-4 opacity-90 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
           <ClientOnlyApexChart
             imcValue={exampleIMC}
             weight={exampleWeight}
@@ -210,7 +138,6 @@ export default function BentoGridSection() {
               Calcule e visualize seu IMC.
             </p>
           </div>
-          {/* CORREÇÃO AQUI: Removido as={NextLink} e href */}
           <Button
             color="default"
             radius="full"
@@ -223,33 +150,27 @@ export default function BentoGridSection() {
         </div>
       ),
     },
-
-    // Card 5: AI Technology
     {
-      title: "IA para sua Dieta", // Changed 'name' to 'title'
-      description: "Tecnologia avançada que aprende e adapta seu plano.", // Simplified description
-      link: "#ia-dieta", // Changed link to match title
+      title: "",
+      description:
+        "",
+      link: "#alcance-objetivos",
       span: 4,
-      color: "from-purple-500/20 to-purple-600/20",
-      icon: <Brain className="h-6 w-6 text-purple-500" />,
+      color: "from-secondary-400/10 to-secondary-500/10",
+      icon: <Goal className="h-6 w-6 text-secondary-400" />,
       content: (
-       <p> </p>
-      ),
-      footer: (
-        <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-purple-900/30">
-          <p className="text-purple-700 dark:text-purple-300 text-sm font-medium">
-            Atualização contínua
-          </p>
-          <Button
-            color="primary" // Use color prop
-            variant="solid"
-            radius="full"
-            size="sm"
-            className="group bg-purple-500 hover:bg-purple-600 text-white" // Added text-white
-          >
-            Saiba mais{" "}
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+        <div className="flex group h-full w-full absolute inset-0 z-0 overflow-hidden rounded-lg">
+          <RipplePulse />
+          <div className="gap-2 flex h-full w-full flex-col items-center justify-center absolute z-10 p-4 pointer-events-none">
+            <Magnetic actionArea="global" intensity={0.2} range={200} springOptions={springOptions}>
+              <p className="z-10 whitespace-pre-wrap text-center text-3xl md:text-4xl font-bold tracking-tighter text-primary group-hover:scale-105 transition-all duration-350 ease-in-out pb-1 md:pb-2">
+                Transforme seu <span className="text-secondary-200">corpo</span>
+              </p>
+              <p className="group-hover:opacity-100 opacity-0 transition-all duration-350 ease-in-out text-center text-md text-primary-800">
+                Deixe nossa IA criar o caminho ideal.
+              </p>
+            </Magnetic>
+          </div>
         </div>
       ),
     },
@@ -294,9 +215,8 @@ export default function BentoGridSection() {
           >
             {/* NextLink agora só envolve o conteúdo clicável, não o card inteiro */}
             <NextLink
-              href={card.link || "#"}
-              className="absolute inset-0 z-20" // Link invisível sobre tudo, exceto footer talvez
-              aria-label={card.title || `Link para ${index}`} // Add aria-label
+              href={card.link}
+              className="block h-full w-full group"
               onMouseEnter={() => setHoveredIndex(index)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
