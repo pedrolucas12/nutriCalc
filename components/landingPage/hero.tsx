@@ -30,14 +30,14 @@ const InfoCard = ({
 }) => (
   <BoxReveal duration={duration} boxColor={boxColor}>
     <motion.div
-      className="p-6 rounded-xl h-full flex flex-col items-center text-center
+      className="p-4 rounded-xl h-full flex flex-col items-center text-center
         bg-gradient-to-br from-primary-200/90 to-primary-300/70 dark:from-primary-700/90 dark:to-primary-600/70 
         shadow-lg border border-primary-300/50 dark:border-primary-500/30"
       whileHover={{
-        y: -8,
-        scale: 1.03,
+        y: -6,
+        scale: 1.02,
         transition: { duration: 0.2 },
-        boxShadow: "0 15px 30px rgba(0, 0, 0, 0.15)",
+        boxShadow: "0 12px 24px rgba(0, 0, 0, 0.15)",
       }}
       transition={{
         type: "spring",
@@ -46,21 +46,21 @@ const InfoCard = ({
         mass: 1,
       }}
     >
-      <div className="w-20 h-20 mb-4 flex items-center justify-center bg-white/30 dark:bg-white/10 rounded-full p-3 shadow-inner">
+      <div className="w-16 h-16 mb-3 flex items-center justify-center bg-white/30 dark:bg-white/10 rounded-full p-2 shadow-inner">
         <Image
           src={iconSrc}
           alt={`Ícone ${title}`}
-          width={64}
-          height={64}
+          width={48}
+          height={48}
           className="object-contain"
         />
       </div>
       <h3
-        className={`${fontTitle.className} text-xl font-bold text-dark_green mb-3`}
+        className={`${fontTitle.className} text-lg font-bold text-dark_green mb-2`}
       >
         {title}
       </h3>
-      <p className={`${fontSubtitle.className} text-base text-dim_gray`}>
+      <p className={`${fontSubtitle.className} text-sm text-dim_gray`}>
         {description}
       </p>
     </motion.div>
@@ -81,14 +81,18 @@ export default function Hero() {
       {/* Header Section */}
       <div className="text-center">
         <BoxReveal duration={0.5} boxColor="#ebf5df">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
             <h1
               className={`${fontTitle.className} text-4xl md:text-5xl lg:text-6xl font-bold text-dark_green leading-tight`}
             >
               Sua dieta finalmente
+            </h1>
+            <h1
+              className={`${fontTitle.className} text-4xl md:text-5xl lg:text-6xl font-bold text-dark_green leading-tight`}
+            >
               <WordRotate
                 words={["Inteligente", "Personalizada", "Eficaz"]}
-                className="text-moss_green inline-block"
+                className="text-primary-500 inline-block"
                 motionProps={customMotionProps}
               />
             </h1>
@@ -97,7 +101,7 @@ export default function Hero() {
 
         <BoxReveal duration={0.7} boxColor="#ebf5df">
           <p
-            className={`${fontSubtitle.className} text-lg md:text-xl max-w-4xl mx-auto mt-6 text-dim_gray`}
+            className={`${fontSubtitle.className} text-lg md:text-xl max-w-4xl mx-auto mt-2 text-dim_gray`}
           >
             Chega de adivinhação e planos que não funcionam!{" "}
             <AuroraText className="font-semibold">
@@ -167,8 +171,8 @@ export default function Hero() {
           />
 
           <BoxReveal duration={1.4} boxColor="#ebf5df">
-            <div className="p-6 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 shadow-lg w-full flex flex-col gap-4 border border-primary-500/30">
-              <div className="w-full rounded-lg shadow-lg overflow-hidden h-[240px]">
+            <div className="p-4 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 shadow-lg w-full flex flex-col gap-3 border border-primary-500/30">
+              <div className="w-full rounded-lg shadow-lg overflow-hidden h-[200px]">
                 <ReactCompareSlider
                   position={50}
                   handle={
@@ -199,7 +203,7 @@ export default function Hero() {
               </div>
               <div className="text-center">
                 <p
-                  className={`${fontSubtitle.className} text-sm text-white italic mb-3`}
+                  className={`${fontSubtitle.className} text-xs text-white italic mb-2`}
                 >
                   "NutriCalc mudou a minha vida! Alcancei meus objetivos de
                   forma saudável e sustentável."
@@ -208,18 +212,18 @@ export default function Hero() {
                   <Image
                     src="/images/hero/iconPersonExample.png"
                     alt="Avatar do cliente"
-                    width={40}
-                    height={40}
-                    className="rounded-full mr-3 border-2 border-primary-300 shadow-md"
+                    width={32}
+                    height={32}
+                    className="rounded-full mr-2 border-2 border-primary-300 shadow-md"
                   />
                   <div className="text-left">
                     <p
-                      className={`${fontTitle.className} text-sm font-bold text-primary-200`}
+                      className={`${fontTitle.className} text-xs font-bold text-primary-200`}
                     >
                       Maria Silva
                     </p>
                     <p
-                      className={`${fontSubtitle.className} text-xs text-primary-300`}
+                      className={`${fontSubtitle.className} text-[10px] text-primary-300`}
                     >
                       São Paulo, SP
                     </p>
