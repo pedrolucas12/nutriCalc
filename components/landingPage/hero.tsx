@@ -7,6 +7,7 @@ import { Sparkles } from "lucide-react";
 import Image from "next/image";
 import {
   ReactCompareSlider,
+  ReactCompareSliderHandle,
   ReactCompareSliderImage,
 } from "react-compare-slider";
 import { AuroraText } from "../magicui/aurora-text";
@@ -29,38 +30,37 @@ const InfoCard = ({
 }) => (
   <BoxReveal duration={duration} boxColor={boxColor}>
     <motion.div
-      className="p-4 rounded-xl h-full flex flex-col items-center text-center md:items-start md:text-left 
-        bg-primary-200 hover:bg-primary-400 dark:bg-primary-700 shadow-md  border-2 border-primary-300 dark:border-primary-600/20 
-      "
+      className="p-6 rounded-xl h-full flex flex-col items-center text-center
+        bg-gradient-to-br from-primary-200/90 to-primary-300/70 dark:from-primary-700/90 dark:to-primary-600/70 
+        shadow-lg border border-primary-300/50 dark:border-primary-500/30"
       whileHover={{
-        y: -10,
-        scale: 1.05,
-        transition: { duration: 0.3 },
-        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-        borderColor: boxColor,
-        backgroundColor: boxColor,
+        y: -8,
+        scale: 1.03,
+        transition: { duration: 0.2 },
+        boxShadow: "0 15px 30px rgba(0, 0, 0, 0.15)",
       }}
       transition={{
         type: "spring",
         stiffness: 400,
         damping: 15,
         mass: 1,
-        duration: 0.3,
       }}
     >
-      <Image
-        src={iconSrc}
-        alt={`Ícone ${title}`}
-        width={72}
-        height={72}
-        className="object-contain mb-4"
-      />
+      <div className="w-20 h-20 mb-4 flex items-center justify-center bg-white/30 dark:bg-white/10 rounded-full p-3 shadow-inner">
+        <Image
+          src={iconSrc}
+          alt={`Ícone ${title}`}
+          width={64}
+          height={64}
+          className="object-contain"
+        />
+      </div>
       <h3
-        className={`${fontTitle.className} text-lg font-semibold text-dark_green mb-1`}
+        className={`${fontTitle.className} text-xl font-bold text-dark_green mb-3`}
       >
         {title}
       </h3>
-      <p className={`${fontSubtitle.className} text-sm text-dim_gray`}>
+      <p className={`${fontSubtitle.className} text-base text-dim_gray`}>
         {description}
       </p>
     </motion.div>
@@ -77,133 +77,149 @@ export default function Hero() {
   };
 
   return (
-    <section className="w-full h-full flex flex-col justify-center items-center text-center py-4 md:py-8 xl:py-12">
+    <section className="w-full  py-4 md:py-9 items-center justify-center flex flex-col gap-4">
+      {/* Header Section */}
+      <div className="text-center">
         <BoxReveal duration={0.5} boxColor="#ebf5df">
-          <div>
+          <div className="flex items-center justify-center">
             <h1
-              className={`${fontTitle.className} text-4xl md:text-4xl lg:text-5xl font-bold text-dark_green leading-tight md:leading-snug`}
+              className={`${fontTitle.className} text-4xl md:text-5xl lg:text-6xl font-bold text-dark_green leading-tight`}
             >
               Sua dieta finalmente
+              <WordRotate
+                words={["Inteligente", "Personalizada", "Eficaz"]}
+                className="text-moss_green inline-block"
+                motionProps={customMotionProps}
+              />
             </h1>
-            <div className="flex flex-row justify-center items-center gap-2">
-              <h1
-                className={`${fontTitle.className} text-4xl md:text-4xl lg:text-5xl font-bold text-dark_green mb-0 leading-tight md:leading-snug`}
-              >
-                <WordRotate
-                  words={["Inteligente", "Personalizada", "Eficaz"]}
-                  className="text-moss_green inline-block"
-                  motionProps={customMotionProps}
-                />
-              </h1>
-              <h1
-                className={`${fontTitle.className} text-4xl md:text-4xl lg:text-5xl font-bold text-dark_green mb-0 leading-tight md:leading-snug`}
-              >
-                para você.
-              </h1>
-            </div>
           </div>
         </BoxReveal>
+
         <BoxReveal duration={0.7} boxColor="#ebf5df">
           <p
-            className={`${fontSubtitle.className} text-lg md:text-xl pb-2 text-dim_gray text-balance`}
+            className={`${fontSubtitle.className} text-lg md:text-xl max-w-4xl mx-auto mt-6 text-dim_gray`}
           >
             Chega de adivinhação e planos que não funcionam!{" "}
-            <AuroraText> Nossa Inteligência Artificial</AuroraText> analisa seus
-            dados únicos para criar um plano alimentar preciso, adaptado ao seu
-            metabolismo e rotina, acabando de vez com a frustração de dietas
-            genéricas.
+            <AuroraText className="font-semibold">
+              Nossa Inteligência Artificial
+            </AuroraText>{" "}
+            analisa seus dados únicos para criar um plano alimentar preciso,
+            adaptado ao seu metabolismo e rotina.
           </p>
         </BoxReveal>
+      </div>
 
-      <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full items-start">
-        <div className="flex flex-col  gap-4 w-full ">
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-12">
+        {/* Left Column */}
+        <div className="md:col-span-4 flex flex-col gap-2">
           <InfoCard
             iconSrc="/images/hero/iconNutricionista.png"
             title="Dieta Personalizada"
-            description="Ajustada às suas necessidades e objetivos."
+            description="Ajustada às suas necessidades e objetivos específicos para resultados otimizados."
             boxColor="#ebf5df"
             duration={0.6}
           />
           <InfoCard
             iconSrc="/images/hero/iconIA.png"
             title="Recomendação IA"
-            description="Receba recomendações otimizadas pela inteligência artificial."
+            description="Receba recomendações otimizadas pela inteligência artificial baseadas em dados científicos."
             boxColor="#ebf5df"
             duration={0.8}
           />
           <InfoCard
             iconSrc="/images/hero/iconExercicesAndApp.png"
             title="Resultados Rápidos"
-            description="Tenha acesso a um plano eficaz em poucos minutos."
+            description="Tenha acesso a um plano eficaz em poucos minutos e comece sua transformação hoje."
             boxColor="#ebf5df"
             duration={1.0}
           />
         </div>
 
-        <div className="hidden md:flex flex-col items-center justify-center">
-          <Image
-            src="/images/hero/heroPrincipal.png"
-            alt="Ilustração de dieta personalizada"
-            width={280}
-            height={280}
-            className="object-contain"
-          />
+        {/* Center Column */}
+        <div className="hidden md:flex md:col-span-4 items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="relative"
+          >
+            <div className="absolute -inset-8 bg-gradient-to-r from-primary-200/40 to-primary-400/40 rounded-full blur-2xl opacity-70 animate-pulse"></div>
+            <Image
+              src="/images/hero/heroPrincipal.png"
+              alt="Ilustração de dieta personalizada"
+              width={340}
+              height={340}
+              className="object-contain relative z-10"
+              priority
+            />
+          </motion.div>
         </div>
 
-        <div className="flex flex-col gap-4 justify-start">
-          {/* Card Estilo de Vida */}
-          <div className="w-full flex flex-col gap-4">
-            <InfoCard
-              iconSrc="/images/hero/iconExercices.png"
-              title="Mudança de Estilo de Vida"
-              description="Transforme sua relação com a comida e alcance seus objetivos."
-              boxColor="#768948"
-              duration={1.2}
-            />
-          </div>
+        {/* Right Column */}
+        <div className="md:col-span-4 flex flex-col gap-6">
+          <InfoCard
+            iconSrc="/images/hero/iconExercices.png"
+            title="Mudança de Estilo de Vida"
+            description="Transforme sua relação com a comida e alcance seus objetivos de forma sustentável."
+            boxColor="#ebf5df"
+            duration={1.2}
+          />
 
           <BoxReveal duration={1.4} boxColor="#ebf5df">
-            <div className="p-4 rounded-lg bg-primary-600 shadow-md w-full flex flex-col justify-between">
-              <div className="w-full rounded-lg shadow-lg overflow-hidden max-h-[300px]">
+            <div className="p-6 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 shadow-lg w-full flex flex-col gap-4 border border-primary-500/30">
+              <div className="w-full rounded-lg shadow-lg overflow-hidden h-[240px]">
                 <ReactCompareSlider
+                  position={50}
+                  handle={
+                    <ReactCompareSliderHandle
+                      buttonStyle={{
+                        backdropFilter: "blur(4px)",
+                        background: "rgba(118, 137, 72, 0.9)",
+                        border: "none",
+                        color: "white",
+                      }}
+                    />
+                  }
                   itemOne={
                     <ReactCompareSliderImage
                       src="/images/hero/iconPersonExample.png"
                       alt="Imagem Antes"
-                    
+                      style={{ objectFit: "cover", height: "100%" }}
                     />
                   }
                   itemTwo={
                     <ReactCompareSliderImage
                       src="/images/hero/iconPersonExample2.png"
                       alt="Imagem Depois"
-                     
+                      style={{ objectFit: "cover", height: "100%" }}
                     />
                   }
                 />
               </div>
               <div className="text-center">
                 <p
-                  className={`${fontSubtitle.className} text-xs md:text-sm text-white italic mb-1`}
+                  className={`${fontSubtitle.className} text-sm text-white italic mb-3`}
                 >
-                  "NutriCalc mudou a minha vida! Alcancei meus objetivos..."
+                  "NutriCalc mudou a minha vida! Alcancei meus objetivos de
+                  forma saudável e sustentável."
                 </p>
-                <div className="flex items-center justify-center mt-1">
+                <div className="flex items-center justify-center">
                   <Image
                     src="/images/hero/iconPersonExample.png"
                     alt="Avatar do cliente"
-                    width={28}
-                    height={28}
-                    className="rounded-full mr-2"
+                    width={40}
+                    height={40}
+                    className="rounded-full mr-3 border-2 border-primary-300 shadow-md"
                   />
                   <div className="text-left">
                     <p
-                      className={`${fontTitle.className} text-xs font-bold text-primary-200`}
+                      className={`${fontTitle.className} text-sm font-bold text-primary-200`}
                     >
                       Maria Silva
                     </p>
                     <p
-                      className={`${fontSubtitle.className} text-[10px] text-primary-300 italic`}
+                      className={`${fontSubtitle.className} text-xs text-primary-300`}
                     >
                       São Paulo, SP
                     </p>
@@ -215,14 +231,27 @@ export default function Hero() {
         </div>
       </div>
 
+      {/* CTA Button */}
       <BoxReveal duration={1.6} boxColor="#ebf5df">
-        <div className="mt-4">
-          <Button color="primary" size="lg">
-            <span className="flex items-center relative z-10">
-              Calcule sua Dieta agora!
-              <Sparkles className="ml-2 h-5 w-5 inline-block" />
-            </span>
-          </Button>
+        <div className=" text-center">
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-block"
+          >
+            <Button
+              color="primary"
+              size="lg"
+              className="px-10 py-7 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 
+                bg-gradient-to-r from-moss_green to-moss_green/90 hover:from-moss_green/90 hover:to-moss_green 
+                border-2 border-moss_green/20 rounded-xl"
+            >
+              <span className="flex items-center">
+                <Sparkles className="mr-3 h-6 w-6 animate-pulse" />
+                Calcule sua Dieta agora!
+              </span>
+            </Button>
+          </motion.div>
         </div>
       </BoxReveal>
     </section>
