@@ -77,8 +77,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="w-full flex flex-col items-center justify-center px-4 py-8 md:py-12 bg-honeydew text-dark_green overflow-hidden">
-      <div className="flex flex-col justify-center items-center text-center md:max-w-3xl lg:max-w-4xl mb-4 md:mb-6">
+    <section className="w-full h-full flex flex-col justify-center items-center text-center py-4 md:py-8 xl:py-12">
         <BoxReveal duration={0.5} boxColor="#ebf5df">
           <div>
             <h1
@@ -115,10 +114,9 @@ export default function Hero() {
             genéricas.
           </p>
         </BoxReveal>
-      </div>
 
-      <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full max-w-7xl items-start">
-        <div className="flex flex-col items-stretch gap-4 w-full md:w-100 lg:w-100">
+      <div className="flex-grow grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 w-full items-start">
+        <div className="flex flex-col  gap-4 w-full ">
           <InfoCard
             iconSrc="/images/hero/iconNutricionista.png"
             title="Dieta Personalizada"
@@ -152,9 +150,9 @@ export default function Hero() {
           />
         </div>
 
-        <div className="flex flex-col gap-4 justify-start items-stretch">
+        <div className="flex flex-col gap-4 justify-start">
           {/* Card Estilo de Vida */}
-          <div className="flex-shrink-0">
+          <div className="w-full flex flex-col gap-4">
             <InfoCard
               iconSrc="/images/hero/iconExercices.png"
               title="Mudança de Estilo de Vida"
@@ -166,21 +164,22 @@ export default function Hero() {
 
           <BoxReveal duration={1.4} boxColor="#ebf5df">
             <div className="p-4 rounded-lg bg-primary-600 shadow-md w-full flex flex-col justify-between">
-              <div className="w-full max-w-[200px] h-[180px] md:max-w-[220px] md:h-[200px] rounded-lg shadow-lg overflow-hidden mx-auto mb-2">
+              <div className="w-full rounded-lg shadow-lg overflow-hidden max-h-[300px]">
                 <ReactCompareSlider
                   itemOne={
                     <ReactCompareSliderImage
                       src="/images/hero/iconPersonExample.png"
                       alt="Imagem Antes"
+                    
                     />
                   }
                   itemTwo={
                     <ReactCompareSliderImage
                       src="/images/hero/iconPersonExample2.png"
                       alt="Imagem Depois"
+                     
                     />
                   }
-                  style={{ width: "100%", height: "100%" }}
                 />
               </div>
               <div className="text-center">

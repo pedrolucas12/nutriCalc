@@ -6,15 +6,12 @@ import TestArea from "@/components/landingPage/testArea";
 
 export default function Home() {
   return (
-    <div>
+    <section className="flex flex-col items-center justify-center gap-8">
       <Hero />
-     <BentoCards />
-
+      <BentoCards />
       <Steps />
-
       <TestArea />
-
       <FAQs />
-    </div>
+    </section>
   );
 }
