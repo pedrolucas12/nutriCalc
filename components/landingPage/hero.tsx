@@ -30,9 +30,9 @@ const InfoCard = ({
 }) => (
   <BoxReveal duration={duration} boxColor={boxColor}>
     <motion.div
-      className="p-4 rounded-xl h-full flex flex-col items-center text-center
+      className="relative h-48 rounded-xl overflow-visible
         bg-gradient-to-br from-primary-200/90 to-primary-300/70 dark:from-primary-700/90 dark:to-primary-600/70 
-        shadow-lg border border-primary-300/50 dark:border-primary-500/30"
+        shadow-lg border-2 border-primary-300/50 dark:border-primary-500/30"
       whileHover={{
         y: -6,
         scale: 1.02,
@@ -46,23 +46,54 @@ const InfoCard = ({
         mass: 1,
       }}
     >
-      <div className="w-16 h-16 mb-3 flex items-center justify-center bg-white/30 dark:bg-white/10 rounded-full p-2 shadow-inner">
-        <Image
-          src={iconSrc}
-          alt={`Ícone ${title}`}
-          width={48}
-          height={48}
-          className="object-contain"
-        />
+      {/* Conteúdo do card com flexbox */}
+      <div className="flex h-full p-4 justify-center items-center flex-row">
+        {/* Coluna do ícone (esquerda) */}
+        <div className="relative flex-shrink-0 w-1/3">
+          <motion.div 
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/4
+              w-24 h-24 flex items-center justify-center z-10"
+            initial={{ x: -10, opacity: 0 }}
+            animate={{ x: -8, opacity: 1 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 300, 
+              damping: 15,
+              delay: duration * 0.5
+            }}
+            whileHover={{ 
+              scale: 1.1,
+              rotate: [0, -3, 3, -3, 0],
+              transition: { duration: 0.5 }
+            }}
+          >
+            <div className="w-full h-full rounded-full bg-gradient-to-br from-primary-400 to-primary-500 
+              p-1.5 flex items-center justify-center shadow-xl border-2 border-white/50">
+              <div className="w-full h-full rounded-full bg-white/95 dark:bg-white/90 p-3 flex items-center justify-center">
+                <Image
+                  src={iconSrc}
+                  alt={`Ícone ${title}`}
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Coluna do texto (direita) */}
+        <div className="flex-grow flex flex-col justify-center pl-2">
+          <h3
+            className={`${fontTitle.className} text-lg font-bold text-dark_green mb-2`}
+          >
+            {title}
+          </h3>
+          <p className={`${fontSubtitle.className} text-sm text-dim_gray`}>
+            {description}
+          </p>
+        </div>
       </div>
-      <h3
-        className={`${fontTitle.className} text-lg font-bold text-dark_green mb-2`}
-      >
-        {title}
-      </h3>
-      <p className={`${fontSubtitle.className} text-sm text-dim_gray`}>
-        {description}
-      </p>
     </motion.div>
   </BoxReveal>
 );
@@ -77,18 +108,18 @@ export default function Hero() {
   };
 
   return (
-    <section className="w-full  py-4 md:py-9 items-center justify-center flex flex-col gap-4">
-      {/* Header Section */}
-      <div className="text-center">
+    <section className="w-full h-screen flex flex-col justify-center items-center py-4 md:py-6">
+      {/* Header Section - Reduzido para ocupar menos espaço vertical */}
+      <div className="text-center mb-4">
         <BoxReveal duration={0.5} boxColor="#ebf5df">
-          <div className="flex items-center justify-center gap-2 mb-4">
+          <div className="flex items-center justify-center gap-2 mb-2">
             <h1
-              className={`${fontTitle.className} text-4xl md:text-5xl lg:text-6xl font-bold text-dark_green leading-tight`}
+              className={`${fontTitle.className} text-3xl md:text-4xl lg:text-5xl font-bold text-dark_green leading-tight`}
             >
               Sua dieta finalmente
             </h1>
             <h1
-              className={`${fontTitle.className} text-4xl md:text-5xl lg:text-6xl font-bold text-dark_green leading-tight`}
+              className={`${fontTitle.className} text-3xl md:text-4xl lg:text-5xl font-bold text-dark_green leading-tight`}
             >
               <WordRotate
                 words={["Inteligente", "Personalizada", "Eficaz"]}
@@ -101,22 +132,21 @@ export default function Hero() {
 
         <BoxReveal duration={0.7} boxColor="#ebf5df">
           <p
-            className={`${fontSubtitle.className} text-lg md:text-xl max-w-4xl mx-auto mt-2 text-dim_gray`}
+            className={`${fontSubtitle.className} text-base md:text-lg max-w-4xl mx-auto mt-1 text-dim_gray`}
           >
             Chega de adivinhação e planos que não funcionam!{" "}
             <AuroraText className="font-semibold">
               Nossa Inteligência Artificial
             </AuroraText>{" "}
-            analisa seus dados únicos para criar um plano alimentar preciso,
-            adaptado ao seu metabolismo e rotina.
+            analisa seus dados únicos para criar um plano alimentar preciso.
           </p>
         </BoxReveal>
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-12">
+      {/* Main Content Grid - Ajustado para ocupar o espaço disponível */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full flex-grow max-h-[70vh]">
         {/* Left Column */}
-        <div className="md:col-span-4 flex flex-col gap-2">
+        <div className="md:col-span-4 flex flex-col gap-4 justify-between">
           <InfoCard
             iconSrc="/images/hero/iconNutricionista.png"
             title="Dieta Personalizada"
@@ -152,8 +182,8 @@ export default function Hero() {
             <Image
               src="/images/hero/heroPrincipal.png"
               alt="Ilustração de dieta personalizada"
-              width={340}
-              height={340}
+              width={320}
+              height={320}
               className="object-contain relative z-10"
               priority
             />
@@ -161,7 +191,7 @@ export default function Hero() {
         </div>
 
         {/* Right Column */}
-        <div className="md:col-span-4 flex flex-col gap-6">
+        <div className="md:col-span-4 flex flex-col gap-4 justify-between">
           <InfoCard
             iconSrc="/images/hero/iconExercices.png"
             title="Mudança de Estilo de Vida"
@@ -171,8 +201,8 @@ export default function Hero() {
           />
 
           <BoxReveal duration={1.4} boxColor="#ebf5df">
-            <div className="p-4 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 shadow-lg w-full flex flex-col gap-3 border border-primary-500/30">
-              <div className="w-full rounded-lg shadow-lg overflow-hidden h-[200px]">
+            <div className="p-4 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 shadow-lg w-full h-48 flex flex-col gap-3 border-2 border-primary-500/30">
+              <div className="w-full rounded-lg shadow-lg overflow-hidden h-[120px]">
                 <ReactCompareSlider
                   position={50}
                   handle={
@@ -203,17 +233,16 @@ export default function Hero() {
               </div>
               <div className="text-center">
                 <p
-                  className={`${fontSubtitle.className} text-xs text-white italic mb-2`}
+                  className={`${fontSubtitle.className} text-xs text-white italic mb-1`}
                 >
-                  "NutriCalc mudou a minha vida! Alcancei meus objetivos de
-                  forma saudável e sustentável."
+                  "NutriCalc mudou a minha vida! Alcancei meus objetivos de forma saudável."
                 </p>
                 <div className="flex items-center justify-center">
                   <Image
                     src="/images/hero/iconPersonExample.png"
                     alt="Avatar do cliente"
-                    width={32}
-                    height={32}
+                    width={24}
+                    height={24}
                     className="rounded-full mr-2 border-2 border-primary-300 shadow-md"
                   />
                   <div className="text-left">
@@ -235,9 +264,9 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* CTA Button */}
+      {/* CTA Button - Mantido no final */}
       <BoxReveal duration={1.6} boxColor="#ebf5df">
-        <div className=" text-center">
+        <div className="text-center mt-6">
           <motion.div
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
@@ -246,7 +275,7 @@ export default function Hero() {
             <Button
               color="primary"
               size="lg"
-              className="px-10 py-7 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 
+              className="px-10 py-6 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 
                 bg-gradient-to-r from-moss_green to-moss_green/90 hover:from-moss_green/90 hover:to-moss_green 
                 border-2 border-moss_green/20 rounded-xl"
             >
