@@ -49,10 +49,9 @@ const InfoCard = ({
       {/* Conteúdo do card com flexbox */}
       <div className="flex h-full p-4 justify-center items-center flex-row">
         {/* Coluna do ícone (esquerda) */}
-        <div className="relative flex-shrink-0 w-1/3">
+        <div className="relative flex-shrink-0 w-1/3 flex justify-center">
           <motion.div 
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/4
-              w-24 h-24 flex items-center justify-center z-10"
+            className="relative w-24 h-24 flex items-center justify-center z-10"
             initial={{ x: -10, opacity: 0 }}
             animate={{ x: -8, opacity: 1 }}
             transition={{ 
@@ -146,7 +145,7 @@ export default function Hero() {
       {/* Main Content Grid - Ajustado para ocupar o espaço disponível */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full flex-grow max-h-[70vh]">
         {/* Left Column */}
-        <div className="md:col-span-4 flex flex-col gap-4 justify-between">
+        <div className="md:col-span-4 flex flex-col justify-around">
           <InfoCard
             iconSrc="/images/hero/iconNutricionista.png"
             title="Dieta Personalizada"
@@ -190,8 +189,9 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column */}
-        <div className="md:col-span-4 flex flex-col gap-4 justify-between">
+        {/* Right Column - Com card normal e card duplo */}
+        <div className="md:col-span-4 flex flex-col gap-4">
+          {/* Card normal - mesmo tamanho dos outros cards */}
           <InfoCard
             iconSrc="/images/hero/iconExercices.png"
             title="Mudança de Estilo de Vida"
@@ -200,66 +200,88 @@ export default function Hero() {
             duration={1.2}
           />
 
+          {/* Card duplo - ocupa o espaço de dois cards normais */}
           <BoxReveal duration={1.4} boxColor="#ebf5df">
-            <div className="p-4 rounded-xl bg-gradient-to-br from-primary-600 to-primary-700 shadow-lg w-full h-48 flex flex-col gap-3 border-2 border-primary-500/30">
-              <div className="w-full rounded-lg shadow-lg overflow-hidden h-[120px]">
-                <ReactCompareSlider
-                  position={50}
-                  handle={
-                    <ReactCompareSliderHandle
-                      buttonStyle={{
-                        backdropFilter: "blur(4px)",
-                        background: "rgba(118, 137, 72, 0.9)",
-                        border: "none",
-                        color: "white",
-                      }}
-                    />
-                  }
-                  itemOne={
-                    <ReactCompareSliderImage
-                      src="/images/hero/iconPersonExample.png"
-                      alt="Imagem Antes"
-                      style={{ objectFit: "cover", height: "100%" }}
-                    />
-                  }
-                  itemTwo={
-                    <ReactCompareSliderImage
-                      src="/images/hero/iconPersonExample2.png"
-                      alt="Imagem Depois"
-                      style={{ objectFit: "cover", height: "100%" }}
-                    />
-                  }
-                />
-              </div>
-              <div className="text-center">
-                <p
-                  className={`${fontSubtitle.className} text-xs text-white italic mb-1`}
-                >
-                  "NutriCalc mudou a minha vida! Alcancei meus objetivos de forma saudável."
-                </p>
-                <div className="flex items-center justify-center">
-                  <Image
-                    src="/images/hero/iconPersonExample.png"
-                    alt="Avatar do cliente"
-                    width={24}
-                    height={24}
-                    className="rounded-full mr-2 border-2 border-primary-300 shadow-md"
+            <motion.div
+              className="relative h-[calc(48px*2+1rem)] rounded-xl overflow-hidden
+                bg-gradient-to-br from-primary-600 to-primary-700 
+                shadow-lg border-2 border-primary-500/30"
+              whileHover={{
+                y: -6,
+                scale: 1.02,
+                transition: { duration: 0.2 },
+                boxShadow: "0 12px 24px rgba(0, 0, 0, 0.15)",
+              }}
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 15,
+                mass: 1,
+              }}
+            >
+              <div className="p-4 h-full flex flex-col justify-between">
+                {/* Slider de comparação limitado à altura disponível */}
+                <div className="w-full rounded-lg shadow-lg overflow-hidden h-[60%]">
+                  <ReactCompareSlider
+                    position={50}
+                    handle={
+                      <ReactCompareSliderHandle
+                        buttonStyle={{
+                          backdropFilter: "blur(4px)",
+                          background: "rgba(118, 137, 72, 0.9)",
+                          border: "none",
+                          color: "white",
+                        }}
+                      />
+                    }
+                    itemOne={
+                      <ReactCompareSliderImage
+                        src="/images/hero/iconPersonExample.png"
+                        alt="Imagem Antes"
+                        style={{ objectFit: "cover", height: "100%" }}
+                      />
+                    }
+                    itemTwo={
+                      <ReactCompareSliderImage
+                        src="/images/hero/iconPersonExample2.png"
+                        alt="Imagem Depois"
+                        style={{ objectFit: "cover", height: "100%" }}
+                      />
+                    }
                   />
-                  <div className="text-left">
-                    <p
-                      className={`${fontTitle.className} text-xs font-bold text-primary-200`}
-                    >
-                      Maria Silva
-                    </p>
-                    <p
-                      className={`${fontSubtitle.className} text-[10px] text-primary-300`}
-                    >
-                      São Paulo, SP
-                    </p>
+                </div>
+                
+                {/* Texto de depoimento */}
+                <div className="text-center mt-2">
+                  <p
+                    className={`${fontSubtitle.className} text-sm text-white italic mb-2`}
+                  >
+                    "NutriCalc mudou a minha vida! Alcancei meus objetivos de forma saudável e sustentável em apenas 3 meses."
+                  </p>
+                  <div className="flex items-center justify-center">
+                    <Image
+                      src="/images/hero/iconPersonExample.png"
+                      alt="Avatar do cliente"
+                      width={32}
+                      height={32}
+                      className="rounded-full mr-2 border-2 border-primary-300 shadow-md"
+                    />
+                    <div className="text-left">
+                      <p
+                        className={`${fontTitle.className} text-sm font-bold text-primary-200`}
+                      >
+                        Maria Silva
+                      </p>
+                      <p
+                        className={`${fontSubtitle.className} text-xs text-primary-300`}
+                      >
+                        São Paulo, SP
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </BoxReveal>
         </div>
       </div>
