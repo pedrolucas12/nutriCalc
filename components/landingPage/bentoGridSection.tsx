@@ -94,8 +94,8 @@ export default function BentoGridSection() {
         </div>
       ),
       footer: (
-        <div className="flex justify-between items-center w-full backdrop-blur-xl bg-white/20 dark:bg-black/30 rounded-lg p-2 border border-white/20 dark:border-green-900/30 z-30 shadow-md shadow-green-500/20 transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 hover:bg-green-500/10 dark:hover:bg-green-900/20">
-          <p className="text-green-700 dark:text-green-300 text-md font-medium">
+        <div className="flex justify-between items-center w-full backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-lg p-2 border border-white/20 dark:border-green-900/30 z-30 shadow-md shadow-green-500/20 transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 hover:bg-green-500/10 dark:hover:bg-green-900/20 ">
+          <p className="text-green-700 dark:text-green-300 text-md font-medium hover:text-white">
             Receba sua dieta no WhatsApp!
           </p>
           <Button

@@ -314,7 +314,7 @@ export default function Hero() {
             whileTap={{ scale: 0.98 }}
             className="inline-block relative"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-400 to-primary-500 rounded-xl blur-md opacity-70 animate-pulse"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-400 to-primary-500 rounded-xl  opacity-70 animate-pulse"></div>
             <Button
               color="primary"
               size="lg"
@@ -337,7 +337,7 @@ export default function Hero() {
               >
                 <Sparkles className="mr-3 h-6 w-6 text-yellow-200" />
                 Calcule sua Dieta agora!
-                <motion.div
+                {/* <motion.div
                   className="ml-2 bg-white/20 text-white text-xs px-2 py-0.5 rounded-full"
                   animate={{ 
                     scale: [1, 1.1, 1],
@@ -349,7 +349,7 @@ export default function Hero() {
                   }}
                 >
                   GRÁTIS
-                </motion.div>
+                </motion.div> */}
               </motion.span>
             </Button>
           </motion.div>
