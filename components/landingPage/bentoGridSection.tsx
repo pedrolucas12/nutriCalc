@@ -24,6 +24,7 @@ import {
 
 import fingerprint from "@/public/animations/fingerprint.json";
 import { CardNutricionIA } from "../ui/animatedBeamDemo";
+import ClientOnlyApexChart from "../ui/client-pie-chart";
 import { RipplePulse } from "../ui/ripplePulse";
 import DietNotificationList from "./diet-notification-list";
 
@@ -119,11 +120,11 @@ export default function BentoGridSection() {
       icon: <BarChart3 className="h-6 w-6 text-amber-500" />,
       content: (
         <div className="absolute inset-0 flex items-center justify-center p-4 opacity-90 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
-          {/* <ClientOnlyApexChart
+          <ClientOnlyApexChart
             imcValue={exampleIMC}
             weight={exampleWeight}
             height={exampleHeight}
-          /> */}
+          />
         </div>
       ),
       footer: (
