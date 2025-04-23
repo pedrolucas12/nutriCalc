@@ -143,7 +143,7 @@ export default function Hero() {
       </div>
 
       {/* Main Content Grid - Ajustado para ocupar o espaço disponível */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-3 w-full flex-grow max-h-[60vh]">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full flex-grow max-h-[60vh]">
         {/* Left Column */}
         <div className="md:col-span-4 flex flex-col justify-center gap-4">
           <InfoCard
@@ -190,7 +190,7 @@ export default function Hero() {
         </div>
 
         {/* Right Column - Com card normal e card duplo */}
-        <div className="md:col-span-4 flex flex-col gap-4 justify-center items-center">
+        <div className="md:col-span-4 flex flex-col gap-4 justify-center">
           {/* Card normal - mesmo tamanho dos outros cards */}
           <InfoCard
             iconSrc="/images/hero/iconExercices.png"
@@ -200,10 +200,10 @@ export default function Hero() {
             duration={1.2}
           />
 
-          {/* Card duplo - ocupa o espaço de dois cards normais */}
+          {/* Card duplo - ocupa o espaço exato de dois InfoCards */}
           <BoxReveal duration={1.4} boxColor="#ebf5df">
             <motion.div
-              className="h-[calc(44px*2+0.75rem)] rounded-xl overflow-hidden
+              className="h-[352px] rounded-xl overflow-hidden
                 bg-gradient-to-br from-primary-600 to-primary-700 
                 shadow-lg border-2 border-primary-500/30 relative"
               whileHover={{
@@ -305,7 +305,7 @@ export default function Hero() {
 
       {/* CTA Button - Melhorado */}
       <BoxReveal duration={1.6} boxColor="#ebf5df">
-        <div className="text-center ">
+        <div className="text-center mt-5">
           <motion.div
             whileHover={{ 
               scale: 1.05,
