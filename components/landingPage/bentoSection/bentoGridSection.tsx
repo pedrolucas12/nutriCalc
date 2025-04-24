@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { Button } from "@heroui/button";
 import { Card } from "@heroui/card";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { Magnetic } from "../motion-primitives/magnetic";
+import { Magnetic } from "../../motion-primitives/magnetic";
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 import { fontSubtitle, fontTitle } from "@/config/fonts";
@@ -23,9 +23,9 @@ import {
 } from "lucide-react";
 
 import fingerprint from "@/public/animations/fingerprint.json";
-import { CardNutricionIA } from "../ui/animatedBeamDemo";
-import ClientOnlyApexChart from "../ui/client-pie-chart";
-import { RipplePulse } from "../ui/ripplePulse";
+import { CardNutricionIA } from "../../ui/animatedBeamDemo";
+import ClientOnlyApexChart from "../../ui/client-pie-chart";
+import { RipplePulse } from "../../ui/ripplePulse";
 import DietNotificationList from "./diet-notification-list";
 
 const springOptions = { bounce: 0.1 };

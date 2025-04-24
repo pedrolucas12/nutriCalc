@@ -4,7 +4,7 @@ import { CalculationResults } from "@/lib/calculations";
 import { NutriCalcFormData } from "@/lib/schemas";
 import { Card } from "@heroui/card"; // Ajuste o caminho
 import { Info } from "lucide-react";
-import ClientOnlyApexChart from "../ui/client-pie-chart";
+import ClientOnlyApexChart from "../../ui/client-pie-chart";
 
 interface ResultsStepProps {
   results: CalculationResults;

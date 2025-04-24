@@ -10,9 +10,9 @@ import {
   ReactCompareSliderHandle,
   ReactCompareSliderImage,
 } from "react-compare-slider";
-import { AuroraText } from "../magicui/aurora-text";
-import { BoxReveal } from "../magicui/box-reveal";
-import { WordRotate } from "../magicui/word-rotate";
+import { AuroraText } from "../../magicui/aurora-text";
+import { BoxReveal } from "../../magicui/box-reveal";
+import { WordRotate } from "../../magicui/word-rotate";
 
 // --- InfoCard Component ---
 const InfoCard = ({

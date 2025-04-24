@@ -1,5 +1,5 @@
 import BentoGridSection from "./bentoGridSection";
-import Hero from "./bentoSection/hero";
+import Hero from "./hero";
 
 export default function BentoCards() {
   return (

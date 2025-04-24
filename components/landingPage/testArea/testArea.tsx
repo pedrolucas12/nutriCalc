@@ -3,8 +3,8 @@
 
 import { useState } from "react";
 import ButtonForTest from "./ButtonForTest";
+import Hero from "./hero";
 import NutriCalcModal from "./NutriCalcModal"; // Importa a modal
-import Hero from "./testArea/hero";
 
 export default function TestArea() {
   const [isModalOpen, setIsModalOpen] = useState(false);

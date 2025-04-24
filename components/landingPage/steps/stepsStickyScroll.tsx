@@ -6,8 +6,8 @@ import fingerprintLottie from "@/public/animations/fingerprint.json";
 import formLottie from "@/public/animations/form.json";
 import paymentLottie from "@/public/animations/payment.json";
 import dynamic from "next/dynamic";
-import ClientOnlyApexChart from "../ui/client-pie-chart"; // Renomeado para clareza
-import { StickyScroll } from "../ui/sticky-scroll-reveal"; // Ajuste o caminho
+import ClientOnlyApexChart from "../../ui/client-pie-chart"; // Renomeado para clareza
+import { StickyScroll } from "../../ui/sticky-scroll-reveal"; // Ajuste o caminho
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 

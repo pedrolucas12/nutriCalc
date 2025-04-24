@@ -1,8 +1,8 @@
-import BentoCards from "@/components/landingPage/bentoGrid";
-import FAQs from "@/components/landingPage/faqs";
-import Hero from "@/components/landingPage/hero";
-import Steps from "@/components/landingPage/steps";
-import TestArea from "@/components/landingPage/testArea";
+import BentoCards from "@/components/landingPage/bentoSection/bentoGrid";
+import FAQs from "@/components/landingPage/faqs/faqs";
+import Hero from "@/components/landingPage/hero/hero";
+import Steps from "@/components/landingPage/steps/steps";
+import TestArea from "@/components/landingPage/testArea/testArea";
 
 export default function Home() {
   return (

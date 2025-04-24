@@ -5,11 +5,11 @@ import { CalculationResults, calculateBMI, calculateBodyFatPercentage, calculate
 import { NutriCalcFormData } from "@/lib/schemas"; // Ajuste o caminho
 import { Button } from "@heroui/button"; // Ajuste o caminho
 import {
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
 } from "@heroui/modal"; // Ajuste o caminho se usar HeroUI ou outra lib
 import { useState } from "react";
 import FormStep from "./FormStep";

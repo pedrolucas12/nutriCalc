@@ -3,7 +3,7 @@
 
 import { fontSubtitle, fontTitle } from "@/config/fonts"; // Ajuste o caminho
 import { Sparkles } from "lucide-react";
-import { InteractiveHoverButton } from "../magicui/interactive-hover-button"; // Ajuste o caminho
+import { InteractiveHoverButton } from "../../magicui/interactive-hover-button"; // Ajuste o caminho
 
 interface ButtonForTestProps {
   onOpen: () => void; // Função para abrir a modal
