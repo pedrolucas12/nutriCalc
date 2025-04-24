@@ -7,7 +7,7 @@ import { Logo } from "@/components/icons"; // Certifique-se de ter o Logo corret
 
 export default function Footer() {
   return (
-    <footer className="bg-dark_green text-honeydew flex flex-row justify-center w-full">
+    <footer className="bg-primary-900 text-secondary-500 flex flex-row justify-between w-full h-full">
       <div className="mx-auto py-12 px-4">
         {/* Grid para as colunas */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
