@@ -31,8 +31,8 @@ const InfoCard = ({
   <BoxReveal duration={duration} boxColor={boxColor}>
     <motion.div
       className="relative h-44 rounded-xl overflow-visible
-        bg-gradient-to-br from-primary-200/90 to-primary-300/70 dark:from-primary-700/90 dark:to-primary-600/70 
-        shadow-lg border-2 border-primary-300/50 dark:border-primary-500/30"
+   bg-gradient-to-br from-primary-400 to-primary-600 dark:from-primary-700 dark:to-primary-800
+   shadow-lg border-2 border-primary-500/30 dark:border-primary-700/30"
       whileHover={{
         y: -6,
         scale: 1.02,

@@ -42,28 +42,43 @@ export default function BentoGridSection() {
 
   // Cards detalhados para matar as dores do cliente
   const cards = [
+    // --- Row 1 (2 Cards) ---
     {
-      title: "Dieta 100% Personalizada",
-      description:
-        "Plano alimentar único, criado sob medida para seu corpo, rotina e preferências.",
+      Icon: Sparkles,
+      name: "Dieta 100% Personalizada",
+      description: "Plano alimentar único, criado sob medida para seu corpo, rotina e preferências.",
+      href: "#dieta-personalizada",
       link: "#dieta-personalizada",
-      color: "from-emerald-500/20 to-teal-500/20",
-      icon: <Sparkles className="h-6 w-6 text-emerald-500" />,
+      cta: "Ver Detalhes",
+      className: "md:col-span-7 row-span-2", // Span 7 para MD+, ocupa 2 linhas
+      color: "from-primary-400/20 to-primary-500/20", // Colores para el hover
+      // El background va DENTRO del content para BentoCard
       content: (
-        <div className="relative flex flex-col items-center justify-center h-full w-full overflow-hidden rounded-xl bg-gradient-to-br from-emerald-100/30 via-emerald-200/20 to-teal-100/20">
-          {/* Lottie Fingerprint centralizado */}
+        // Contenido del card 1
+        <div className="relative flex flex-col items-center justify-center h-full w-full overflow-hidden rounded-xl"> {/* Fondo base (opcional si se usa Card bg) */}
+          {/* Elemento de fondo DNA/Abstrato */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none">
+            {/* ... seu SVG DNA ou blur effects ... */}
+            <div className="absolute -right-10 -bottom-10 w-[80%] h-[80%] rounded-full bg-gradient-to-br from-emerald-300/10 to-teal-500/20 blur-3xl"></div>
+            <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-emerald-400/10 blur-xl"></div>
+            <div className="absolute bottom-20 left-20 w-32 h-32 rounded-full bg-teal-300/10 blur-xl"></div>
+             <div className="absolute right-10 top-10 opacity-20">
+               {Array.from({ length: 8 }).map((_, i) => ( <div key={i} className="relative h-[10px]"> <div className="absolute w-8 h-1.5 bg-emerald-500/40 rounded-full" style={{ transform: `translateY(${i * 10}px) rotate(${i % 2 ? 30 : -30}deg)`, left: i % 2 ? "10px" : "0px" }}></div> <div className="absolute w-8 h-1.5 bg-teal-500/40 rounded-full" style={{ transform: `translateY(${i * 10}px) rotate(${i % 2 ? -30 : 30}deg)`, right: i % 2 ? "10px" : "0px" }}></div> </div> ))}
+             </div>
+          </div>
+           {/* Lottie Fingerprint centralizado */}
           <div className="w-40 h-40 md:w-48 md:h-48 flex items-center justify-center mx-auto z-10">
             <Lottie animationData={fingerprint} loop={true} />
           </div>
           {/* Texto centralizado abaixo do Lottie */}
-          <div className="flex flex-col items-center justify-center z-20">
+          <div className="flex flex-col items-center justify-center mt-2 z-20">
             <h3
-              className={`${fontTitle.className} text-2xl md:text-3xl font-bold text-primary-700 text-center`}
+              className={`${fontTitle.className} text-2xl md:text-3xl font-bold text-primary-200 text-center`} // Cor ajustada
             >
               Sua dieta, sua identidade.
             </h3>
             <p
-              className={`${fontSubtitle.className} text-sm md:text-base text-primary-800 text-center mt-2`}
+              className={`${fontSubtitle.className} text-sm md:text-base text-secondary-300 text-center mt-2`} // Cor ajustada
             >
               A IA analisa seu perfil, preferências e rotina para criar um plano
               alimentar exclusivo para você.
@@ -71,39 +86,67 @@ export default function BentoGridSection() {
           </div>
         </div>
       ),
+      footer: ( /* ... Footer padrão ... */
+         <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-gray-800/30">
+          <p className="text-emerald-700 dark:text-emerald-300 text-sm font-medium">
+            Resultados visíveis em semanas
+          </p>
+          <Button
+            color="primary" // Use color prop
+            radius="full"
+            size="sm"
+            className="group bg-emerald-500 hover:bg-emerald-600 text-white" // Added text-white
+          >
+            Começar{" "}
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </Button>
+        </div>
+      ),
     },
     {
-      title: "",
-      description: "",
-      link: "#ia-dieta",
-      color: "from-green-500/20 to-green-600/20",
-      icon: <Brain className="h-6 w-6 text-green-500" />,
-      content: <CardNutricionIA />,
-    },
-    {
-      title: "Dieta no WhatsApp",
-      description:
-        "Receba seu plano alimentar e lembretes diretamente no WhatsApp.",
+      Icon: Brain,
+      name: "Nutrição Otimizada por IA",
+      description: "Nossa IA analisa seus dados para otimizar cada refeição.", // Descrição mais curta
       link: "#dieta-whatsapp",
-      color: "from-green-500/20 to-green-600/20",
-      icon: <MessageCircle className="h-6 w-6 text-green-500" />,
+      href: "#ia-dieta",
+      cta: "Entenda a Tecnologia",
+      className: "md:col-span-5 row-span-2", // Span 5 para MD+, ocupa 2 linhas
+      color: "from-purple-400/20 to-fuchsia-400/20", // Cor para o hover
+      content: <CardNutricionIA />, // Componente externo
+    },
+    // --- Row 2 (3 Cards) ---
+    {
+      Icon: MessageCircle,
+      name: "Plano no WhatsApp",
+      description: "Receba sua dieta e lembretes direto no celular. Prático e fácil.", // Descrição mais curta
+      link: "#dieta-whatsapp",
+      cta: "Conectar",
+      className: "md:col-span-4 text-white dark:text-honeydew row-span-2", // Span 4, ocupa 2 linhas
+      color: "from-green-400/20 to-lime-400/20",
+      titlePosition: "bottom", // Posição do título/descrição
+      background: ( // Usado background para consistência com a referência
+         <div className="relative h-full w-full overflow-hidden rounded-xl">
+          <DietNotificationList className="absolute inset-0 scale-95 md:scale-100 opacity-90 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent z-10 rounded-xl pointer-events-none" />
+        </div>
+      ),
       content: (
         <div className="relative h-full w-full overflow-hidden rounded-xl">
-          <DietNotificationList className="absolute inset-0 scale-95 md:scale-100 opacity-90" />
+          <DietNotificationList className="absolute inset-0 scale-95 md:scale-100 opacity-90 pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent z-10 rounded-xl pointer-events-none" />
         </div>
       ),
       footer: (
-        <div className="flex justify-between items-center w-full backdrop-blur-xl bg-white/70 dark:bg-black/30 rounded-lg p-2 border border-white/20 dark:border-green-900/30 z-30 shadow-md shadow-green-500/20 transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 hover:bg-green-500/10 dark:hover:bg-green-900/20 ">
-          <p className="text-green-700 dark:text-green-300 text-md font-medium hover:text-white">
+        <div className="flex justify-between items-center w-full backdrop-blur-xl bg-white/20 dark:bg-black/30 rounded-lg p-2 border border-white/20 dark:border-green-900/30 z-30 shadow-md shadow-green-500/20 transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 hover:bg-green-500/10 dark:hover:bg-green-900/20">
+          <p className="text-green-700 dark:text-green-300 text-md font-medium">
             Receba sua dieta no WhatsApp!
           </p>
           <Button
-            color="primary"
+            color="primary" // Use color prop
             variant="solid"
             radius="full"
             size="sm"
-            className="group bg-green-500 hover:bg-green-600 text-white"
+            className="group bg-green-500 hover:bg-green-600 text-white" // Added text-white
           >
             Conectar{" "}
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -112,12 +155,19 @@ export default function BentoGridSection() {
       ),
     },
     {
-      title: "Teste Gratuito TMB/IMC",
-      description:
-        "Calcule seu IMC, TMB e % de gordura corporal gratuitamente.",
+      Icon: BarChart3,
+      name: "Métricas Grátis",
+      href : "#teste-gratuito",
+      description: "Calcule seu IMC e TMB agora e entenda seu corpo.",
       link: "#teste-gratuito",
-      color: "from-amber-500/20 to-amber-600/20",
+      className: "md:col-span-4 row-span-2", // Span 4, ocupa 2 linhas
+      color: "from-amber-400/20 to-yellow-400/20",
       icon: <BarChart3 className="h-6 w-6 text-amber-500" />,
+      background: ( // Usado background para consistência com a referência
+         <div className="absolute inset-0 flex items-center justify-center p-3 opacity-90 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+          <ClientOnlyApexChart imcValue={exampleIMC} weight={exampleWeight} height={exampleHeight} />
+        </div>
+      ),
       content: (
         <div className="absolute inset-0 flex items-center justify-center p-4 opacity-90 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
           <ClientOnlyApexChart
@@ -130,14 +180,10 @@ export default function BentoGridSection() {
       footer: (
         <div className="flex justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-secondary-800/30">
           <div>
-            <p
-              className={`${fontTitle.className} text-secondary-800 dark:text-secondary-200 font-semibold text-sm`}
-            >
+            <p className={`${fontTitle.className} text-secondary-800 dark:text-secondary-200 font-semibold text-sm`}>
               Entenda sua Saúde
             </p>
-            <p
-              className={`${fontSubtitle.className} text-secondary-600 dark:text-secondary-400 text-xs`}
-            >
+            <p className={`${fontSubtitle.className} text-secondary-600 dark:text-secondary-400 text-xs`}>
               Calcule e visualize seu IMC.
             </p>
           </div>
@@ -154,21 +200,18 @@ export default function BentoGridSection() {
       ),
     },
     {
-      title: "",
-      description: "",
+      title: "Alcance Seus Objetivos",
+      description:
+        "Transforme seu corpo com um plano que evolui.",
       link: "#alcance-objetivos",
+      className: "md:col-span-4 text-white dark:text-honeydew row-span-2", // Span 4, ocupa 2 linhas
       color: "from-secondary-400/10 to-secondary-500/10",
       icon: <Goal className="h-6 w-6 text-secondary-400" />,
       content: (
         <div className="flex group h-full w-full absolute inset-0 z-0 overflow-hidden rounded-lg">
           <RipplePulse />
           <div className="gap-2 flex h-full w-full flex-col items-center justify-center absolute z-10 p-4 pointer-events-none">
-            <Magnetic
-              actionArea="global"
-              intensity={0.2}
-              range={200}
-              springOptions={springOptions}
-            >
+            <Magnetic actionArea="global" intensity={0.2} range={200} springOptions={springOptions}>
               <p className="z-10 whitespace-pre-wrap text-center text-3xl md:text-4xl font-bold tracking-tighter text-primary group-hover:scale-105 transition-all duration-350 ease-in-out pb-1 md:pb-2">
                 Transforme seu <span className="text-secondary-200">corpo</span>
               </p>
@@ -217,7 +260,7 @@ export default function BentoGridSection() {
           onMouseEnter={() => setHoveredIndex(0)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
-          <Card className="w-full h-full relative overflow-hidden bg-white/5 dark:bg-black/5 backdrop-blur-sm border border-white/10 dark:border-gray-800/50 text-foreground shadow-md rounded-3xl">
+          <Card className="relative z-10 w-full h-full overflow-hidden bg-primary-500/80 dark:bg-primary-800/80 backdrop-blur-sm border border-primary-700/30 dark:border-primary-900/30 text-white shadow-lg rounded-2xl">
             {cards[0].content}
             
             <div className="absolute z-10 top-4 left-4 flex items-start">
@@ -266,7 +309,7 @@ export default function BentoGridSection() {
           onMouseEnter={() => setHoveredIndex(1)}
           onMouseLeave={() => setHoveredIndex(null)}
         >
-          <Card className="w-full h-full relative overflow-hidden bg-white/5 dark:bg-black/5 backdrop-blur-sm border border-white/10 dark:border-gray-800/50 text-foreground shadow-md rounded-3xl">
+          <Card className="relative z-10 w-full h-full overflow-hidden bg-primary-500/80 dark:bg-primary-800/80 backdrop-blur-sm border border-primary-700/30 dark:border-primary-900/30 text-white shadow-lg rounded-2xl">
             {cards[1].content}
           </Card>
           
@@ -304,7 +347,7 @@ export default function BentoGridSection() {
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            <Card className="w-full h-full relative overflow-hidden bg-white/5 dark:bg-black/5 backdrop-blur-sm border border-white/10 dark:border-gray-800/50 text-foreground shadow-md rounded-3xl">
+            <Card className="relative z-10 w-full h-full overflow-hidden bg-primary-500/80 dark:bg-primary-800/80 backdrop-blur-sm border border-primary-700/30 dark:border-primary-900/30 text-white shadow-lg rounded-2xl">
               {cards[index].content}
               
               {cards[index].title && (

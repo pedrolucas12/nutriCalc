@@ -1,12 +1,12 @@
 import { fontSubtitle } from "@/config/fonts";
 import { Accordion, AccordionItem } from "@heroui/accordion";
 import {
-    Brain,
-    CheckCircle2,
-    DollarSign,
-    MessageCircle,
-    ShieldCheck,
-    Sparkles,
+  Brain,
+  CheckCircle2,
+  DollarSign,
+  MessageCircle,
+  ShieldCheck,
+  Sparkles,
 } from "lucide-react";
 
 export default function AccordionFaqs() {
