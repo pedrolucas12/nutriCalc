@@ -35,12 +35,10 @@ export default function BentoGridSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const isInView = useInView(sectionRef, { once: true });
 
-  // Dados de exemplo para IMC, peso e altura
   const exampleIMC = 24.5;
   const exampleWeight = 75;
   const exampleHeight = 175;
 
-  // Cards detalhados para matar as dores do cliente
   const cards = [
     // --- Row 1 (2 Cards) ---
     {
@@ -52,33 +50,24 @@ export default function BentoGridSection() {
       cta: "Ver Detalhes",
       className: "md:col-span-7 row-span-2", // Span 7 para MD+, ocupa 2 linhas
       color: "from-primary-400/20 to-primary-500/20", // Colores para el hover
-      // El background va DENTRO del content para BentoCard
       content: (
-        // Contenido del card 1
-        <div className="relative flex flex-col items-center justify-center h-full w-full overflow-hidden rounded-xl"> {/* Fondo base (opcional si se usa Card bg) */}
-          {/* Elemento de fondo DNA/Abstrato */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {/* ... seu SVG DNA ou blur effects ... */}
-            <div className="absolute -right-10 -bottom-10 w-[80%] h-[80%] rounded-full bg-gradient-to-br from-emerald-300/10 to-teal-500/20 blur-3xl"></div>
-            <div className="absolute top-10 left-10 w-20 h-20 rounded-full bg-emerald-400/10 blur-xl"></div>
-            <div className="absolute bottom-20 left-20 w-32 h-32 rounded-full bg-teal-300/10 blur-xl"></div>
-             <div className="absolute right-10 top-10 opacity-20">
-               {Array.from({ length: 8 }).map((_, i) => ( <div key={i} className="relative h-[10px]"> <div className="absolute w-8 h-1.5 bg-emerald-500/40 rounded-full" style={{ transform: `translateY(${i * 10}px) rotate(${i % 2 ? 30 : -30}deg)`, left: i % 2 ? "10px" : "0px" }}></div> <div className="absolute w-8 h-1.5 bg-teal-500/40 rounded-full" style={{ transform: `translateY(${i * 10}px) rotate(${i % 2 ? -30 : 30}deg)`, right: i % 2 ? "10px" : "0px" }}></div> </div> ))}
-             </div>
+        <div className="relative flex flex-col items-center justify-center h-full w-full overflow-hidden rounded-xl"> 
+          <div className="w-32 h-32 md:w-56 md:h-56 flex items-center justify-center z-10 mb-4">
+            <Lottie animationData={fingerprint} loop={true}
+              className="w-full h-full pointer-events-none"
+              style={{ maxWidth: "100%", maxHeight: "100%" }} // Ajuste de tamanho
+            />
           </div>
-           {/* Lottie Fingerprint centralizado */}
-          <div className="w-40 h-40 md:w-48 md:h-48 flex items-center justify-center mx-auto z-10">
-            <Lottie animationData={fingerprint} loop={true} />
-          </div>
-          {/* Texto centralizado abaixo do Lottie */}
-          <div className="flex flex-col items-center justify-center mt-2 z-20">
+          <div className="flex flex-col items-center justify-center z-20">
             <h3
-              className={`${fontTitle.className} text-2xl md:text-3xl font-bold text-primary-200 text-center`} // Cor ajustada
+              className={`${fontTitle.className} text-3xl md:text-4xl font-bold text-secondary-200 text-center`} 
             >
               Sua dieta, sua identidade.
             </h3>
             <p
-              className={`${fontSubtitle.className} text-sm md:text-base text-secondary-300 text-center mt-2`} // Cor ajustada
+              className={`${fontSubtitle.className} text-md 
+              text-secondary-600 dark:text-secondary-400 
+              text-center mt-2`} 
             >
               A IA analisa seu perfil, preferências e rotina para criar um plano
               alimentar exclusivo para você.
@@ -137,7 +126,7 @@ export default function BentoGridSection() {
         </div>
       ),
       footer: (
-        <div className="flex justify-between items-center w-full backdrop-blur-xl bg-white/20 dark:bg-black/30 rounded-lg p-2 border border-white/20 dark:border-green-900/30 z-30 shadow-md shadow-green-500/20 transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 hover:bg-green-500/10 dark:hover:bg-green-900/20">
+        <div className="flex justify-between items-center w-full backdrop-blur-xl bg-white/40 dark:bg-black/30 rounded-lg p-4 border border-white/20 dark:border-green-900/30 z-30 shadow-md shadow-green-500/20 transition-transform duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-green-500/30 hover:bg-green-500/10  hover:text-secondary-200 dark:hover:bg-green-900/20">
           <p className="text-green-700 dark:text-green-300 text-md font-medium">
             Receba sua dieta no WhatsApp!
           </p>
@@ -212,12 +201,21 @@ export default function BentoGridSection() {
           <RipplePulse />
           <div className="gap-2 flex h-full w-full flex-col items-center justify-center absolute z-10 p-4 pointer-events-none">
             <Magnetic actionArea="global" intensity={0.2} range={200} springOptions={springOptions}>
-              <p className="z-10 whitespace-pre-wrap text-center text-3xl md:text-4xl font-bold tracking-tighter text-primary group-hover:scale-105 transition-all duration-350 ease-in-out pb-1 md:pb-2">
+              <p className="z-10 whitespace-pre-wrap text-center text-4xl md:text-5xl font-bold tracking-tighter text-primary-800 group-hover:scale-105 transition-all duration-350 ease-in-out pb-1 md:pb-2">
                 Transforme seu <span className="text-secondary-200">corpo</span>
               </p>
-              <p className="group-hover:opacity-100 opacity-0 transition-all duration-350 ease-in-out text-center text-md text-primary-800">
+              <p className="group-hover:opacity-100 opacity-0 transition-all duration-350 ease-in-out text-center text-xl text-primary-800">
                 Deixe nossa IA criar o caminho ideal.
               </p>
+              <Button
+                size="lg"
+                className="group-hover:opacity-100 opacity-0 transition-all duration-350 ease-in-out
+                text-center 
+                "
+              >
+                Começar
+                <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+              </Button>
             </Magnetic>
           </div>
         </div>

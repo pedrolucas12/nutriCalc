@@ -1,70 +1,109 @@
-// No seu arquivo NutriCalcStepsStickyScroll.tsx
-
 "use client";
 import chat from "@/public/animations/chat.json";
 import fingerprintLottie from "@/public/animations/fingerprint.json";
 import formLottie from "@/public/animations/form.json";
 import paymentLottie from "@/public/animations/payment.json";
 import dynamic from "next/dynamic";
-import ClientOnlyApexChart from "../../ui/client-pie-chart"; // Renomeado para clareza
-import { StickyScroll } from "../../ui/sticky-scroll-reveal"; // Ajuste o caminho
+import ClientOnlyApexChart from "../../ui/client-pie-chart";
+import { StickyScroll } from "../../ui/sticky-scroll-reveal";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
-// Conteúdo para os steps com descrições mais longas e visuais variados
 const stepsContent = [
   {
-    title: "1. Comece Rápido: Seus Dados Essenciais",
-    description:
-      "Sem formulários longos! Precisamos apenas de informações básicas como altura, peso, idade, seu objetivo principal (emagrecer, ganhar massa ou manter) e medidas simples da cintura e pescoço. Isso garante a precisão inicial para calcularmos suas necessidades.",
+    title: (
+      <span className="text-2xl md:text-3xl xl:text-4xl font-bold">
+        1. Comece Rápido: Seus Dados Essenciais
+      </span>
+    ),
+    description: (
+      <span className="text-lg md:text-xl xl:text-2xl text-secondary-500">
+        Informe apenas o básico: altura, peso, idade, objetivo (emagrecer, ganhar massa ou manter) e medidas simples da cintura e pescoço. Não precisa perder tempo com formulários longos! Com esses dados, conseguimos calcular suas necessidades de forma precisa e personalizada.
+      </span>
+    ),
     content: (
-      // Visual mais clean para o formulário
-      <div className="flex h-full w-full items-center justify-center p-6">
-        <Lottie animationData={formLottie} loop />
+      <div className="relative w-full flex items-center justify-center">
+        <div className="relative ">
+          <Lottie animationData={formLottie} loop />
+        </div>
       </div>
     ),
   },
   {
-    title: "2. Descubra Suas Métricas (Grátis!)",
-    description:
-      "Visualize instantaneamente seu Índice de Massa Corporal (IMC) e sua Taxa Metabólica Basal (TMB) estimada. Entender esses números é o primeiro passo crucial para um plano eficaz, e oferecemos isso sem custo para você começar com o pé direito.",
+    title: (
+      <span className="text-2xl md:text-3xl xl:text-4xl font-bold">
+        2. Descubra Suas Métricas (Grátis!)
+      </span>
+    ),
+    description: (
+      <span className="text-lg md:text-xl xl:text-2xl text-secondary-500">
+        Veja na hora seu IMC (Índice de Massa Corporal) e TMB (Taxa Metabólica Basal). Entender esses números é o primeiro passo para um plano alimentar eficiente. Você já começa com informações valiosas, sem pagar nada!
+      </span>
+    ),
     content: (
-      // Gráfico continua sendo uma boa visualização
-      <div className="flex h-full w-full items-center justify-center p-6">
-        <ClientOnlyApexChart imcValue={24.5} weight={75} height={175} />
+      <div className="relative h-full w-full flex items-center justify-center">
+        <div className="relative">
+          <ClientOnlyApexChart imcValue={24.5} weight={75} height={175} />
+        </div>
       </div>
     ),
   },
   {
-    title: "3. A Mágica da IA: Sua Dieta Exclusiva",
-    description:
-      "Aqui a tecnologia brilha! Nossa Inteligência Artificial processa seus dados, cruza com seus objetivos e preferências, e gera um plano alimentar 100% único. É a ciência da nutrição adaptada perfeitamente para você, em segundos.",
+    title: (
+      <span className="text-2xl md:text-3xl xl:text-4xl font-bold">
+        3. A Mágica da IA: Sua Dieta Exclusiva
+      </span>
+    ),
+    description: (
+      <span className="text-lg md:text-xl xl:text-2xl text-secondary-500">
+        Nossa Inteligência Artificial analisa seus dados, entende seus objetivos e monta um cardápio totalmente personalizado. Você recebe um plano alimentar feito sob medida, com base em ciência e tecnologia de ponta.
+      </span>
+    ),
     content: (
-      // Lottie de fingerprint ou cérebro/rede neural
-      <div className="flex h-full w-full items-center justify-center p-6">
-        <Lottie animationData={fingerprintLottie} loop />
+    
+      <div className="relative h-full w-full flex items-center justify-center">
+        <div className="relative ">
+          <Lottie animationData={fingerprintLottie} loop />
+        </div>
+      </div>
+
+    ),
+  },
+  {
+    title: (
+      <span className="text-2xl md:text-3xl xl:text-4xl font-bold">
+        4. Pagamento Simples e Único
+      </span>
+    ),
+    description: (
+      <span className="text-lg md:text-xl xl:text-2xl text-secondary-500">
+        Para acessar seu plano completo, basta um pagamento único, rápido e seguro via Stripe. Sem mensalidades, sem surpresas. Invista na sua saúde de forma transparente!
+      </span>
+    ),
+    content: (
+      <div className="relative h-full w-full flex items-center justify-center">
+        <div className="relative ">
+          <Lottie animationData={paymentLottie} loop />
+        </div>
       </div>
     ),
   },
   {
-    title: "4. Pagamento Simples e Único",
-    description:
-      "Acesse seu plano completo com um pagamento único, seguro e transparente via Stripe. Sem assinaturas recorrentes ou taxas escondidas. Invista na sua saúde de forma clara e acessível.",
-    content: (
-      // Visual mais moderno para pagamento
-      <div className="flex h-full w-full items-center justify-center p-6">
-        <Lottie animationData={paymentLottie} loop />
-      </div>
+    title: (
+      <span className="text-2xl md:text-3xl xl:text-4xl font-bold">
+        5. Tudo Pronto no Seu WhatsApp!
+      </span>
     ),
-  },
-  {
-    title: "5. Tudo Pronto no Seu WhatsApp!",
-    description:
-      "Confirmado o pagamento, seu plano detalhado (PDF) e as notificações das refeições chegam direto no seu WhatsApp. Tenha sua dieta sempre à mão, de forma prática e fácil de seguir onde estiver.",
+    description: (
+      <span className="text-lg md:text-xl xl:text-2xl text-secondary-500">
+        Assim que o pagamento for confirmado, você recebe seu plano detalhado em PDF e notificações das refeições direto no WhatsApp. Praticidade total para seguir sua dieta onde estiver!
+      </span>
+    ),
     content: (
-      // Lista de notificações continua sendo ideal
-      <div className="flex h-full w-full items-center justify-center p-6">
+      <div className="relative  w-full flex items-center justify-center">
+        <div className="relative w-2/3 h-2/3">
           <Lottie animationData={chat} loop />
+        </div>
       </div>
     ),
   },
@@ -72,9 +111,11 @@ const stepsContent = [
 
 export function NutriCalcStepsStickyScroll() {
   return (
-    // Container da seção com fundo e padding
     <div className="w-full h-full">
-      <StickyScroll content={stepsContent} />
+      <StickyScroll 
+        content={stepsContent}
+        contentClassName="bg-white/90 dark:bg-black/90 backdrop-blur-sm rounded-3xl shadow-xl px-8 flex flex-col gap-6"
+      />
     </div>
   );
 }

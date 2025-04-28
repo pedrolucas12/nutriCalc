@@ -43,10 +43,12 @@ export function CardNutricionIA() {
       <AnimatedBeam containerRef={containerRef} fromRef={wellnessRef} toRef={iaRef} color="#34d399" colorTo="#588157" curvature={40} />
       {/* Texto centralizado na parte inferior */}
       <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center z-30">
-        <p className="text-xl font-bold text-primary-700">
+        <p className="text-2xl font-bold 
+        
+        text-secondary-200 dark:text-secondary-400">
             Nutrição Inteligente 
         </p>
-        <Button color="primary" radius="full" size="sm" className="mt-2" variant="flat" >
+        <Button color="primary" radius="full"  className="mt-2" variant="shadow" >
           Saiba mais
         </Button>
       </div>
