@@ -1,27 +1,33 @@
-"use client"
+"use client";
 
-import { cn } from "@/lib/utils"
-import { motion } from "framer-motion"
-import { Check } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { motion } from "framer-motion";
+import { Check } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+
+import { cn } from "@/lib/utils";
 
 // Interface for diet notification items
 interface DietItem {
-  meal: string
-  food: string
-  time: string
-  isRead?: boolean
+  meal: string;
+  food: string;
+  time: string;
+  isRead?: boolean;
 }
 
 // Component to render a single diet notification
 const DietNotification = ({ meal, food, time, isRead = false }: DietItem) => {
   return (
-    <div className={cn("relative w-full max-w-[250px] mb-2.5 flex", "transform transition-all duration-300")}>
+    <div
+      className={cn(
+        "relative w-full max-w-[250px] mb-2.5 flex",
+        "transform transition-all duration-300"
+      )}
+    >
       <div
         className={cn(
           "relative rounded-lg py-2 px-3 max-w-full",
           "bg-white dark:bg-[#202c33] shadow-sm",
-          "border border-gray-100 dark:border-gray-800",
+          "border border-gray-100 dark:border-gray-800"
         )}
       >
         <div className="flex flex-col">
@@ -34,28 +40,24 @@ const DietNotification = ({ meal, food, time, isRead = false }: DietItem) => {
 
         {/* Message tail */}
         <div className="absolute left-[-6px] top-0 w-3 h-3 overflow-hidden">
-          <div className="absolute transform rotate-45 bg-white dark:bg-[#202c33] border-l border-t border-gray-100 dark:border-gray-800 w-3 h-3"></div>
+          <div className="absolute transform rotate-45 bg-white dark:bg-[#202c33] border-l border-t border-gray-100 dark:border-gray-800 w-3 h-3" />
         </div>
 
         {/* Read status */}
         <div className="absolute bottom-0 right-1 flex items-center">
-          <Check size={12} className={cn("text-gray-400", isRead && "text-green-500")} />
-          {isRead && <Check size={12} className="text-green-500 -ml-[8px]" />}
+          <Check className={cn("text-gray-400", isRead && "text-green-500")} size={12} />
+          {isRead && <Check className="text-green-500 -ml-[8px]" size={12} />}
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 // Main component for the animated diet notification list
-export default function DietNotificationList({
-  className,
-}: {
-  className?: string
-}) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [scrollPosition, setScrollPosition] = useState(0)
-  const [isPaused, setIsPaused] = useState(false)
+export default function DietNotificationList({ className }: { className?: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   // Diet notification data
   const dietNotifications: DietItem[] = [
@@ -95,53 +97,53 @@ export default function DietNotificationList({
       time: "21:30",
       isRead: false,
     },
-  ]
+  ];
 
   // Duplicate items for continuous scrolling
-  const allNotifications = [...dietNotifications, ...dietNotifications, ...dietNotifications]
+  const allNotifications = [...dietNotifications, ...dietNotifications, ...dietNotifications];
 
   // Handle scrolling animation
   useEffect(() => {
-    if (isPaused || !containerRef.current) return
+    if (isPaused || !containerRef.current) return;
 
-    let animationFrameId: number
-    let lastTimestamp: number
-    const totalHeight = containerRef.current.scrollHeight
-    const visibleHeight = containerRef.current.clientHeight
-    const speed = 1.5 // pixels per frame
+    let animationFrameId: number;
+    let lastTimestamp: number;
+    const totalHeight = containerRef.current.scrollHeight;
+    const visibleHeight = containerRef.current.clientHeight;
+    const speed = 1.5; // pixels per frame
 
     const animate = (timestamp: number) => {
-      if (!lastTimestamp) lastTimestamp = timestamp
-      const elapsed = timestamp - lastTimestamp
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const elapsed = timestamp - lastTimestamp;
 
       if (elapsed > 16) {
         // ~60fps
-        lastTimestamp = timestamp
+        lastTimestamp = timestamp;
 
         // Calculate new scroll position
-        let newPosition = scrollPosition + speed
+        let newPosition = scrollPosition + speed;
 
         // Reset when we've scrolled through all items
         if (newPosition > totalHeight - visibleHeight) {
-          newPosition = 0
+          newPosition = 0;
         }
 
-        setScrollPosition(newPosition)
+        setScrollPosition(newPosition);
 
         if (containerRef.current) {
-          containerRef.current.scrollTop = newPosition
+          containerRef.current.scrollTop = newPosition;
         }
       }
 
-      animationFrameId = requestAnimationFrame(animate)
-    }
+      animationFrameId = requestAnimationFrame(animate);
+    };
 
-    animationFrameId = requestAnimationFrame(animate)
+    animationFrameId = requestAnimationFrame(animate);
 
     return () => {
-      cancelAnimationFrame(animationFrameId)
-    }
-  }, [scrollPosition, isPaused])
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [scrollPosition, isPaused]);
 
   return (
     <div
@@ -152,10 +154,7 @@ export default function DietNotificationList({
       {/* WhatsApp-like background */}
       <div className="absolute inset-0 bg-[#e5ded8] dark:bg-[#0b141a]">
         {/* WhatsApp pattern */}
-        <div
-          className="absolute inset-0 opacity-5 dark:opacity-10"
-         
-        />
+        <div className="absolute inset-0 opacity-5 dark:opacity-10" />
       </div>
 
       {/* Chat container */}
@@ -177,13 +176,13 @@ export default function DietNotificationList({
           {allNotifications.map((item, idx) => (
             <motion.div
               key={idx}
-              initial={{ x: -10, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
+              className="w-full"
+              initial={{ x: -10, opacity: 0 }}
               transition={{
                 delay: (idx * 0.05) % 0.3,
                 duration: 0.3,
               }}
-              className="w-full"
             >
               <DietNotification {...item} />
             </motion.div>
@@ -198,5 +197,5 @@ export default function DietNotificationList({
         </div>
       </div>
     </div>
-  )
+  );
 }

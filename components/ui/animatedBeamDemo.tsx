@@ -1,6 +1,7 @@
 import { Button } from "@heroui/button";
 import { Dumbbell, Heart, Smile, Sparkles, Utensils } from "lucide-react";
 import { useRef } from "react";
+
 import { AnimatedBeam } from "../magicui/animated-beam";
 
 export function CardNutricionIA() {
@@ -24,31 +25,73 @@ export function CardNutricionIA() {
         <Sparkles className="h-10 w-10 text-white" />
       </div>
       {/* Ícones periféricos */}
-      <div ref={foodRef} className="absolute top-8 left-8 w-12 h-12 bg-secondary-200 rounded-full flex items-center justify-center shadow">
+      <div
+        ref={foodRef}
+        className="absolute top-8 left-8 w-12 h-12 bg-secondary-200 rounded-full flex items-center justify-center shadow"
+      >
         <Utensils className="h-6 w-6 text-primary-700" />
       </div>
-      <div ref={healthRef} className="absolute top-8 right-8 w-12 h-12 bg-green-200 rounded-full flex items-center justify-center shadow">
+      <div
+        ref={healthRef}
+        className="absolute top-8 right-8 w-12 h-12 bg-green-200 rounded-full flex items-center justify-center shadow"
+      >
         <Heart className="h-6 w-6 text-red-500" />
       </div>
-      <div ref={happinessRef} className="absolute bottom-8 left-8 w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center shadow">
+      <div
+        ref={happinessRef}
+        className="absolute bottom-8 left-8 w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center shadow"
+      >
         <Smile className="h-6 w-6 text-yellow-500" />
       </div>
-      <div ref={wellnessRef} className="absolute bottom-8 right-8 w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center shadow">
+      <div
+        ref={wellnessRef}
+        className="absolute bottom-8 right-8 w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center shadow"
+      >
         <Dumbbell className="h-6 w-6 text-emerald-700" />
       </div>
       {/* Animated Beams ligando cada ícone periférico ao central */}
-      <AnimatedBeam containerRef={containerRef} fromRef={foodRef} toRef={iaRef} color="#a3b18a" colorTo="#588157" curvature={-60} />
-      <AnimatedBeam containerRef={containerRef} fromRef={healthRef} toRef={iaRef} color="#ff6b6b" colorTo="#588157" curvature={60} />
-      <AnimatedBeam containerRef={containerRef} fromRef={happinessRef} toRef={iaRef} color="#fbbf24" colorTo="#588157" curvature={-40} />
-      <AnimatedBeam containerRef={containerRef} fromRef={wellnessRef} toRef={iaRef} color="#34d399" colorTo="#588157" curvature={40} />
+      <AnimatedBeam
+  gradientStartColor="#a3b18a"
+  gradientStopColor="#588157"
+  containerRef={containerRef}
+  curvature={-60}
+  fromRef={foodRef}
+  toRef={iaRef}
+/>
+<AnimatedBeam
+  gradientStartColor="#ff6b6b"
+  gradientStopColor="#588157"
+  containerRef={containerRef}
+  curvature={60}
+  fromRef={healthRef}
+  toRef={iaRef}
+/>
+<AnimatedBeam
+  gradientStartColor="#fbbf24"
+  gradientStopColor="#588157"
+  containerRef={containerRef}
+  curvature={-40}
+  fromRef={happinessRef}
+  toRef={iaRef}
+/>
+<AnimatedBeam
+  gradientStartColor="#34d399"
+  gradientStopColor="#588157"
+  containerRef={containerRef}
+  curvature={40}
+  fromRef={wellnessRef}
+  toRef={iaRef}
+/>
       {/* Texto centralizado na parte inferior */}
       <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center z-30">
-        <p className="text-2xl font-bold 
+        <p
+          className="text-2xl font-bold 
         
-        text-secondary-200 dark:text-secondary-400">
-            Nutrição Inteligente 
+        text-secondary-200 dark:text-secondary-400"
+        >
+          Nutrição Inteligente
         </p>
-        <Button color="primary" radius="full"  className="mt-2" variant="shadow" >
+        <Button className="mt-2" color="primary" radius="full" variant="shadow">
           Saiba mais
         </Button>
       </div>

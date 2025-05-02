@@ -1,12 +1,13 @@
 "use client";
 
-import { NutriMindFormData, NutriMindFormSchema } from "@/lib/schemas";
 import { Autocomplete, AutocompleteItem } from "@heroui/autocomplete";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { Radio, RadioGroup } from "@heroui/radio";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
+
+import { NutriMindFormData, NutriMindFormSchema } from "@/lib/schemas";
 
 interface FormStepProps {
   onSubmit: (data: NutriMindFormData) => void;
@@ -32,41 +33,41 @@ export default function FormStep({ onSubmit }: FormStepProps) {
       gender: undefined,
       goal: undefined,
       activityLevelFactor: undefined,
-    }
+    },
   });
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
       {/* Linha 1: Altura e Peso */}
       <div className="grid grid-cols-2 gap-4">
         <Input
           label="Altura (cm)"
-          type="number"
           placeholder="Ex: 175"
+          type="number"
           {...register("height", { valueAsNumber: true })}
+          classNames={{
+            label: "text-secondary-700",
+            input: "text-secondary-700",
+          }}
+          color="primary"
           errorMessage={errors.height?.message}
           isInvalid={!!errors.height}
           variant="bordered"
-          color="primary"
-          classNames={{
-            label: "text-secondary-700",
-            input: "text-secondary-700",
-          }}
         />
         <Input
           label="Peso (kg)"
-          type="number"
           placeholder="Ex: 75.5"
           step="0.1"
+          type="number"
           {...register("weight", { valueAsNumber: true })}
-          errorMessage={errors.weight?.message}
-          isInvalid={!!errors.weight}
-          variant="bordered"
-          color="primary"
           classNames={{
             label: "text-secondary-700",
             input: "text-secondary-700",
           }}
+          color="primary"
+          errorMessage={errors.weight?.message}
+          isInvalid={!!errors.weight}
+          variant="bordered"
         />
       </div>
 
@@ -74,31 +75,31 @@ export default function FormStep({ onSubmit }: FormStepProps) {
       <div className="grid grid-cols-2 gap-4">
         <Input
           label="Cintura (cm)"
-          type="number"
           placeholder="Ex: 80"
+          type="number"
           {...register("waist", { valueAsNumber: true })}
+          classNames={{
+            label: "text-secondary-700",
+            input: "text-secondary-700",
+          }}
+          color="primary"
           errorMessage={errors.waist?.message}
           isInvalid={!!errors.waist}
           variant="bordered"
-          color="primary"
-          classNames={{
-            label: "text-secondary-700",
-            input: "text-secondary-700",
-          }}
         />
         <Input
           label="Pescoço (cm)"
-          type="number"
           placeholder="Ex: 38"
+          type="number"
           {...register("neck", { valueAsNumber: true })}
-          errorMessage={errors.neck?.message}
-          isInvalid={!!errors.neck}
-          variant="bordered"
-          color="primary"
           classNames={{
             label: "text-secondary-700",
             input: "text-secondary-700",
           }}
+          color="primary"
+          errorMessage={errors.neck?.message}
+          isInvalid={!!errors.neck}
+          variant="bordered"
         />
       </div>
 
@@ -106,43 +107,49 @@ export default function FormStep({ onSubmit }: FormStepProps) {
       <div className="grid grid-cols-2 gap-4 items-start">
         <Input
           label="Idade"
-          type="number"
           placeholder="Ex: 30"
+          type="number"
           {...register("age", { valueAsNumber: true })}
-          errorMessage={errors.age?.message}
-          isInvalid={!!errors.age}
-          variant="bordered"
-          color="primary"
           classNames={{
             label: "text-secondary-700",
             input: "text-secondary-700",
           }}
+          color="primary"
+          errorMessage={errors.age?.message}
+          isInvalid={!!errors.age}
+          variant="bordered"
         />
         <Controller
-          name="gender"
           control={control}
+          name="gender"
           render={({ field }) => (
             <RadioGroup
+              classNames={{
+                label: "text-secondary-700",
+                wrapper: "gap-6",
+                base: "flex flex-row items-center",
+              }}
+              errorMessage={errors.gender?.message}
+              isInvalid={!!errors.gender}
               label="Gênero"
               orientation="horizontal"
               value={field.value}
               onValueChange={field.onChange}
-              errorMessage={errors.gender?.message}
-              isInvalid={!!errors.gender}
-              classNames={{
-                label: "text-secondary-700",
-                wrapper: "gap-6",
-                base: "flex flex-row items-center"
-              }}
             >
-              <Radio value="male" classNames={{
-                label: "text-secondary-600",
-              }}>
+              <Radio
+                classNames={{
+                  label: "text-secondary-600",
+                }}
+                value="male"
+              >
                 Masculino
               </Radio>
-              <Radio value="female" classNames={{
-                label: "text-secondary-600",
-              }}>
+              <Radio
+                classNames={{
+                  label: "text-secondary-600",
+                }}
+                value="female"
+              >
                 Feminino
               </Radio>
             </RadioGroup>
@@ -152,59 +159,66 @@ export default function FormStep({ onSubmit }: FormStepProps) {
 
       {/* Linha 4: Nível de Atividade */}
       <Controller
-        name="activityLevelFactor"
-        control={control}
-        render={({ field }) => (
-          <Autocomplete
-            label="Nível de Atividade Física"
-            placeholder="Selecione seu nível"
-            selectedKey={field.value?.toString()}
-            onSelectionChange={(value) => field.onChange(Number(value))}
-            errorMessage={errors.activityLevelFactor?.message}
-            isInvalid={!!errors.activityLevelFactor}
-            variant="bordered"
-            color="primary"
-          >
-            {activityLevels.map((level) => (
-              <AutocompleteItem
-                key={level.value.toString()}
-                value={level.value.toString()}
-                className="text-secondary-600 data-[selected=true]:text-primary-500"
-              >
-                {level.label}
-              </AutocompleteItem>
-            ))}
-          </Autocomplete>
-        )}
-      />
+  control={control}
+  name="activityLevelFactor"
+  render={({ field }) => (
+    <Autocomplete
+      color="primary"
+      errorMessage={errors.activityLevelFactor?.message}
+      isInvalid={!!errors.activityLevelFactor}
+      label="Nível de Atividade Física"
+      placeholder="Selecione seu nível"
+      selectedKey={field.value?.toString()}
+      variant="bordered"
+      onSelectionChange={(value) => field.onChange(Number(value))}
+    >
+      {activityLevels.map((level) => (
+        <AutocompleteItem
+          key={level.value.toString()}
+          className="text-secondary-600 data-[selected=true]:text-primary-500"
+        >
+          {level.label}
+        </AutocompleteItem>
+      ))}
+    </Autocomplete>
+  )}
+/>
 
       {/* Linha 5: Objetivo */}
       <Controller
-        name="goal"
         control={control}
+        name="goal"
         render={({ field }) => (
           <RadioGroup
+            color="primary"
+            errorMessage={errors.goal?.message}
+            isInvalid={!!errors.goal}
             label="Objetivo Principal"
             value={field.value}
             onValueChange={field.onChange}
-            errorMessage={errors.goal?.message}
-            isInvalid={!!errors.goal}
-            color="primary"
-       
           >
-            <Radio value="lose" classNames={{
-              label: "text-secondary-600",
-            }}>
+            <Radio
+              classNames={{
+                label: "text-secondary-600",
+              }}
+              value="lose"
+            >
               Emagrecer
             </Radio>
-            <Radio value="maintain" classNames={{
-              label: "text-secondary-600",
-            }}>
+            <Radio
+              classNames={{
+                label: "text-secondary-600",
+              }}
+              value="maintain"
+            >
               Manter Peso
             </Radio>
-            <Radio value="gain" classNames={{
-              label: "text-secondary-600",
-            }}>
+            <Radio
+              classNames={{
+                label: "text-secondary-600",
+              }}
+              value="gain"
+            >
               Ganhar Massa
             </Radio>
           </RadioGroup>
@@ -214,11 +228,11 @@ export default function FormStep({ onSubmit }: FormStepProps) {
       {/* Botão de Submit */}
       <div className="flex flex-row justify-end pt-4">
         <Button
-          type="submit"
           color="primary"
-          isLoading={isSubmitting}
           isDisabled={isSubmitting}
+          isLoading={isSubmitting}
           size="lg"
+          type="submit"
         >
           {isSubmitting ? "Calculando..." : "Gerar Métricas"}
         </Button>

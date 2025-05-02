@@ -1,8 +1,9 @@
 "use client";
 
-import { Logo } from "@/components/icons";
 import { Button } from "@heroui/button";
 import { Github, Linkedin, Mail, MailIcon } from "lucide-react";
+
+import { Logo } from "@/components/icons";
 
 export default function Footer() {
   return (
@@ -15,11 +16,11 @@ export default function Footer() {
             <div className="flex flex-col space-y-6">
               <Logo />
               <p className="text-secondary-300 text-sm leading-relaxed">
-                Transforme seus objetivos em resultados mensuráveis. 
-                Utilize nossa tecnologia para otimizar sua jornada nutricional.
+                Transforme seus objetivos em resultados mensuráveis. Utilize nossa tecnologia para
+                otimizar sua jornada nutricional.
               </p>
             </div>
-            
+
             <div className="space-y-4">
               <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary-200 to-secondary-800">
                 Transforme sua vida
@@ -27,7 +28,7 @@ export default function Footer() {
               <p className="text-secondary-300 text-sm">
                 Descubra um plano alimentar adequado aos seus objetivos.
               </p>
-              <Button 
+              <Button
                 className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-secondary-500 to-secondary-600 
                 text-white rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
               >
@@ -44,22 +45,17 @@ export default function Footer() {
                 Explore
               </h3>
               <ul className="space-y-3">
-                {[
-                  'Sobre o Nutrimind',
-                  'Benefícios',
-                  'Passo a Passo',
-                  'Dúvidas'
-                ].map((item) => (
+                {["Sobre o Nutrimind", "Benefícios", "Passo a Passo", "Dúvidas"].map((item) => (
                   <li key={item}>
-                    <a
-                      href="#"
+                    <button
                       className="text-secondary-300 hover:text-secondary-500 transition-colors duration-200 
                       flex items-center space-x-1 group text-sm"
+                      onClick={() => console.log('Link clicked')}
                     >
                       <span className="transform group-hover:translate-x-1 transition-transform duration-200">
                         {item}
                       </span>
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -72,7 +68,10 @@ export default function Footer() {
               </h3>
               <div className="flex items-center space-x-2 text-secondary-300">
                 <Mail className="h-5 w-5" />
-                <a href="mailto:suporte@nutrimind.com" className="text-sm hover:text-secondary-500 transition-colors">
+                <a
+                  className="text-sm hover:text-secondary-500 transition-colors"
+                  href="mailto:suporte@nutrimind.com"
+                >
                   suporte@nutrimind.com
                 </a>
               </div>
@@ -86,32 +85,34 @@ export default function Footer() {
         {/* Footer Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-center text-secondary-400 text-sm">
           <p>© {new Date().getFullYear()} NutriMind. Todos os direitos reservados.</p>
-          
+
           {/* Redes sociais do desenvolvedor */}
           <div className="mt-4 md:mt-0">
-            <p className="text-sm mb-2 text-center md:text-right">Desenvolvido por Pedro Lucas Santana</p>
+            <p className="text-sm mb-2 text-center md:text-right">
+              Desenvolvido por Pedro Lucas Santana
+            </p>
             <div className="flex space-x-4">
-              <a 
-                href="https://github.com/pedrolucas12" 
+              <a
                 className="hover:text-secondary-500 transition-colors"
-                target="_blank"
+                href="https://github.com/pedrolucas12"
                 rel="noopener noreferrer"
+                target="_blank"
               >
                 <Github className="h-5 w-5" />
               </a>
-              <a 
-                href="https://www.linkedin.com/in/pedro-lucas-santana-3a576a204/" 
+              <a
                 className="hover:text-secondary-500 transition-colors"
-                target="_blank"
+                href="https://www.linkedin.com/in/pedro-lucas-santana-3a576a204/"
                 rel="noopener noreferrer"
+                target="_blank"
               >
                 <Linkedin className="h-5 w-5" />
               </a>
-              <a 
-                href="mailto:pedrolucassantana@gmail.com"
+              <a
                 className="hover:text-secondary-500 transition-colors"
-                target="_blank"
+                href="mailto:pedrolucassantana@gmail.com"
                 rel="noopener noreferrer"
+                target="_blank"
               >
                 <MailIcon className="h-5 w-5" />
               </a>

@@ -16,18 +16,18 @@ const config = {
         // DEFAULT: fern-green (#588157) - Um verde médio e natural
         // Escala vai do mais claro (quase branco/verde) ao mais escuro (brunswick)
         primary: {
-          50: '#f0f4f2',   // Muito claro, quase branco-verde
-          100: '#d9e3df',  // Muito claro
-          200: '#c0d0cc',  // Claro
-          300: '#a5bdb8',  // Claro-médio, pastel
-          400: '#8da6a1',  // Médio, ligeiramente mais escuro pastel
-          500: '#779988',  // Cor base: Verde pastel mais escuro
-          600: '#648073',  // Médio-escuro
-          700: '#53695f',  // Escuro
-          800: '#43554c',  // Muito escuro
-          900: '#34433c',  // Quase preto-verde
-          950: '#252f2b',  // Mais próximo do preto
-          DEFAULT: '#779988', // Definir o padrão
+          50: "#f0f4f2", // Muito claro, quase branco-verde
+          100: "#d9e3df", // Muito claro
+          200: "#c0d0cc", // Claro
+          300: "#a5bdb8", // Claro-médio, pastel
+          400: "#8da6a1", // Médio, ligeiramente mais escuro pastel
+          500: "#779988", // Cor base: Verde pastel mais escuro
+          600: "#648073", // Médio-escuro
+          700: "#53695f", // Escuro
+          800: "#43554c", // Muito escuro
+          900: "#34433c", // Quase preto-verde
+          950: "#252f2b", // Mais próximo do preto
+          DEFAULT: "#779988", // Definir o padrão
         },
 
         // Secondary (Baseado no Cinza/Bege - Timberwolf)

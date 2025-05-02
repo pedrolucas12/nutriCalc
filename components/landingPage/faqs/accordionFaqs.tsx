@@ -1,4 +1,3 @@
-import { fontSubtitle } from "@/config/fonts";
 import { Accordion, AccordionItem } from "@heroui/accordion";
 import {
   Brain,
@@ -9,6 +8,8 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { fontSubtitle } from "@/config/fonts";
+
 export default function AccordionFaqs() {
   const faqsData = [
     {
@@ -18,9 +19,9 @@ export default function AccordionFaqs() {
         <span
           className={`${fontSubtitle.className} text-secondary-900 text-left block dark:text-secondary-200`}
         >
-          Nossa IA analisa seus dados (altura, peso, idade, cintura, pescoço,
-          objetivo e nível de atividade) para gerar um plano alimentar
-          exclusivo, adaptado ao seu perfil, rotina e preferências.
+          Nossa IA analisa seus dados (altura, peso, idade, cintura, pescoço, objetivo e nível de
+          atividade) para gerar um plano alimentar exclusivo, adaptado ao seu perfil, rotina e
+          preferências.
         </span>
       ),
     },
@@ -31,8 +32,8 @@ export default function AccordionFaqs() {
         <span
           className={`${fontSubtitle.className} text-secondary-900 text-left block dark:text-secondary-200`}
         >
-          Sim! Você pode calcular seu IMC, TMB e percentual de gordura sem pagar
-          nada. É 100% gratuito e sem pegadinhas.
+          Sim! Você pode calcular seu IMC, TMB e percentual de gordura sem pagar nada. É 100%
+          gratuito e sem pegadinhas.
         </span>
       ),
     },
@@ -43,9 +44,8 @@ export default function AccordionFaqs() {
         <span
           className={`${fontSubtitle.className} text-secondary-900 text-left block dark:text-secondary-200`}
         >
-          Após o pagamento, seu plano alimentar completo é liberado na
-          plataforma e enviado automaticamente para o seu WhatsApp, pronto para
-          ser seguido.
+          Após o pagamento, seu plano alimentar completo é liberado na plataforma e enviado
+          automaticamente para o seu WhatsApp, pronto para ser seguido.
         </span>
       ),
     },
@@ -56,8 +56,8 @@ export default function AccordionFaqs() {
         <span
           className={`${fontSubtitle.className} text-secondary-900 text-left block dark:text-secondary-200`}
         >
-          Sim! Seus dados são protegidos com criptografia e nunca são
-          compartilhados. Seguimos as melhores práticas de segurança e LGPD.
+          Sim! Seus dados são protegidos com criptografia e nunca são compartilhados. Seguimos as
+          melhores práticas de segurança e LGPD.
         </span>
       ),
     },
@@ -68,8 +68,8 @@ export default function AccordionFaqs() {
         <span
           className={`${fontSubtitle.className} text-secondary-900 text-left block dark:text-secondary-200`}
         >
-          Não! O teste gratuito das métricas não exige cartão. Só pedimos
-          pagamento se você quiser gerar sua dieta personalizada.
+          Não! O teste gratuito das métricas não exige cartão. Só pedimos pagamento se você quiser
+          gerar sua dieta personalizada.
         </span>
       ),
     },
@@ -80,8 +80,8 @@ export default function AccordionFaqs() {
         <span
           className={`${fontSubtitle.className} text-secondary-900 text-left block dark:text-secondary-200`}
         >
-          Sim! O plano é pensado para ser prático, com refeições simples,
-          ingredientes acessíveis e opções de substituição.
+          Sim! O plano é pensado para ser prático, com refeições simples, ingredientes acessíveis e
+          opções de substituição.
         </span>
       ),
     },
@@ -90,16 +90,14 @@ export default function AccordionFaqs() {
   return (
     <div className="mx-auto w-full">
       <Accordion
-        variant="splitted"
         className="rounded-2xl shadow-lg"
         itemClasses={{
           base: " rounded-xl border border-primary-100 dark:border-primary-800 bg-white/90 dark:bg-black/40 transition-all duration-200 hover:shadow-md",
-          title:
-            "flex  gap-2  font-semibold text-primary-700 dark:text-primary-200 p-2",
-          content:
-            "item-start px-4 py-3 text-secondary-800 dark:text-secondary-200",
+          title: "flex  gap-2  font-semibold text-primary-700 dark:text-primary-200 p-2",
+          content: "item-start px-4 py-3 text-secondary-800 dark:text-secondary-200",
         }}
         selectionMode="multiple"
+        variant="splitted"
       >
         {faqsData.map((item, idx) => (
           <AccordionItem

@@ -1,16 +1,17 @@
 "use client";
-import { cn } from "@/lib/utils";
 import { motion, useMotionValueEvent, useScroll } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
+
+import { cn } from "@/lib/utils";
 
 export const StickyScroll = ({
   content,
   contentClassName,
 }: {
   content: {
-    title: string;
-    description: string;
-    content?: React.ReactNode | any;
+    title: string | React.ReactNode;
+    description: string | React.ReactNode;
+    content?: React.ReactNode;
   }[];
   contentClassName?: string;
 }) => {
@@ -26,16 +27,16 @@ export const StickyScroll = ({
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const cardsBreakpoints = content.map((_, index) => index / cardLength);
-    const closestBreakpointIndex = cardsBreakpoints.reduce(
-      (acc, breakpoint, index) => {
-        const distance = Math.abs(latest - breakpoint);
-        if (distance < Math.abs(latest - cardsBreakpoints[acc])) {
-          return index;
-        }
-        return acc;
-      },
-      0
-    );
+    const closestBreakpointIndex = cardsBreakpoints.reduce((acc, breakpoint, index) => {
+      const distance = Math.abs(latest - breakpoint);
+
+      if (distance < Math.abs(latest - cardsBreakpoints[acc])) {
+        return index;
+      }
+
+      return acc;
+    }, 0);
+
     setActiveCard(closestBreakpointIndex);
   });
 
@@ -49,13 +50,8 @@ export const StickyScroll = ({
     "linear-gradient(to bottom right, #768948, #fbfaf8)", // Moss Green (moss_green-500) -> Quase Branco (secondary-100)
     "linear-gradient(to bottom right, #588157, #bdeada)", // Fern Green (primary-500) -> Verde Muito Claro (primary-900)
   ];
-  
-  
-  
 
-  const [backgroundGradient, setBackgroundGradient] = useState(
-    linearGradients[0]
-  );
+  const [backgroundGradient, setBackgroundGradient] = useState(linearGradients[0]);
 
   useEffect(() => {
     setBackgroundGradient(linearGradients[activeCard % linearGradients.length]);
@@ -63,35 +59,35 @@ export const StickyScroll = ({
 
   return (
     <motion.div
+      ref={ref}
       animate={{
         backgroundColor: backgroundColors[activeCard % backgroundColors.length],
       }}
       className="relative flex h-[40rem] justify-center space-x-20 overflow-y-auto rounded-xl p-10"
-      ref={ref}
     >
       <div className="div relative flex items-start px-4">
         <div className="max-w-2xl">
           {content.map((item, index) => (
-            <div key={item.title + index} className="my-20">
+            <div key={`${item.title ?? "default-title"}-${index}`} className="my-20">
               <motion.h2
-                initial={{
-                  opacity: 0,
-                }}
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
                 className="text-3xl font-bold text-slate-300"
+                initial={{
+                  opacity: 0,
+                }}
               >
                 {item.title}
               </motion.h2>
               <motion.p
-                initial={{
-                  opacity: 0,
-                }}
                 animate={{
                   opacity: activeCard === index ? 1 : 0.3,
                 }}
                 className="text-lg mt-10 max-w-sm text-secondary-700"
+                initial={{
+                  opacity: 0,
+                }}
               >
                 {item.description}
               </motion.p>
@@ -101,11 +97,11 @@ export const StickyScroll = ({
         </div>
       </div>
       <div
-        style={{ background: backgroundGradient }}
         className={cn(
           "sticky top-10 hidden h-60 w-80 overflow-hidden rounded-md  lg:block",
           contentClassName
         )}
+        style={{ background: backgroundGradient }}
       >
         {content[activeCard].content ?? null}
       </div>

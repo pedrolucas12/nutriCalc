@@ -1,5 +1,6 @@
-import { fontSubtitle, fontTitle } from "@/config/fonts";
 import { Sparkles } from "lucide-react";
+
+import { fontSubtitle, fontTitle } from "@/config/fonts";
 
 export default function FaqHero() {
   return (
@@ -15,8 +16,8 @@ export default function FaqHero() {
       <p
         className={`${fontSubtitle.className} text-lg md:text-xl text-secondary-300  max-w-4xl mx-auto `}
       >
-        Tire suas dúvidas sobre como a NutriMind funciona, segurança,
-        personalização e facilidade de uso.
+        Tire suas dúvidas sobre como a NutriMind funciona, segurança, personalização e facilidade de
+        uso.
       </p>
     </div>
   );

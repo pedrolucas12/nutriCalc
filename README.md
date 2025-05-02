@@ -1,6 +1,4 @@
-
-
-```markdown
+````markdown
 # 🥗 NutriMind | Sua dieta personalizada em minutos!
 
 **NutriMind** é uma plataforma interativa que calcula suas métricas corporais (IMC, TMB e percentual de gordura) e gera uma dieta personalizada ajustada às suas necessidades. 🚀
@@ -40,25 +38,31 @@ Com uma interface moderna e intuitiva, o NutriMind torna o cuidado com a saúde 
 ## 🛠️ **Tecnologias Utilizadas**
 
 ### **Frontend**
+
 - **Next.js**: Framework React para construção de interfaces modernas.
 - **Tailwind CSS**: Framework de estilização para design responsivo.
 - **HeroUI**: Biblioteca de componentes UI.
 
 ### **Backend**
+
 - **Node.js ou Python**: (a ser definido) para lógica de negócios.
 - **OpenAI API**: Para geração de dietas personalizadas.
 
 ### **Design**
+
 - **Framer Motion**: Para animações interativas.
 - **HeroUI Theme**: Para estilização consistente.
 
 ### **Pagamento**
+
 - **Stripe API**: Para processamento seguro de pagamentos.
 
 ### **Envio de Mensagens**
+
 - **Twilio API**: Para envio de dietas via WhatsApp.
 
 ### **PDF**
+
 - **jsPDF ou PDFKit**: Para geração de relatórios em PDF.
 
 ---
@@ -66,22 +70,27 @@ Com uma interface moderna e intuitiva, o NutriMind torna o cuidado com a saúde 
 ## 🚀 **Como Instalar e Executar**
 
 ### **Pré-requisitos**
+
 - Node.js instalado
 - Gerenciador de pacotes (npm ou yarn)
 
 ### **Passos**
+
 1. Clone este repositório:
    ```bash
    git clone https://github.com/seuprojeto/NutriMind.git
    cd NutriMind
    ```
+````
 
 2. Instale as dependências:
+
    ```bash
    npm install
    ```
 
 3. Inicie o servidor de desenvolvimento:
+
    ```bash
    npm run dev
    ```
@@ -96,6 +105,7 @@ Com uma interface moderna e intuitiva, o NutriMind torna o cuidado com a saúde 
 ## 🤝 **Como Contribuir**
 
 ### **Passos para Contribuir**
+
 1. Faça um fork deste repositório.
 2. Crie uma branch para sua funcionalidade ou correção:
    ```bash
@@ -128,4 +138,7 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 Obrigado por apoiar o NutriMind! 💚
 
 Se você gostou deste projeto, não esqueça de dar uma ⭐ no repositório!
+
+```
+
 ```

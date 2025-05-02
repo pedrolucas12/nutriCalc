@@ -28,4 +28,3 @@ export const siteConfig = {
     discord: "https://discord.gg/NutriMind",
   },
 };
-

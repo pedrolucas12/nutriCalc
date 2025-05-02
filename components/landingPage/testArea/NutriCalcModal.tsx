@@ -1,19 +1,22 @@
 "use client";
 
-import { CalculationResults, calculateBMI, calculateBodyFatPercentage, calculateDailyCalories, calculateGoalCalories, calculateTMB } from "@/lib/calculations";
-import { NutriMindFormData } from "@/lib/schemas";
 import { Button } from "@heroui/button";
-import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@heroui/modal";
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@heroui/modal";
 import { useState } from "react";
+
 import FormStep from "./FormStep";
 import IntroStep from "./IntroStep";
 import ResultsStep from "./ResultsStep";
+
+import { NutriMindFormData } from "@/lib/schemas";
+import {
+  CalculationResults,
+  calculateBMI,
+  calculateBodyFatPercentage,
+  calculateDailyCalories,
+  calculateGoalCalories,
+  calculateTMB,
+} from "@/lib/calculations";
 
 interface NutriMindModalProps {
   isOpen: boolean;
@@ -72,14 +75,8 @@ export default function NutriMindModal({ isOpen, onClose }: NutriMindModalProps)
 
   return (
     <Modal
-      isOpen={isOpen}
-      onClose={resetModal}
-      size="2xl"
       hideCloseButton // Adicionado para remover o botão X
-      isDismissable={false} // Impede o fechamento ao clicar fora ou pressionar ESC
       backdrop="blur"
-      placement="center"
-      scrollBehavior="inside"
       classNames={{
         backdrop: "bg-black/70 backdrop-blur-md",
         base: "bg-white/80 dark:bg-black/85 backdrop-blur-lg border border-white/20 dark:border-secondary-700/60 shadow-2xl",
@@ -87,6 +84,12 @@ export default function NutriMindModal({ isOpen, onClose }: NutriMindModalProps)
         footer: "border-t border-white/15 dark:border-secondary-700/60",
         closeButton: "hidden", // Garante que o botão X está oculto
       }}
+      isDismissable={false} // Impede o fechamento ao clicar fora ou pressionar ESC
+      isOpen={isOpen}
+      placement="center"
+      scrollBehavior="inside"
+      size="2xl"
+      onClose={resetModal}
     >
       <ModalContent>
         <>
@@ -100,35 +103,29 @@ export default function NutriMindModal({ isOpen, onClose }: NutriMindModalProps)
           <ModalBody>
             {currentStep === 1 && <IntroStep />}
             {currentStep === 2 && <FormStep onSubmit={handleFormSubmit} />}
-            {currentStep === 3 && results && formData && <ResultsStep results={results} formData={formData} />}
+            {currentStep === 3 && results && formData && (
+              <ResultsStep formData={formData} results={results} />
+            )}
           </ModalBody>
           <ModalFooter className="flex justify-end gap-3">
             {currentStep === 1 && (
               <>
-                <Button 
-                  color="danger" 
-                  variant="light" 
-                  onPress={resetModal}
+                <Button
                   className="min-w-[100px]"
+                  color="danger"
+                  variant="light"
+                  onPress={resetModal}
                 >
                   Cancelar
                 </Button>
-                <Button 
-                  color="primary" 
-                  onPress={handleNextStep}
-                  className="min-w-[100px]"
-                >
+                <Button className="min-w-[100px]" color="primary" onPress={handleNextStep}>
                   Começar
                 </Button>
               </>
             )}
-           
+
             {currentStep === 3 && (
-              <Button 
-                color="primary" 
-                onPress={resetModal}
-                className="min-w-[100px]"
-              >
+              <Button className="min-w-[100px]" color="primary" onPress={resetModal}>
                 Fechar
               </Button>
             )}
