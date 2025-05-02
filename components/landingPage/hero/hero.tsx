@@ -16,7 +16,6 @@ import { WordRotate } from "../../magicui/word-rotate";
 
 import { fontSubtitle, fontTitle } from "@/config/fonts";
 
-// --- InfoCard Component ---
 const InfoCard = ({
   iconSrc,
   title,
@@ -32,9 +31,9 @@ const InfoCard = ({
 }) => (
   <BoxReveal boxColor={boxColor} duration={duration}>
     <motion.div
-      className="relative h-44 rounded-xl overflow-visible
-   bg-gradient-to-br from-primary-400 to-primary-600 dark:from-primary-700 dark:to-primary-800
-   shadow-lg border-2 border-primary-500/30 dark:border-primary-700/30"
+      className="relative h-auto min-h-[11rem] sm:h-44 rounded-xl overflow-visible
+        bg-gradient-to-br from-primary-400 to-primary-600 dark:from-primary-700 dark:to-primary-800
+        shadow-lg border-2 border-primary-500/30 dark:border-primary-700/30"
       transition={{
         type: "spring",
         stiffness: 400,
@@ -48,13 +47,11 @@ const InfoCard = ({
         boxShadow: "0 12px 24px rgba(0, 0, 0, 0.15)",
       }}
     >
-      {/* Conteúdo do card com flexbox */}
-      <div className="flex h-full p-4 justify-center items-center flex-row">
-        {/* Coluna do ícone (esquerda) */}
-        <div className="relative flex-shrink-0 w-1/3 flex justify-center">
+      <div className="flex h-full p-3 sm:p-4 justify-center items-center flex-row">
+        <div className="relative flex-shrink-0 w-1/4 sm:w-1/3 flex justify-center">
           <motion.div
             animate={{ x: -8, opacity: 1 }}
-            className="relative w-24 h-24 flex items-center justify-center z-10"
+            className="relative w-16 h-16 sm:w-24 sm:h-24 flex items-center justify-center z-10"
             initial={{ x: -10, opacity: 0 }}
             transition={{
               type: "spring",
@@ -85,19 +82,17 @@ const InfoCard = ({
           </motion.div>
         </div>
 
-        {/* Coluna do texto (direita) */}
         <div className="flex-grow flex flex-col justify-center pl-2">
-          <h3 className={`${fontTitle.className} text-lg font-bold text-dark_green mb-2`}>
+          <h3 className={`${fontTitle.className} text-base sm:text-lg font-bold text-dark_green mb-1 sm:mb-2`}>
             {title}
           </h3>
-          <p className={`${fontSubtitle.className} text-sm text-dim_gray`}>{description}</p>
+          <p className={`${fontSubtitle.className} text-xs sm:text-sm text-dim_gray`}>{description}</p>
         </div>
       </div>
     </motion.div>
   </BoxReveal>
 );
 
-// --- Hero Component ---
 export default function Hero() {
   const customMotionProps = {
     initial: { opacity: 0, y: 10 },
@@ -107,18 +102,17 @@ export default function Hero() {
   };
 
   return (
-    <section className="w-full h-screen flex flex-col justify-center items-center py-4 md:py-6">
-      {/* Header Section - Reduzido para ocupar menos espaço vertical */}
+    <section className="w-full min-h-screen px-4 flex flex-col justify-center items-center py-4 md:py-6">
       <div className="text-center mb-3">
         <BoxReveal boxColor="#ebf5df" duration={0.5}>
-          <div className="flex items-center justify-center gap-2 mb-2">
+          <div className="flex items-center justify-center gap-2 mb-2 flex-wrap">
             <h1
-              className={`${fontTitle.className} text-3xl md:text-4xl lg:text-5xl font-bold text-dark_green leading-tight`}
+              className={`${fontTitle.className} text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark_green leading-tight`}
             >
               Sua dieta finalmente
             </h1>
             <h1
-              className={`${fontTitle.className} text-3xl md:text-4xl lg:text-5xl font-bold text-dark_green leading-tight`}
+              className={`${fontTitle.className} text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark_green leading-tight`}
             >
               <WordRotate
                 className="text-primary-500 inline-block"
@@ -131,7 +125,7 @@ export default function Hero() {
 
         <BoxReveal boxColor="#ebf5df" duration={0.7}>
           <p
-            className={`${fontSubtitle.className} text-base md:text-lg max-w-4xl mx-auto mt-1 text-dim_gray`}
+            className={`${fontSubtitle.className} text-sm sm:text-base md:text-lg max-w-4xl mx-auto mt-1 text-dim_gray px-4`}
           >
             Chega de adivinhação e planos que não funcionam!{" "}
             <AuroraText className="font-semibold">Nossa Inteligência Artificial</AuroraText> analisa
@@ -140,9 +134,7 @@ export default function Hero() {
         </BoxReveal>
       </div>
 
-      {/* Main Content Grid - Ajustado para ocupar o espaço disponível */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full flex-grow max-h-[60vh]">
-        {/* Left Column */}
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full flex-grow max-h-[80vh] md:max-h-[60vh] px-4 sm:px-6">
         <div className="md:col-span-4 flex flex-col justify-center gap-4">
           <InfoCard
             boxColor="#ebf5df"
@@ -167,7 +159,6 @@ export default function Hero() {
           />
         </div>
 
-        {/* Center Column */}
         <div className="hidden md:flex md:col-span-4 items-center justify-center">
           <motion.div
             animate={{ opacity: 1, scale: 1 }}
@@ -187,9 +178,7 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right Column - Com card normal e card duplo */}
-        <div className="md:col-span-4 flex flex-col gap-4 justify-center">
-          {/* Card normal - mesmo tamanho dos outros cards */}
+        <div className="md:col-span-4 md:flex flex-col gap-4 justify-center hidden">
           <InfoCard
             boxColor="#ebf5df"
             description="Transforme sua relação com a comida e alcance seus objetivos de forma sustentável."
@@ -198,22 +187,20 @@ export default function Hero() {
             title="Mudança de Estilo de Vida"
           />
 
-          {/* Card duplo - ocupa o espaço exato de dois InfoCards */}
           <BoxReveal boxColor="#ebf5df" duration={1.4}>
             <motion.div
-              className="h-[352px] rounded-xl overflow-hidden
+              className="h-[300px] sm:h-[352px] rounded-xl overflow-hidden
                 bg-gradient-to-br from-primary-600 to-primary-700 
-                shadow-lg border-2 border-primary-500/30 relative"
+                shadow-lg border-2 border-primary-500/30 relative
+                "
               whileHover={{
                 boxShadow: "0 20px 30px rgba(0, 0, 0, 0.2)",
               }}
             >
-              {/* Badge de "Antes e Depois" */}
               <div className="absolute top-3 left-3 z-20 bg-white/90 text-primary-700 text-xs font-bold px-3 py-1 rounded-full shadow-md border border-primary-300">
                 Antes e Depois
               </div>
 
-              {/* Slider de comparação com efeito de hover */}
               <motion.div
                 className="w-full h-[65%] relative"
                 whileHover={{
@@ -261,8 +248,8 @@ export default function Hero() {
                 />
               </motion.div>
 
-              {/* Área de depoimento com design melhorado */}
-              <div className="bg-white/10 backdrop-blur-sm p-3 h-[35%] flex flex-col justify-center">
+              <div className="bg-white/10 backdrop-blur-sm p-2 sm:p-3 h-[35%] flex flex-col justify-center
+              ">
                 <div className="flex items-start">
                   <div className="relative mr-3 flex-shrink-0">
                     <Image
@@ -294,7 +281,7 @@ export default function Hero() {
                     <p className={`${fontSubtitle.className} text-xs text-primary-200 mb-1`}>
                       São Paulo, SP • Perdeu 12kg em 3 meses
                     </p>
-                    <p className={`${fontSubtitle.className} text-sm text-white italic`}>
+                    <p className={`${fontSubtitle.className} text-xs sm:text-sm text-white italic line-clamp-2 sm:line-clamp-none`}>
                       &quot;NutriMind transformou minha vida! Finalmente uma dieta que funciona e
                       que consigo seguir sem sofrimento.&quot;
                     </p>
@@ -306,22 +293,21 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* CTA Button - Melhorado */}
       <BoxReveal boxColor="#ebf5df" duration={1.6}>
-        <div className="text-center mt-5">
+        <div className="text-center mt-3 sm:mt-5 px-4">
           <motion.div
-            className="inline-block relative"
+            className="inline-block relative w-full sm:w-auto"
             whileHover={{
               scale: 1.05,
               transition: { duration: 0.2 },
             }}
             whileTap={{ scale: 0.98 }}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-400 to-primary-500 rounded-xl  opacity-70 animate-pulse" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-400 to-primary-500 rounded-xl opacity-70 animate-pulse" />
             <Button
-              className="px-10 py-6 text-lg font-bold shadow-xl relative z-10
+              className="px-6 sm:px-10 py-4 sm:py-6 text-base sm:text-lg font-bold shadow-xl relative z-10
                 bg-gradient-to-r from-moss_green to-moss_green/90 hover:from-moss_green/90 hover:to-moss_green 
-                border-2 border-moss_green/20 rounded-xl"
+                border-2 border-moss_green/20 rounded-xl w-full sm:w-auto"
               color="primary"
               size="lg"
             >
@@ -330,7 +316,7 @@ export default function Hero() {
                   opacity: [1, 0.8, 1],
                   scale: [1, 1.03, 1],
                 }}
-                className="flex items-center"
+                className="flex items-center justify-center"
                 initial={{ opacity: 1 }}
                 transition={{
                   duration: 2,
@@ -340,23 +326,10 @@ export default function Hero() {
               >
                 <Sparkles className="mr-3 h-6 w-6 text-yellow-200" />
                 Calcule sua Dieta agora!
-                {/* <motion.div
-                  className="ml-2 bg-white/20 text-white text-xs px-2 py-0.5 rounded-full"
-                  animate={{ 
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{ 
-                    duration: 1.5,
-                    repeat: Infinity,
-                    repeatType: "reverse"
-                  }}
-                >
-                  GRÁTIS
-                </motion.div> */}
               </motion.span>
             </Button>
           </motion.div>
-          <p className={`${fontSubtitle.className} text-xs text-dim_gray mt-2 opacity-80`}>
+          <p className={`${fontSubtitle.className} text-[10px] sm:text-xs text-dim_gray mt-2 opacity-80`}>
             Mais de 10.000 pessoas já transformaram seus hábitos alimentares
           </p>
         </div>

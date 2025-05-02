@@ -6,7 +6,7 @@ import TestArea from "@/components/landingPage/testArea/testArea";
 
 export default function Home() {
   return (
-    <section className="flex flex-col items-center justify-center gap-8">
+    <section className="flex flex-col items-center justify-center gap-16 md:gap-24">
       <Hero />
       <BentoCards />
       <Steps />
