@@ -56,9 +56,9 @@ export default function TestArea() {
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.15, rotate: -8 }}
-            className="bg-secondary-100 dark:bg-secondary-900/60 p-4 rounded-full shadow-md"
+            className="bg-primary-100 dark:bg-primary-900/60 p-4 rounded-full shadow-md"
           >
-            <HeartPulse className="h-8 w-8 text-secondary-600 dark:text-secondary-200" />
+            <HeartPulse className="h-8 w-8 text-primary-600 dark:text-primary-200" />
           </motion.div>
           <motion.div
             whileHover={{ scale: 1.15, rotate: 8 }}
@@ -77,7 +77,7 @@ export default function TestArea() {
         >
           <ButtonForTest onOpen={handleOpenModal} />
           <span className="mt-3 text-sm text-secondary-500 dark:text-secondary-300">
-            Não precisa de cadastro. Resultados instantâneos!
+            Não precisa de cadastrar cartão!
           </span>
         </motion.div>
       </motion.div>

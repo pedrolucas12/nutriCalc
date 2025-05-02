@@ -1,121 +1,122 @@
 "use client";
 
+import { Logo } from "@/components/icons";
 import { Button } from "@heroui/button";
-import { Input } from "@heroui/input";
-
-import { Logo } from "@/components/icons"; // Certifique-se de ter o Logo correto
+import { Github, Linkedin, Mail, MailIcon } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="bg-primary-900 text-secondary-500 flex flex-row justify-between w-full h-full">
-      <div className="mx-auto py-12 px-4">
-        {/* Grid para as colunas */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Coluna 1: Sobre NutriCalc */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Sobre NutriCalc</h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  className="text-sm hover:text-moss_green transition-colors"
-                  href="#" // Substitua pelo link correto
-                >
-                  Nosso Propósito
-                </a>
-              </li>
-              <li>
-                <a
-                  className="text-sm hover:text-moss_green transition-colors"
-                  href="#" // Substitua pelo link correto
-                >
-                  Como Funciona
-                </a>
-              </li>
-              <li>
-                <a
-                  className="text-sm hover:text-moss_green transition-colors"
-                  href="#" // Substitua pelo link correto
-                >
-                  Preços
-                </a>
-              </li>
-              <li>
-                <a
-                  className="text-sm hover:text-moss_green transition-colors"
-                  href="#" // Substitua pelo link correto
-                >
-                  Blog
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Coluna 2: Suporte */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Suporte</h3>
-            <ul className="space-y-2">
-              <li>
-                <a
-                  className="text-sm hover:text-moss_green transition-colors"
-                  href="#" // Substitua pelo link correto
-                >
-                  Central de Ajuda
-                </a>
-              </li>
-              <li>
-                <a
-                  className="text-sm hover:text-moss_green transition-colors"
-                  href="#" // Substitua pelo link correto
-                >
-                  Contato
-                </a>
-              </li>
-              <li>
-                <a
-                  className="text-sm hover:text-moss_green transition-colors"
-                  href="#" // Substitua pelo link correto
-                >
-                  Termos de Uso
-                </a>
-              </li>
-              <li>
-                <a
-                  className="text-sm hover:text-moss_green transition-colors"
-                  href="#" // Substitua pelo link correto
-                >
-                  Política de Privacidade
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Coluna 3: Logo e Newsletter */}
-          <div className="md:col-span-1">
-            {/* Logo */}
-            <div className="mb-4">
+    <footer className="bg-gradient-to-b from-primary-900 to-primary-950 text-white">
+      <div className=" container mx-auto px-4 py-12">
+        {/* Grid principal com layout ajustado */}
+        <div className="flex flex-col md:flex-row md:justify-between">
+          {/* Coluna 1: Logo e CTA Dieta - Alinhada à esquerda */}
+          <div className="space-y-8 md:max-w-md">
+            <div className="flex flex-col space-y-6">
               <Logo />
+              <p className="text-secondary-300 text-sm leading-relaxed">
+                Transforme seus objetivos em resultados mensuráveis. 
+                Utilize nossa tecnologia para otimizar sua jornada nutricional.
+              </p>
+            </div>
+            
+            <div className="space-y-4">
+              <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-secondary-200 to-secondary-800">
+                Transforme sua vida
+              </h3>
+              <p className="text-secondary-300 text-sm">
+                Descubra um plano alimentar adequado aos seus objetivos.
+              </p>
+              <Button 
+                className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-secondary-500 to-secondary-600 
+                text-white rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+              >
+                Gerar Dieta Agora
+              </Button>
+            </div>
+          </div>
+
+          {/* Container para Explore e Suporte - Alinhado à direita */}
+          <div className="flex flex-col md:flex-row gap-12 md:gap-24 mt-12 md:mt-0">
+            {/* Coluna 2: Explore */}
+            <div className="space-y-6">
+              <h3 className="text-xl font-bold relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-12 after:h-1 after:bg-secondary-500">
+                Explore
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  'Sobre o Nutrimind',
+                  'Benefícios',
+                  'Passo a Passo',
+                  'Dúvidas'
+                ].map((item) => (
+                  <li key={item}>
+                    <a
+                      href="#"
+                      className="text-secondary-300 hover:text-secondary-500 transition-colors duration-200 
+                      flex items-center space-x-1 group text-sm"
+                    >
+                      <span className="transform group-hover:translate-x-1 transition-transform duration-200">
+                        {item}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* Texto do Newsletter */}
-            <p className="text-sm mb-4">
-              Inscreva-se para receber as últimas novidades e atualizações.
-            </p>
-            {/* Campo de E-mail e Botão */}
-            <div className="flex gap-2">
-              <Input placeholder="Seu e-mail" type="email" />
-              <Button className="px-6 py-2 bg-moss_green text-honeydew rounded-lg hover:bg-dim_gray transition-colors">
-                Inscrever
-              </Button>
+            {/* Coluna 3: Suporte */}
+            <div className="space-y-6">
+              <h3 className="text-xl font-bold relative after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-12 after:h-1 after:bg-secondary-500">
+                Suporte
+              </h3>
+              <div className="flex items-center space-x-2 text-secondary-300">
+                <Mail className="h-5 w-5" />
+                <a href="mailto:suporte@nutrimind.com" className="text-sm hover:text-secondary-500 transition-colors">
+                  suporte@nutrimind.com
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Divisor */}
-        <div className="border-t border-dim_gray my-8" />
+        {/* Divisor com gradiente */}
+        <div className="h-px bg-gradient-to-r from-transparent via-primary-700 to-transparent my-12" />
 
-        {/* Direitos autorais */}
-        <div className="text-center text-sm text-dim_gray">
-          © {new Date().getFullYear()} NutriCalc. Todos os direitos reservados.
+        {/* Footer Bottom */}
+        <div className="flex flex-col md:flex-row justify-between items-center text-secondary-400 text-sm">
+          <p>© {new Date().getFullYear()} NutriMind. Todos os direitos reservados.</p>
+          
+          {/* Redes sociais do desenvolvedor */}
+          <div className="mt-4 md:mt-0">
+            <p className="text-sm mb-2 text-center md:text-right">Desenvolvido por Pedro Lucas Santana</p>
+            <div className="flex space-x-4">
+              <a 
+                href="https://github.com/pedrolucas12" 
+                className="hover:text-secondary-500 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github className="h-5 w-5" />
+              </a>
+              <a 
+                href="https://www.linkedin.com/in/pedro-lucas-santana-3a576a204/" 
+                className="hover:text-secondary-500 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin className="h-5 w-5" />
+              </a>
+              <a 
+                href="mailto:pedrolucassantana@gmail.com"
+                className="hover:text-secondary-500 transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <MailIcon className="h-5 w-5" />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

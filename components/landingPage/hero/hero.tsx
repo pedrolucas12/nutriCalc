@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import Image from "next/image";
 import {
-  ReactCompareSlider,
-  ReactCompareSliderHandle,
-  ReactCompareSliderImage,
+    ReactCompareSlider,
+    ReactCompareSliderHandle,
+    ReactCompareSliderImage,
 } from "react-compare-slider";
 import { AuroraText } from "../../magicui/aurora-text";
 import { BoxReveal } from "../../magicui/box-reveal";
@@ -293,7 +293,7 @@ export default function Hero() {
                       São Paulo, SP • Perdeu 12kg em 3 meses
                     </p>
                     <p className={`${fontSubtitle.className} text-sm text-white italic`}>
-                      "NutriCalc transformou minha vida! Finalmente uma dieta que funciona e que consigo seguir sem sofrimento."
+                      "NutriMind transformou minha vida! Finalmente uma dieta que funciona e que consigo seguir sem sofrimento."
                     </p>
                   </div>
                 </div>

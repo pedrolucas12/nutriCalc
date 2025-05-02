@@ -1,11 +1,11 @@
 
 
 ```markdown
-# 🥗 NutriCalc | Sua dieta personalizada em minutos!
+# 🥗 NutriMind | Sua dieta personalizada em minutos!
 
-**NutriCalc** é uma plataforma interativa que calcula suas métricas corporais (IMC, TMB e percentual de gordura) e gera uma dieta personalizada ajustada às suas necessidades. 🚀
+**NutriMind** é uma plataforma interativa que calcula suas métricas corporais (IMC, TMB e percentual de gordura) e gera uma dieta personalizada ajustada às suas necessidades. 🚀
 
-Com uma interface moderna e intuitiva, o NutriCalc torna o cuidado com a saúde mais simples, acessível e eficiente. 💡
+Com uma interface moderna e intuitiva, o NutriMind torna o cuidado com a saúde mais simples, acessível e eficiente. 💡
 
 ---
 
@@ -28,7 +28,7 @@ Com uma interface moderna e intuitiva, o NutriCalc torna o cuidado com a saúde 
 
 ---
 
-## 🧐 **Por que usar o NutriCalc?**
+## 🧐 **Por que usar o NutriMind?**
 
 - **Gratuito para métricas básicas**: Descubra suas métricas corporais sem custo.
 - **Personalização real**: Dietas ajustadas para você, com base em ciência e inteligência artificial.
@@ -72,8 +72,8 @@ Com uma interface moderna e intuitiva, o NutriCalc torna o cuidado com a saúde 
 ### **Passos**
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seuprojeto/nutricalc.git
-   cd nutricalc
+   git clone https://github.com/seuprojeto/NutriMind.git
+   cd NutriMind
    ```
 
 2. Instale as dependências:
@@ -117,15 +117,15 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ## 📞 **Contato**
 
-- **Email**: contato@nutricalc.com
-- **Twitter**: [@nutricalc](https://twitter.com/nutricalc)
-- **GitHub**: [NutriCalc](https://github.com/seuprojeto/nutricalc)
+- **Email**: contato@NutriMind.com
+- **Twitter**: [@NutriMind](https://twitter.com/NutriMind)
+- **GitHub**: [NutriMind](https://github.com/seuprojeto/NutriMind)
 
 ---
 
 ## 💚 **Agradecimentos**
 
-Obrigado por apoiar o NutriCalc! 💚
+Obrigado por apoiar o NutriMind! 💚
 
 Se você gostou deste projeto, não esqueça de dar uma ⭐ no repositório!
 ```

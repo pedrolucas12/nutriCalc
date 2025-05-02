@@ -1,15 +1,15 @@
-// components/landingPage/NutriCalcModal.tsx
+// components/landingPage/NutriMindModal.tsx
 "use client";
 
 import { CalculationResults, calculateBMI, calculateBodyFatPercentage, calculateDailyCalories, calculateGoalCalories, calculateTMB } from "@/lib/calculations"; // Ajuste o caminho
-import { NutriCalcFormData } from "@/lib/schemas"; // Ajuste o caminho
+import { NutriMindFormData } from "@/lib/schemas"; // Ajuste o caminho
 import { Button } from "@heroui/button"; // Ajuste o caminho
 import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
 } from "@heroui/modal"; // Ajuste o caminho se usar HeroUI ou outra lib
 import { useState } from "react";
 import FormStep from "./FormStep";
@@ -17,15 +17,15 @@ import IntroStep from "./IntroStep";
 import ResultsStep from "./ResultsStep";
 
 
-interface NutriCalcModalProps {
+interface NutriMindModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export default function NutriCalcModal({ isOpen, onClose }: NutriCalcModalProps) {
+export default function NutriMindModal({ isOpen, onClose }: NutriMindModalProps) {
   const [currentStep, setCurrentStep] = useState(1);
   const [results, setResults] = useState<CalculationResults | null>(null);
-  const [formData, setFormData] = useState<NutriCalcFormData | null>(null);
+  const [formData, setFormData] = useState<NutriMindFormData | null>(null);
 
   const handleNextStep = () => {
     if (currentStep < 3) {
@@ -42,7 +42,7 @@ export default function NutriCalcModal({ isOpen, onClose }: NutriCalcModalProps)
     }
   };
 
-  const handleFormSubmit = (data: NutriCalcFormData) => {
+  const handleFormSubmit = (data: NutriMindFormData) => {
     console.log("Form Data Submitted:", data);
     setFormData(data);
 
@@ -92,7 +92,7 @@ export default function NutriCalcModal({ isOpen, onClose }: NutriCalcModalProps)
       <ModalContent>
         <>
           <ModalHeader className="flex flex-col gap-1 text-primary-700 dark:text-primary-200"> {/* Cor do texto ajustada */}
-            {currentStep === 1 && "Bem-vindo ao Cálculo NutriCalc!"}
+            {currentStep === 1 && "Bem-vindo ao Cálculo NutriMind!"}
             {currentStep === 2 && "Insira Seus Dados"}
             {currentStep === 3 && "Seus Resultados"}
           </ModalHeader>

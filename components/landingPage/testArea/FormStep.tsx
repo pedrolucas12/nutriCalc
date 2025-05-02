@@ -1,7 +1,7 @@
 // components/landingPage/modalSteps/FormStep.tsx
 "use client";
 
-import { NutriCalcFormData, nutriCalcFormSchema } from "@/lib/schemas"; // Ajuste o caminho
+import { NutriMindFormData, NutriMindFormSchema } from "@/lib/schemas"; // Ajuste o caminho
 import { Button } from "@heroui/button"; // Ajuste o caminho
 import { Input } from "@heroui/input"; // Ajuste o caminho
 import { Radio, RadioGroup } from "@heroui/radio"; // Ajuste o caminho
@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 
 interface FormStepProps {
-  onSubmit: (data: NutriCalcFormData) => void;
+  onSubmit: (data: NutriMindFormData) => void;
 }
 
 // Opções para níveis de atividade (Exemplo)
@@ -28,8 +28,8 @@ export default function FormStep({ onSubmit }: FormStepProps) {
     handleSubmit,
     control, // Para componentes controlados como Select e RadioGroup
     formState: { errors, isSubmitting },
-  } = useForm<NutriCalcFormData>({
-    resolver: zodResolver(nutriCalcFormSchema),
+  } = useForm<NutriMindFormData>({
+    resolver: zodResolver(NutriMindFormSchema),
     defaultValues: {
       // Valores padrão opcionais
       gender: undefined,
@@ -38,7 +38,7 @@ export default function FormStep({ onSubmit }: FormStepProps) {
     }
   });
 
-  const handleFormSubmit = (data: NutriCalcFormData) => {
+  const handleFormSubmit = (data: NutriMindFormData) => {
     onSubmit(data); // Chama a função passada pelo pai
   };
 

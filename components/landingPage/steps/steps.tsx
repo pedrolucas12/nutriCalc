@@ -1,7 +1,7 @@
 "use client";
 
 import { fontSubtitle, fontTitle } from "@/config/fonts";
-import { NutriCalcStepsStickyScroll } from "./stepsStickyScroll";
+import { NutriMindStepsStickyScroll } from "./stepsStickyScroll";
 
 export default function AccordionSteps() {
   return (
@@ -26,7 +26,7 @@ export default function AccordionSteps() {
 
         {/* Steps Content */}
         <div className="w-full h-full mx-auto px-4 md:px-8">
-          <NutriCalcStepsStickyScroll />
+          <NutriMindStepsStickyScroll />
         </div>
       </div>
     </section>

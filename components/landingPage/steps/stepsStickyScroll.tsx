@@ -109,7 +109,7 @@ const stepsContent = [
   },
 ];
 
-export function NutriCalcStepsStickyScroll() {
+export function NutriMindStepsStickyScroll() {
   return (
     <div className="w-full h-full">
       <StickyScroll 

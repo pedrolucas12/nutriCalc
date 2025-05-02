@@ -2,12 +2,12 @@
 
 import { Logo } from "@/components/icons";
 import {
-  MobileNav,
-  MobileNavHeader,
-  MobileNavMenu,
-  MobileNavToggle,
-  Navbar,
-  NavBody
+    MobileNav,
+    MobileNavHeader,
+    MobileNavMenu,
+    MobileNavToggle,
+    Navbar,
+    NavBody
 } from "@/components/ui/resizable-navbar";
 import { motion } from "framer-motion";
 import { useState } from "react";
@@ -81,7 +81,7 @@ export const NavigationBar = () => {
           >
             <Logo />
             <span className="font-bold text-primary-900 dark:text-primary-50">
-              NutriCalc
+              NutriMind
             </span>
           </motion.div>
           
@@ -109,7 +109,7 @@ export const NavigationBar = () => {
             >
               <Logo />
               <span className="font-bold text-primary-900 dark:text-primary-50">
-                NutriCalc
+                NutriMind
               </span>
             </motion.div>
             <div className="flex items-center gap-4">

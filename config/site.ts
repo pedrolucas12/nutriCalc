@@ -1,7 +1,7 @@
 export type SiteConfig = typeof siteConfig;
 
 export const siteConfig = {
-  name: "NutriCalc",
+  name: "NutriMind",
   description: "Descubra sua taxa metabólica e receba uma dieta personalizada em minutos.",
   navItems: [
     {
@@ -22,10 +22,10 @@ export const siteConfig = {
     },
   ],
   links: {
-    github: "https://github.com/seuprojeto/nutricalc",
-    twitter: "https://twitter.com/nutricalc",
-    docs: "https://nutricalc.com/docs",
-    discord: "https://discord.gg/nutricalc",
+    github: "https://github.com/seuprojeto/NutriMind",
+    twitter: "https://twitter.com/NutriMind",
+    docs: "https://NutriMind.com/docs",
+    discord: "https://discord.gg/NutriMind",
   },
 };
 

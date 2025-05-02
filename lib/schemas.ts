@@ -1,7 +1,7 @@
 // lib/schemas.ts
 import * as z from "zod";
 
-export const nutriCalcFormSchema = z.object({
+export const NutriMindFormSchema = z.object({
   height: z.number({ required_error: "Altura é obrigatória" }).min(50, "Altura inválida").max(250, "Altura inválida"),
   weight: z.number({ required_error: "Peso é obrigatório" }).min(30, "Peso inválido").max(300, "Peso inválido"),
   waist: z.number({ required_error: "Cintura é obrigatória" }).min(30, "Cintura inválida").max(200, "Cintura inválida"),
@@ -13,4 +13,4 @@ export const nutriCalcFormSchema = z.object({
   // hip: z.number().min(30).max(200).optional(), // Adicionar se for pedir quadril
 });
 
-export type NutriCalcFormData = z.infer<typeof nutriCalcFormSchema>;
+export type NutriMindFormData = z.infer<typeof NutriMindFormSchema>;

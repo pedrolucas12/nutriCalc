@@ -13,7 +13,7 @@ export default function FaqHero() {
         </span>
       </h2>
       <p
-        className={`${fontSubtitle.className} text-lg md:text-xl text-secondary-700 dark:text-secondary-300 max-w-3xl mx-auto mb-10`}
+        className={`${fontSubtitle.className} text-lg md:text-xl text-secondary-300  max-w-4xl mx-auto `}
       >
         Tire suas dúvidas sobre como a NutriMind funciona, segurança,
         personalização e facilidade de uso.

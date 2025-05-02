@@ -1,14 +1,14 @@
 // components/landingPage/modalSteps/ResultsStep.tsx
 import { fontSubtitle, fontTitle } from "@/config/fonts";
 import { CalculationResults } from "@/lib/calculations";
-import { NutriCalcFormData } from "@/lib/schemas";
+import { NutriMindFormData } from "@/lib/schemas";
 import { Card } from "@heroui/card"; // Ajuste o caminho
 import { Info } from "lucide-react";
 import ClientOnlyApexChart from "../../ui/client-pie-chart";
 
 interface ResultsStepProps {
   results: CalculationResults;
-  formData: NutriCalcFormData; // Recebe os dados do form para o gráfico
+  formData: NutriMindFormData; // Recebe os dados do form para o gráfico
 }
 
 // Função auxiliar para interpretar o IMC
@@ -24,7 +24,7 @@ export default function ResultsStep({ results, formData }: ResultsStepProps) {
     <div className="space-y-6 p-2">
       <Card className="p-4 bg-primary-100 dark:bg-primary-900/50 border border-primary-200 dark:border-primary-700/50">
         <h4 className={`${fontTitle.className} text-lg font-semibold text-primary-700 dark:text-primary-200 mb-2`}>
-          Seu Resumo NutriCalc
+          Seu Resumo NutriMind
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-center">
           {/* Gráfico IMC */}
