@@ -10,10 +10,10 @@ export default function IntroStep() {
         Descubra Suas Métricas Essenciais
       </h3>
       <p className={`${fontSubtitle.className} text-md text-primary-500 dark:text-primary-200`}>
-        Em apenas alguns passos, você terá acesso gratuito ao seu IMC, Taxa Metabólica Basal (TMB)
+        Em poucos passos, você terá acesso gratuito ao seu IMC, Taxa Metabólica Basal (TMB)
         e uma estimativa do seu Percentual de Gordura Corporal.
       </p>
-      <p className={`${fontSubtitle.className} text-sm font-medium text-primary-400 dark:text-primary-300`}>
+      <p className={`${fontSubtitle.className} text-sm font-medium text-secondary-400 dark:text-primary-300`}>
         Vamos começar? Clique em "Começar" abaixo.
       </p>
     </div>

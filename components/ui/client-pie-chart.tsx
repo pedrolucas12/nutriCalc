@@ -1,4 +1,3 @@
-// components/ui/client-apex-chart.tsx
 "use client";
 
 import { cn } from '@/lib/utils';
@@ -21,17 +20,18 @@ interface ClientOnlyApexChartProps {
 
 const getImcColor = (imc: number, theme: string | undefined): string => {
   const isDark = theme === 'dark';
-  if (imc < 18.5) return isDark ? '#a3b18a' : '#a3b18a'; // Sage
-  if (imc < 25) return isDark ? '#588157' : '#588157'; // Fern Green
-  if (imc < 30) return isDark ? '#bfdf99' : '#bfdf99'; // Honeydew-400
-  return isDark ? '#FFB800' : '#FFB800'; // Amarelo/Laranja
+  // Cores mais escuras
+  if (imc < 18.5) return isDark ? '#7d8f69' : '#6b7b58'; // Sage mais escuro
+  if (imc < 25) return isDark ? '#3a5a40' : '#2d4a32'; // Fern Green mais escuro
+  if (imc < 30) return isDark ? '#8fa876' : '#7a9162'; // Honeydew mais escuro
+  return isDark ? '#cc9400' : '#b38200'; // Amarelo/Laranja mais escuro
 };
 
 const getBmiCategory = (bmi: number): string => {
-    if (bmi < 18.5) return "Abaixo";
-    if (bmi < 25) return "Normal";
-    if (bmi < 30) return "Sobrepeso";
-    return "Obesidade";
+  if (bmi < 18.5) return "Abaixo do Peso";
+  if (bmi < 25) return "Peso Normal";
+  if (bmi < 30) return "Sobrepeso";
+  return "Obesidade";
 };
 
 const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnlyApexChartProps) => {
@@ -44,7 +44,8 @@ const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnly
     chart: {
       height: '100%',
       type: 'radialBar',
-      sparkline: { enabled: true }
+      sparkline: { enabled: true },
+      foreColor: theme === 'dark' ? '#e9ecef' : '#344e41', // Cor base para textos
     },
     plotOptions: {
       radialBar: {
@@ -57,7 +58,7 @@ const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnly
           background: 'transparent',
         },
         track: {
-          background: theme === 'dark' ? '#3a5a40' : '#dad7cd', // hunter_green / timberwolf
+          background: theme === 'dark' ? '#2d3f33' : '#c8c4bc', // Cores de fundo mais escuras
           strokeWidth: '100%',
           margin: 5,
           dropShadow: {
@@ -65,34 +66,34 @@ const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnly
             top: 2,
             left: 0,
             blur: 4,
-            opacity: 0.15
+            opacity: 0.2
           }
         },
         dataLabels: {
           name: {
             show: true,
-            fontSize: '12px',
+            fontSize: '16px', // Aumentado
+            fontFamily: "'Inter', sans-serif",
             fontWeight: 600,
-            color: theme === 'dark' ? '#a3b18a' : '#3a5a40', // Sage / Hunter Green
+            color: theme === 'dark' ? '#e9ecef' : '#344e41',
             offsetY: -10
           },
           value: {
             show: true,
-            fontSize: '24px',
-            fontWeight: 'bold',
+            fontSize: '28px', // Aumentado
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 700,
             color: imcColor,
             offsetY: 5,
             formatter: (val: number): string => val.toFixed(1)
           },
-          total: { // Label da Categoria
+          total: {
             show: true,
             label: imcCategory,
-            fontSize: '10px',
-            fontWeight: 400,
-            // --- ALTERAÇÃO AQUI ---
-            // Use cores mais escuras da sua paleta para maior contraste
-            color: theme === 'dark' ? '#6a687a' : '#344e41', // Dim Gray / Brunswick Green
-            // -----------------------
+            fontSize: '14px', // Aumentado
+            fontFamily: "'Inter', sans-serif",
+            fontWeight: 500,
+            color: theme === 'dark' ? '#e9ecef' : '#344e41',
           }
         }
       }
@@ -102,7 +103,7 @@ const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnly
       gradient: {
         shade: 'dark',
         type: 'horizontal',
-        shadeIntensity: 0.4,
+        shadeIntensity: 0.5,
         gradientToColors: [imcColor],
         inverseColors: false,
         opacityFrom: 1,
@@ -111,29 +112,64 @@ const ClientOnlyApexChart = ({ imcValue, weight, height, className }: ClientOnly
       }
     },
     tooltip: {
-        enabled: true,
-        fillSeriesColor: false,
-        theme: theme ?? 'light',
-        y: {
-            formatter: (value: number): string =>
-                `IMC: ${value.toFixed(1)} (${imcCategory})\n(Peso: ${weight}kg, Altura: ${height}cm)`
-        },
-        marker: { show: false },
-        style: { fontSize: '11px' },
+      enabled: true,
+      theme: theme === 'dark' ? 'dark' : 'light',
+      style: {
+        fontSize: '14px',
+        fontFamily: "'Inter', sans-serif",
+      },
+      y: {
+        formatter: (value: number): string => {
+          return [
+            `IMC: ${value.toFixed(1)}`,
+            `Classificação: ${imcCategory}`,
+            `Peso: ${weight}kg`,
+            `Altura: ${height}cm`
+          ].join('\n');
+        }
+      },
+      custom: function({ series, seriesIndex, dataPointIndex, w }) {
+        return '<div class="custom-tooltip" style="padding: 8px; background-color:grey">' +
+          '<div style="font-weight: 600; margin-bottom: 4px;">Suas Métricas:</div>' +
+          `<div>IMC: ${series[seriesIndex]} (${imcCategory})</div>` +
+          `<div>Peso: ${weight}kg</div>` +
+          `<div>Altura: ${height}cm</div>` +
+          '</div>';
+      },
+      fixed: {
+        enabled: false,
+        position: 'topRight',
+        offsetX: 0,
+        offsetY: 0,
+      },
+      marker: {
+        show: false,
+      },
+      items: {
+        display: 'flex',
+      },
+      cssClass: 'apexcharts-tooltip-custom',
     },
     stroke: {
-      lineCap: 'round'
+      lineCap: 'round',
+      width: 3, // Linha mais grossa
     },
     series: [imcValue],
     labels: ['IMC'],
     states: {
-        hover: { filter: { type: 'none' } },
-        active: { filter: { type: 'none' } }
-    }
-    
+      hover: {
+        filter: {
+          type: 'none',
+        }
+      },
+      active: {
+        filter: {
+          type: 'none',
+        }
+      }
+    },
   };
 
-  // Renderiza apenas no cliente
   const [isClient, setIsClient] = useState(false);
   useEffect(() => { setIsClient(true); }, []);
 

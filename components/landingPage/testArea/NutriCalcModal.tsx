@@ -1,21 +1,19 @@
-// components/landingPage/NutriMindModal.tsx
 "use client";
 
-import { CalculationResults, calculateBMI, calculateBodyFatPercentage, calculateDailyCalories, calculateGoalCalories, calculateTMB } from "@/lib/calculations"; // Ajuste o caminho
-import { NutriMindFormData } from "@/lib/schemas"; // Ajuste o caminho
-import { Button } from "@heroui/button"; // Ajuste o caminho
+import { CalculationResults, calculateBMI, calculateBodyFatPercentage, calculateDailyCalories, calculateGoalCalories, calculateTMB } from "@/lib/calculations";
+import { NutriMindFormData } from "@/lib/schemas";
+import { Button } from "@heroui/button";
 import {
-    Modal,
-    ModalBody,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-} from "@heroui/modal"; // Ajuste o caminho se usar HeroUI ou outra lib
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+} from "@heroui/modal";
 import { useState } from "react";
 import FormStep from "./FormStep";
 import IntroStep from "./IntroStep";
 import ResultsStep from "./ResultsStep";
-
 
 interface NutriMindModalProps {
   isOpen: boolean;
@@ -70,58 +68,67 @@ export default function NutriMindModal({ isOpen, onClose }: NutriMindModalProps)
     setResults(null);
     setFormData(null);
     onClose();
-  }
+  };
 
   return (
     <Modal
       isOpen={isOpen}
       onClose={resetModal}
       size="2xl"
-      backdrop="blur" // Mantém o blur no fundo da página
+      hideCloseButton // Adicionado para remover o botão X
+      isDismissable={false} // Impede o fechamento ao clicar fora ou pressionar ESC
+      backdrop="blur"
       placement="center"
       scrollBehavior="inside"
       classNames={{
-          // Backdrop: Fundo da página - pode manter mais escuro/blur
-          backdrop: "bg-black/70 backdrop-blur-md", // Aumentado opacidade do preto
-          // Base: O container da modal - Aumentar opacidade do fundo
-          base: "bg-white/80 dark:bg-black/85 backdrop-blur-lg border border-white/20 dark:border-secondary-700/60 shadow-2xl", // Aumentado opacidade (ex: /80, /85), aumentado blur, borda mais visível, sombra maior
-          header: "border-b border-white/15 dark:border-secondary-700/60", // Borda sutil
-          footer: "border-t border-white/15 dark:border-secondary-700/60", // Borda sutil
+        backdrop: "bg-black/70 backdrop-blur-md",
+        base: "bg-white/80 dark:bg-black/85 backdrop-blur-lg border border-white/20 dark:border-secondary-700/60 shadow-2xl",
+        header: "border-b border-white/15 dark:border-secondary-700/60",
+        footer: "border-t border-white/15 dark:border-secondary-700/60",
+        closeButton: "hidden", // Garante que o botão X está oculto
       }}
     >
       <ModalContent>
         <>
-          <ModalHeader className="flex flex-col gap-1 text-primary-700 dark:text-primary-200"> {/* Cor do texto ajustada */}
-            {currentStep === 1 && "Bem-vindo ao Cálculo NutriMind!"}
-            {currentStep === 2 && "Insira Seus Dados"}
-            {currentStep === 3 && "Seus Resultados"}
+          <ModalHeader className="flex flex-col gap-1 text-primary-700 dark:text-primary-200">
+            <h2 className="text-xl font-semibold">
+              {currentStep === 1 && "Bem vindo ao Cálculo NutriMind!"}
+              {currentStep === 2 && "Insira Seus Dados"}
+              {currentStep === 3 && "Seus Resultados"}
+            </h2>
           </ModalHeader>
           <ModalBody>
             {currentStep === 1 && <IntroStep />}
             {currentStep === 2 && <FormStep onSubmit={handleFormSubmit} />}
             {currentStep === 3 && results && formData && <ResultsStep results={results} formData={formData} />}
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter className="flex justify-end gap-3">
             {currentStep === 1 && (
               <>
-                <Button color="danger" variant="light" onPress={resetModal}>
+                <Button 
+                  color="danger" 
+                  variant="light" 
+                  onPress={resetModal}
+                  className="min-w-[100px]"
+                >
                   Cancelar
                 </Button>
-                <Button color="primary" onPress={handleNextStep}>
+                <Button 
+                  color="primary" 
+                  onPress={handleNextStep}
+                  className="min-w-[100px]"
+                >
                   Começar
                 </Button>
               </>
             )}
-            {currentStep === 2 && (
-              <>
-                <Button color="default" variant="light" onPress={handlePrevStep}>
-                  Voltar
-                </Button>
-                {/* O botão de submit está dentro do FormStep */}
-              </>
-            )}
+           
             {currentStep === 3 && (
-              <Button color="primary" onPress={resetModal}>
+              <Button 
+                color="primary" 
+                onPress={resetModal}
+                className="min-w-[100px]"
+              >
                 Fechar
               </Button>
             )}

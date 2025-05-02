@@ -1,17 +1,15 @@
-// components/landingPage/modalSteps/ResultsStep.tsx
 import { fontSubtitle, fontTitle } from "@/config/fonts";
 import { CalculationResults } from "@/lib/calculations";
 import { NutriMindFormData } from "@/lib/schemas";
-import { Card } from "@heroui/card"; // Ajuste o caminho
+import { Card } from "@heroui/card";
 import { Info } from "lucide-react";
 import ClientOnlyApexChart from "../../ui/client-pie-chart";
 
 interface ResultsStepProps {
   results: CalculationResults;
-  formData: NutriMindFormData; // Recebe os dados do form para o gráfico
+  formData: NutriMindFormData;
 }
 
-// Função auxiliar para interpretar o IMC
 const getBmiInterpretation = (bmi: number): string => {
   if (bmi < 18.5) return "Seu IMC indica que você está abaixo do peso ideal.";
   if (bmi < 25) return "Seu IMC está na faixa considerada normal. Ótimo!";
@@ -36,46 +34,37 @@ export default function ResultsStep({ results, formData }: ResultsStepProps) {
             />
           </div>
           {/* Textos */}
-          <div className={`${fontSubtitle.className} text-sm space-y-2 text-secondary-900 dark:text-secondary-200`}>
+          <div className={`${fontSubtitle.className} text-sm space-y-2 text-secondary-700 font-normal`}>
             <p>{getBmiInterpretation(results.bmi)}</p>
             <p>
               Sua Taxa Metabólica Basal (TMB) estimada é de{" "}
-              <strong className="text-primary-600 dark:text-primary-300">{results.tmb}</strong> calorias por dia.
+              <span className="text-primary-600 dark:text-primary-300 text-lg">{results.tmb}</span> calorias por dia.
             </p>
             {results.bodyFatPercentage !== null && (
               <p>
                 Seu Percentual de Gordura Corporal estimado é de{" "}
-                <strong className="text-primary-600 dark:text-primary-300">{results.bodyFatPercentage}%</strong>.
+                <span className="text-primary-600 dark:text-primary-300 text-lg">{results.bodyFatPercentage}%</span>.
               </p>
             )}
-             <p>
+            <p>
               Para manutenção do peso, seu gasto calórico diário estimado é de{" "}
-              <strong className="text-primary-600 dark:text-primary-300">{results.dailyCalories}</strong> calorias.
+              <span className="text-primary-600 dark:text-primary-300 text-lg">{results.dailyCalories}</span> calorias.
             </p>
-             <p>
-              Para seu objetivo de <strong className="text-moss_green">{formData.goal === 'lose' ? 'Emagrecer' : formData.goal === 'gain' ? 'Ganhar Massa' : 'Manter Peso'}</strong>,
-              a recomendação calórica é de aproximadamente <strong className="text-moss_green">{results.goalCalories}</strong> calorias diárias.
+            <p>
+              Para seu objetivo de <span className="text-moss_green text-lg">{formData.goal === 'lose' ? 'Emagrecer' : formData.goal === 'gain' ? 'Ganhar Massa' : 'Manter Peso'}</span>,
+              a recomendação calórica é de aproximadamente <span className="text-moss_green text-lg">{results.goalCalories}</span> calorias diárias.
             </p>
           </div>
         </div>
       </Card>
 
       <div className="text-center p-3 bg-secondary-100 dark:bg-secondary-900/50 rounded-lg border border-secondary-200 dark:border-secondary-700/50">
-        <p className={`${fontSubtitle.className} text-xs text-secondary-700 dark:text-secondary-300`}>
+        <p className={`${fontSubtitle.className} text-xs text-secondary-500`}>
           <Info size={14} className="inline mr-1" />
           Estes são valores estimados. Para um plano alimentar completo e acompanhamento profissional,
           considere gerar sua dieta personalizada ou consultar um nutricionista.
         </p>
       </div>
-
-      {/* Aqui você adicionaria o botão para ir para o pagamento da dieta personalizada */}
-      {/* Exemplo:
-      <div className="text-center pt-4">
-          <Button color="success" variant="solid">
-              Gerar Minha Dieta Personalizada Agora! (Pago)
-          </Button>
-      </div>
-      */}
     </div>
   );
 }
