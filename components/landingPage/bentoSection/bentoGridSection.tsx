@@ -4,7 +4,6 @@ import { Button } from "@heroui/button";
 import { Card } from "@heroui/card";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import dynamic from "next/dynamic";
-import NextLink from "next/link";
 import React, { useState } from "react";
 
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
@@ -24,7 +23,11 @@ import fingerprint from "@/public/animations/fingerprint.json";
 
 const springOptions = { bounce: 0.1 };
 
-export default function BentoGridSection() {
+interface BentoGridSectionProps {
+  onOpen: () => void;
+}
+
+export default function BentoGridSection({ onOpen }: BentoGridSectionProps) {
   const sectionRef = React.useRef<HTMLElement | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const isInView = useInView(sectionRef, { once: true });
@@ -37,9 +40,6 @@ export default function BentoGridSection() {
     Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     name?: string;
     description?: string;
-    href?: string;
-    link?: string;
-    cta?: string;
     className?: string;
     color?: string;
     content?: React.ReactNode;
@@ -53,17 +53,14 @@ export default function BentoGridSection() {
       name: "Dieta 100% Personalizada",
       description:
         "Plano alimentar único, criado sob medida para seu corpo, rotina e preferências.",
-      href: "#dieta-personalizada",
-      link: "#dieta-personalizada",
-      cta: "Ver Detalhes",
       className: "col-span-12 md:col-span-7 h-[300px] sm:h-[350px] md:h-[400px]",
       color: "from-primary-400/20 to-primary-500/20",
       content: (
         <div className="relative flex flex-col items-center justify-center h-full w-full overflow-hidden rounded-xl p-4">
-          <div className=" sm:w-32 sm:h-32  flex items-center justify-center z-10 md:mb-2 ">
+          <div className="sm:w-32 sm:h-32 flex items-center justify-center z-10 md:mb-2">
             <Lottie
               animationData={fingerprint}
-              className="w-24 h-24 md:h-full md:w-full  pointer-events-none"
+              className="w-24 h-24 md:h-full md:w-full pointer-events-none"
               loop={true}
               style={{ maxWidth: "100%", maxHeight: "100%" }}
             />
@@ -95,6 +92,9 @@ export default function BentoGridSection() {
             color="primary"
             radius="full"
             size="sm"
+            onPress={
+              onOpen
+            }
           >
             Começar
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -106,9 +106,6 @@ export default function BentoGridSection() {
       Icon: Brain,
       name: "Nutrição Otimizada por IA",
       description: "Nossa IA analisa seus dados para otimizar cada refeição.",
-      link: "#dieta-whatsapp",
-      href: "#ia-dieta",
-      cta: "Entenda a Tecnologia",
       className: "col-span-12 md:col-span-5 h-[300px] sm:h-[350px] md:h-[400px]",
       color: "from-purple-400/20 to-fuchsia-400/20",
       content: <CardNutricionIA />,
@@ -117,8 +114,6 @@ export default function BentoGridSection() {
       Icon: MessageCircle,
       name: "Plano no WhatsApp",
       description: "Receba sua dieta e lembretes direto no celular. Prático e fácil.",
-      link: "#dieta-whatsapp",
-      cta: "Conectar",
       className: "col-span-12 sm:col-span-6 md:col-span-4 h-[300px] sm:h-[350px] md:h-[400px]",
       color: "from-green-400/20 to-lime-400/20",
       content: (
@@ -137,6 +132,7 @@ export default function BentoGridSection() {
             color="primary"
             radius="full"
             size="sm"
+            onPress={onOpen}
           >
             Conectar
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -147,9 +143,7 @@ export default function BentoGridSection() {
     {
       Icon: BarChart3,
       name: "Métricas Grátis",
-      href: "#teste-gratuito",
       description: "Calcule seu IMC e TMB agora e entenda seu corpo.",
-      link: "#teste-gratuito",
       className: "col-span-12 sm:col-span-6 md:col-span-4 h-[300px] sm:h-[350px] md:h-[400px]",
       color: "from-amber-400/20 to-yellow-400/20",
       content: (
@@ -180,6 +174,10 @@ export default function BentoGridSection() {
             color="default"
             radius="full"
             size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpen();
+            }}
           >
             Calcular
             <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-0.5" />
@@ -190,7 +188,6 @@ export default function BentoGridSection() {
     {
       title: "Alcance Seus Objetivos",
       description: "Transforme seu corpo com um plano que evolui.",
-      link: "#alcance-objetivos",
       className: "col-span-12 sm:col-span-12 md:col-span-4 h-[300px] sm:h-[350px] md:h-[400px]",
       color: "from-secondary-400/10 to-secondary-500/10",
       content: (
@@ -208,6 +205,7 @@ export default function BentoGridSection() {
                 className="group-hover:opacity-100 opacity-0 transition-all duration-350 ease-in-out
                 text-center mt-4 w-full sm:w-auto"
                 size="lg"
+                onPress={onOpen}
               >
                 Começar
                 <ArrowRight className="ml-1 h-3 w-3 transition-transform group-hover:translate-x-0.5" />
@@ -247,7 +245,8 @@ export default function BentoGridSection() {
         {cards.map((card, index) => (
           <motion.div
             key={index}
-            className={`${card.className} relative`}
+            className={`${card.className} relative cursor-pointer`}
+            onClick={onOpen}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
             variants={cardVariants}
             whileHover={{ scale: 1.02 }}
@@ -283,10 +282,6 @@ export default function BentoGridSection() {
                 <div className="absolute z-20 bottom-0 left-0 right-0 p-4">{card.footer}</div>
               )}
             </Card>
-
-            <NextLink className="absolute inset-0 z-20" href={card.link || "#"}>
-              <span className="sr-only">Abrir {card.name || card.title}</span>
-            </NextLink>
 
             <AnimatePresence>
               {hoveredIndex === index && (

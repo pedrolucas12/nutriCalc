@@ -22,12 +22,14 @@ const InfoCard = ({
   description,
   boxColor,
   duration,
+  onOpen,
 }: {
   iconSrc: string;
   title: string;
   description: string;
   boxColor: string;
   duration: number;
+  onOpen: () => void;
 }) => (
   <BoxReveal boxColor={boxColor} duration={duration}>
     <motion.div
@@ -46,8 +48,7 @@ const InfoCard = ({
         transition: { duration: 0.2 },
         boxShadow: "0 12px 24px rgba(0, 0, 0, 0.15)",
       }}
-      onClick={() => window.innerWidth < 768 && (window.location.href = '/')}
-    >
+      onClick={onOpen}    >
       <div className="flex h-full p-3 md:p-4 justify-center items-center flex-row">
         <div className="relative flex-shrink-0 w-1/2 md:w-1/4 flex justify-center">
           <motion.div
@@ -96,8 +97,7 @@ const InfoCard = ({
   </BoxReveal>
 );
 
-export default function Hero() {
-  const customMotionProps = {
+export default function Hero({ onOpen }: any) {  const customMotionProps = {
     initial: { opacity: 0, y: 10 },
     animate: { opacity: 1, y: 0 },
     exit: { opacity: 0, y: -10 },
@@ -144,6 +144,7 @@ export default function Hero() {
             duration={0.6}
             iconSrc="/images/hero/iconNutricionista.png"
             title="Dieta Personalizada"
+            onOpen={onOpen}
           />
           <InfoCard
             boxColor="#ebf5df"
@@ -151,6 +152,8 @@ export default function Hero() {
             duration={0.8}
             iconSrc="/images/hero/iconIA.png"
             title="Recomendação por IA"
+            onOpen={onOpen}
+
           />
           <InfoCard
             boxColor="#ebf5df"
@@ -158,6 +161,8 @@ export default function Hero() {
             duration={1.0}
             iconSrc="/images/hero/iconExercicesAndApp.png"
             title="Resultados Rápidos"
+            onOpen={onOpen}
+
           />
         </div>
 
@@ -187,6 +192,8 @@ export default function Hero() {
             duration={1.2}
             iconSrc="/images/hero/iconExercices.png"
             title="Mudança de Estilo de Vida"
+            onOpen={onOpen}
+
           />
 
           <BoxReveal boxColor="#ebf5df" duration={1.4}>
@@ -312,6 +319,7 @@ export default function Hero() {
                 border-2 border-moss_green/20 rounded-xl w-full sm:w-auto"
               color="primary"
               size="lg"
+              onPress={onOpen}
             >
               <motion.span
                 animate={{
