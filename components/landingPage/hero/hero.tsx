@@ -31,9 +31,9 @@ const InfoCard = ({
 }) => (
   <BoxReveal boxColor={boxColor} duration={duration}>
     <motion.div
-      className="relative h-auto min-h-[11rem] sm:h-44 rounded-xl overflow-visible
+      className="relative h-[140px] md:h-44 w-[320px] md:w-full mx-auto rounded-xl overflow-visible
         bg-gradient-to-br from-primary-400 to-primary-600 dark:from-primary-700 dark:to-primary-800
-        shadow-lg border-2 border-primary-500/30 dark:border-primary-700/30"
+        shadow-lg border-2 border-primary-500/30 dark:border-primary-700/30 cursor-pointer md:cursor-default"
       transition={{
         type: "spring",
         stiffness: 400,
@@ -46,12 +46,13 @@ const InfoCard = ({
         transition: { duration: 0.2 },
         boxShadow: "0 12px 24px rgba(0, 0, 0, 0.15)",
       }}
+      onClick={() => window.innerWidth < 768 && (window.location.href = '/')}
     >
-      <div className="flex h-full p-3 sm:p-4 justify-center items-center flex-row">
-        <div className="relative flex-shrink-0 w-1/4 sm:w-1/3 flex justify-center">
+      <div className="flex h-full p-3 md:p-4 justify-center items-center flex-row">
+        <div className="relative flex-shrink-0 w-1/2 md:w-1/4 flex justify-center">
           <motion.div
             animate={{ x: -8, opacity: 1 }}
-            className="relative w-16 h-16 sm:w-24 sm:h-24 flex items-center justify-center z-10"
+            className="relative w-24 h-24 md:w-16 md:h-16 flex items-center justify-center z-10"
             initial={{ x: -10, opacity: 0 }}
             transition={{
               type: "spring",
@@ -83,10 +84,12 @@ const InfoCard = ({
         </div>
 
         <div className="flex-grow flex flex-col justify-center pl-2">
-          <h3 className={`${fontTitle.className} text-base sm:text-lg font-bold text-dark_green mb-1 sm:mb-2`}>
+          <h3 className={`${fontTitle.className} text-lg md:text-base font-bold text-dark_green`}>
             {title}
           </h3>
-          <p className={`${fontSubtitle.className} text-xs sm:text-sm text-dim_gray`}>{description}</p>
+          <p className={`${fontSubtitle.className} text-xs sm:text-sm text-dim_gray hidden md:block`}>
+            {description}
+          </p>
         </div>
       </div>
     </motion.div>
@@ -107,12 +110,12 @@ export default function Hero() {
         <BoxReveal boxColor="#ebf5df" duration={0.5}>
           <div className="flex items-center justify-center gap-2 mb-2 flex-wrap">
             <h1
-              className={`${fontTitle.className} text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark_green leading-tight`}
+              className={`${fontTitle.className} text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark_green leading-tight`}
             >
               Sua dieta finalmente
             </h1>
             <h1
-              className={`${fontTitle.className} text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark_green leading-tight`}
+              className={`${fontTitle.className} text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark_green leading-tight`}
             >
               <WordRotate
                 className="text-primary-500 inline-block"
@@ -134,8 +137,7 @@ export default function Hero() {
         </BoxReveal>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full flex-grow max-h-[80vh] md:max-h-[60vh] px-4 sm:px-6">
-        <div className="md:col-span-4 flex flex-col justify-center gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 w-full flex-grow max-h-[80vh] md:max-h-[60vh] px-0 md:px-6">       <div className="md:col-span-4 flex flex-col justify-center gap-4 items-center md:items-stretch">
           <InfoCard
             boxColor="#ebf5df"
             description="Ajustada às suas necessidades e objetivos específicos para resultados otimizados."
@@ -148,7 +150,7 @@ export default function Hero() {
             description="Receba recomendações otimizadas pela inteligência artificial baseadas em dados científicos."
             duration={0.8}
             iconSrc="/images/hero/iconIA.png"
-            title="Recomendação IA"
+            title="Recomendação por IA"
           />
           <InfoCard
             boxColor="#ebf5df"
