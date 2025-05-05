@@ -60,10 +60,10 @@ export default function BentoGridSection() {
       color: "from-primary-400/20 to-primary-500/20",
       content: (
         <div className="relative flex flex-col items-center justify-center h-full w-full overflow-hidden rounded-xl p-4">
-          <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-56 md:h-56 flex items-center justify-center z-10 mb-2 sm:mb-4">
+          <div className=" sm:w-32 sm:h-32 md:w-56 md:h-56 flex items-center justify-center z-10 md:mb-2 ">
             <Lottie
               animationData={fingerprint}
-              className="w-full h-full pointer-events-none"
+              className="w-24 h-24 md:h-full md:w-full  pointer-events-none"
               loop={true}
               style={{ maxWidth: "100%", maxHeight: "100%" }}
             />
@@ -77,7 +77,7 @@ export default function BentoGridSection() {
             <p
               className={`${fontSubtitle.className} text-sm sm:text-md 
               text-secondary-600 dark:text-secondary-400 
-              mt-2 px-4 max-w-lg`}
+              mt-2 px-4 max-w-lg hidden sm:block`}
             >
               A IA analisa seu perfil, preferências e rotina para criar um plano alimentar exclusivo
               para você.
@@ -87,7 +87,7 @@ export default function BentoGridSection() {
       ),
       footer: (
         <div className="flex flex-col sm:flex-row justify-between items-center w-full backdrop-blur-md bg-white/10 dark:bg-black/30 rounded-lg p-3 border border-white/20 dark:border-gray-800/30 gap-2 sm:gap-0">
-          <p className="text-emerald-700 dark:text-emerald-300 text-sm font-medium text-center sm:text-left">
+          <p className="text-emerald-700 dark:text-emerald-300 text-sm font-medium text-center sm:text-left hidden sm:block">
             Resultados visíveis em semanas
           </p>
           <Button
@@ -198,10 +198,10 @@ export default function BentoGridSection() {
           <RipplePulse />
           <div className="gap-2 flex h-full w-full flex-col items-center justify-center absolute z-10 p-4 pointer-events-none">
             <Magnetic actionArea="global" intensity={0.2} range={200} springOptions={springOptions}>
-              <p className="z-10 whitespace-pre-wrap text-center text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-primary-800 group-hover:scale-105 transition-all duration-350 ease-in-out pb-1 md:pb-2">
+              <p className="z-10 whitespace-pre-wrap text-center text-3xl sm:text-4xl md:text-5xl font-bold tracking-tighter text-primary-800 md:group-hover:scale-105 scale-105 md:scale-100 transition-all duration-350 ease-in-out pb-1 md:pb-2">
                 Transforme seu <span className="text-secondary-200">corpo</span>
               </p>
-              <p className="group-hover:opacity-100 opacity-0 transition-all duration-350 ease-in-out text-center text-lg sm:text-xl text-primary-800">
+              <p className="md:group-hover:opacity-100 opacity-100 md:opacity-0 transition-all duration-350 ease-in-out text-center text-lg sm:text-xl text-primary-800">
                 Deixe nossa IA criar o caminho ideal.
               </p>
               <Button
