@@ -16,7 +16,7 @@ export default function TestArea() {
   const handleCloseModal = () => setIsModalOpen(false);
 
   return (
-    <section className="w-full flex flex-col items-center justify-center ">
+    <section className="w-full flex flex-col items-center justify-center " id="testArea">
       <motion.div
         className="relative w-full max-w-2xl mx-auto rounded-3xl shadow-2xl border border-primary-200/40 bg-white/90 dark:bg-black/80 backdrop-blur-lg p-10 flex flex-col items-center gap-8"
         initial={{ scale: 0.96, opacity: 0 }}

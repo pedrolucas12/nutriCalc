@@ -31,6 +31,14 @@ export default function Footer() {
               <Button
                 className="w-full md:w-auto px-8 py-3 bg-gradient-to-r from-secondary-500 to-secondary-600 
                 text-white rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+                //quando clicar leva para a area de teste
+                onPress={() => {
+                  window.scrollTo({
+                    top: document.getElementById("testArea")?.offsetTop,
+                    behavior: "smooth",
+                  });
+                }
+                }
               >
                 Gerar Dieta Agora
               </Button>
