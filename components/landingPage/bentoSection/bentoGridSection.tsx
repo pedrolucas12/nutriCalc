@@ -60,7 +60,7 @@ export default function BentoGridSection() {
       color: "from-primary-400/20 to-primary-500/20",
       content: (
         <div className="relative flex flex-col items-center justify-center h-full w-full overflow-hidden rounded-xl p-4">
-          <div className=" sm:w-32 sm:h-32 md:w-56 md:h-56 flex items-center justify-center z-10 md:mb-2 ">
+          <div className=" sm:w-32 sm:h-32  flex items-center justify-center z-10 md:mb-2 ">
             <Lottie
               animationData={fingerprint}
               className="w-24 h-24 md:h-full md:w-full  pointer-events-none"
@@ -70,12 +70,12 @@ export default function BentoGridSection() {
           </div>
           <div className="flex flex-col items-center justify-center z-20 text-center">
             <h3
-              className={`${fontTitle.className} text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-secondary-200`}
+              className={`${fontTitle.className} text-xl sm:text-2xl md:text-4xl lg:text-5xl font-bold text-secondary-200`}
             >
               Sua dieta, sua identidade.
             </h3>
             <p
-              className={`${fontSubtitle.className} text-sm sm:text-md 
+              className={`${fontSubtitle.className} text-sm sm:text-xl 
               text-secondary-600 dark:text-secondary-400 
               mt-2 px-4 max-w-lg hidden sm:block`}
             >
