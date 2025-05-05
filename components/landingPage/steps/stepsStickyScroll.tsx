@@ -122,7 +122,7 @@ export function NutriMindStepsStickyScroll() {
     <div className="w-full h-full">
       <StickyScroll
         content={stepsContent}
-        contentClassName="bg-white/90 dark:bg-black/90 backdrop-blur-sm rounded-3xl shadow-xl px-8 flex flex-col gap-6"
+        contentClassName="bg-white/90 dark:bg-black/90 backdrop-blur-sm rounded-3xl shadow-xl px-8 flex flex-col gap-6 hidden md:block"
       />
     </div>
   );
