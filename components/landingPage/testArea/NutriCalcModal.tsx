@@ -8,7 +8,6 @@ import FormStep from "./FormStep";
 import IntroStep from "./IntroStep";
 import ResultsStep from "./ResultsStep";
 
-import { NutriMindFormData } from "@/lib/schemas";
 import {
   CalculationResults,
   calculateBMI,
@@ -17,6 +16,7 @@ import {
   calculateGoalCalories,
   calculateTMB,
 } from "@/lib/calculations";
+import { NutriMindFormData } from "@/lib/schemas";
 
 interface NutriMindModalProps {
   isOpen: boolean;
@@ -73,6 +73,8 @@ export default function NutriMindModal({ isOpen, onClose }: NutriMindModalProps)
     onClose();
   };
 
+  
+
   return (
     <Modal
       hideCloseButton // Adicionado para remover o botão X
@@ -104,7 +106,14 @@ export default function NutriMindModal({ isOpen, onClose }: NutriMindModalProps)
             {currentStep === 1 && <IntroStep />}
             {currentStep === 2 && <FormStep onSubmit={handleFormSubmit} />}
             {currentStep === 3 && results && formData && (
-              <ResultsStep formData={formData} results={results} />
+              <ResultsStep
+                formData={formData}
+                results={results}
+                onOpenDietModal={() => {
+                  //chama a DietFormModal aqui
+                 
+                }}
+              />
             )}
           </ModalBody>
           <ModalFooter className="flex justify-end gap-3">
